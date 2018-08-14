@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="10dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/md_grey_200"></TextView>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/md_grey_200"></TextView>
+
+            <TextView
+                android:id="@+id/address_text"
+                style="@style/textStyle"
+                android:layout_marginTop="160dp"
+                android:text="我的地址" />
+
+            <TextView
+                style="@style/textStyle"
+                android:text="我的地址" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/md_grey_200"></TextView>
+
+
+            <TextView
+                style="@style/textStyle"
+                android:text="我的地址" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/md_grey_200"></TextView>
+
+
+            <TextView
+                android:id="@+id/out_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
+                android:layout_marginTop="50dp"
+                android:background="@drawable/shape_gray"
+                android:gravity="center_horizontal"
+                android:text="退出"
+                android:textColor="@color/white"
+                android:textSize="@dimen/normal" />
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

@@ -3,4 +3,31 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+    <color name="md_grey_50">#fafafa</color>
+    <color name="md_grey_100">#F4F4F4</color>
+    <color name="md_grey_200">#EDEDED</color>
+    <color name="oil">#333333</color>
+
+
+    <color name="transparent">#00000000</color>
+    <color name="halfTransparent">#e0000000</color>
+    <color name="md_grey_600">#757575</color>
+    <color name="black">#000000</color>
+    <color name="titleColor">#8E8E8E</color>
+    <color name="jet">#222222</color>
+    <color name="oil2">#df333333</color>
+    <color name="oil3">#c4333333</color>
+    <color name="monsoon">#777777</color>
+    <color name="monsoon3333">#7F7F7F</color>
+    <color name="gray_light">#C7C7CC</color>
+    <color name="gray_light222">#535353</color>
+    <color name="jumbo">#888888</color>
+    <color name="aluminum">#999999</color>
+    <color name="base">#AAAAAA</color>
+    <color name="iron">#CCCCCC</color>
+    <color name="white">#FFFFFF</color>
+    <color name="red_mettre">#ff0000</color>
+    <color name="md_red_700">#d01716</color>
+    <color name="dark_red">#B4282D</color>
+    <color name="color_divider">#BDBDBD</color>
 </resources>

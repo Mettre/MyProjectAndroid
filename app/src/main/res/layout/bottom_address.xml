@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/main_pay"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:paddingTop="6dp"
+        android:text="所在地区"
+        android:textColor="@color/monsoon"
+        android:textSize="@dimen/slightly" />
+
+    <com.yiguo.adressselectorlib.AddressSelector
+        android:id="@+id/address"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></com.yiguo.adressselectorlib.AddressSelector>
+
+
+</LinearLayout>
