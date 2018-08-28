@@ -9,13 +9,16 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.mettre.myaprojectandroid.R;
+import com.example.mettre.myaprojectandroid.app.MyApplication;
 import com.example.mettre.myaprojectandroid.base.BaseMainFragment;
+import com.example.mettre.myaprojectandroid.bean.LoginBean;
 import com.example.mettre.myaprojectandroid.http.HttpMethods3;
 import com.example.mettre.myaprojectandroid.http.HttpResult3;
 import com.example.mettre.myaprojectandroid.subscribers.ProgressSubscriber;
 import com.example.mettre.myaprojectandroid.subscribers.SubscriberOnNextListener;
 import com.example.mettre.myaprojectandroid.utils.LoginUtils;
 import com.example.mettre.myaprojectandroid.view.ClearEditText;
+
 import rx.Subscriber;
 
 /**
@@ -53,7 +56,6 @@ public class LoginFragment extends BaseMainFragment implements View.OnClickListe
         login_btn.setOnClickListener(this);
         register_btn.setOnClickListener(this);
         forgot_password_btn.setOnClickListener(this);
-        login_btn.setOnClickListener(this);
     }
 
     private void initView(View view) {
@@ -75,9 +77,9 @@ public class LoginFragment extends BaseMainFragment implements View.OnClickListe
     public void onFragmentResult(int requestCode, int resultCode, Bundle data) {
         super.onFragmentResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK && data != null) {
-            String username = data.getString("phone");
+            String phone = data.getString("phone");
             String password = data.getString("password");
-            phoneEdt.setText(username);
+            phoneEdt.setText(phone);
             passwordEdt.setText(password);
         }
     }
@@ -87,10 +89,11 @@ public class LoginFragment extends BaseMainFragment implements View.OnClickListe
      */
     private void loginOnLine(String phone, String password) {
 
-        getOnLoginListNext = new SubscriberOnNextListener<HttpResult3>() {
+        getOnLoginListNext = new SubscriberOnNextListener<LoginBean>() {
 
             @Override
-            public void onNext(HttpResult3 response) {
+            public void onNext(LoginBean loginBean) {
+                MyApplication.getInstances().setToken(loginBean.getAccess_token());
                 pop();
             }
 

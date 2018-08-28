@@ -1,6 +1,8 @@
 package com.example.mettre.myaprojectandroid.http;
 
 import com.example.mettre.myaprojectandroid.bean.AddressBean;
+import com.example.mettre.myaprojectandroid.bean.CaptchaBean;
+import com.example.mettre.myaprojectandroid.bean.LoginBean;
 import com.example.mettre.myaprojectandroid.utils.ConstantUtil;
 
 import java.util.HashMap;
@@ -8,7 +10,6 @@ import java.util.HashMap;
 import retrofit2.http.Body;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
-import retrofit2.http.PartMap;
 import retrofit2.http.QueryMap;
 import rx.Observable;
 
@@ -21,36 +22,36 @@ public interface MovieService {
      * 登录
      */
     @POST(ConstantUtil.USER_INFORMATION + "/login")
-    Observable<HttpResult3<AddressBean>> getLoginOnlineInfoM(
-            @QueryMap HashMap<String, Object> map);
+    Observable<HttpResult3<LoginBean>> getLoginOnlineInfoM(
+            @Body HashMap<String, Object> map);
 
     /**
      * 注册
      */
     @POST(ConstantUtil.USER_INFORMATION + "/register")
     Observable<HttpResult3<AddressBean>> register(
-            @QueryMap HashMap<String, Object> map);
+            @Body HashMap<String, Object> map);
 
     /**
      * 获取用户信息
      */
     @POST(ConstantUtil.USER_INFORMATION + "/loginEd/getUserId")
     Observable<HttpResult3<AddressBean>> getUserInfo(
-            @QueryMap HashMap<String, Object> map);
+            @Body HashMap<String, Object> map);
 
     /**
      * 发送验证码
      */
-    @POST(ConstantUtil.USER_INFORMATION + "/captcha")
-    Observable<HttpResult3<AddressBean>> sendVerificationCode(
-            @QueryMap HashMap<String, Object> map);
+    @POST(ConstantUtil.CONTROLLER + "/captcha")
+    Observable<HttpResult3<CaptchaBean>> sendVerificationCode(
+            @Body HashMap<String, Object> map);
 
     /**
      * 忘记密码
      */
     @POST(ConstantUtil.USER_INFORMATION + "/forgetPassword")
     Observable<HttpResult3<AddressBean>> forgetPassword(
-            @QueryMap HashMap<String, Object> map);
+            @Body HashMap<String, Object> map);
 
     /**
      * 添加收货地址

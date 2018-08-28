@@ -25,7 +25,9 @@ import rx.schedulers.Schedulers;
 
 public class HttpMethods3 {
 
-    public static final String BASE_URL = "http://192.168.0.231:8888/";
+//    public static final String BASE_URL = "http://192.168.0.231:8888/";//公司
+
+    public static final String BASE_URL = "http://192.168.1.107:8888/";//家
 
     private static final int DEFAULT_TIMEOUT = 25;
 
@@ -90,7 +92,7 @@ public class HttpMethods3 {
         HashMap<String, Object> map = new HashMap<String, Object>();
         map.put("phone", phone);
         map.put("captchaType", captchaType);
-        Observable observable = movieService.sendVerificationCode(map).map(new HttpMethods3.HttpResultFunc2<AddressBean>());
+        Observable observable = movieService.sendVerificationCode(map).map(new HttpMethods3.HttpResultFunc2());
         toSubscribe(observable, subscriber);
     }
 

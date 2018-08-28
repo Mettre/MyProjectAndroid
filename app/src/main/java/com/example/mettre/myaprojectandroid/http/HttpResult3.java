@@ -10,6 +10,15 @@ public class HttpResult3<T> {
     private boolean success;
     private String message;
     private Integer code;
+    private Long timestamp;
+
+    public Long getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(Long timestamp) {
+        this.timestamp = timestamp;
+    }
 
     public T getData() {
         return data;

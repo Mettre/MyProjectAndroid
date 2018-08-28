@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.example.mettre.myaprojectandroid.R;
 import com.example.mettre.myaprojectandroid.base.BaseMainFragment;
+import com.example.mettre.myaprojectandroid.bean.CaptchaBean;
 import com.example.mettre.myaprojectandroid.http.HttpMethods3;
 import com.example.mettre.myaprojectandroid.http.HttpResult3;
 import com.example.mettre.myaprojectandroid.subscribers.ProgressSubscriber;
@@ -19,6 +20,7 @@ import com.example.mettre.myaprojectandroid.utils.CountdownControl;
 import com.example.mettre.myaprojectandroid.utils.LoginUtils;
 import com.example.mettre.myaprojectandroid.utils.ToastUtils;
 
+import cn.pedant.SweetAlert.SweetAlertDialog;
 import rx.Subscriber;
 
 import static com.example.mettre.myaprojectandroid.utils.LoginUtils.isMobileNO;
@@ -84,6 +86,11 @@ public class RegisterFragment extends BaseMainFragment implements View.OnClickLi
             @Override
             public void onNext(HttpResult3 response) {
 
+                Bundle bundle = new Bundle();
+                bundle.putString("phone", phone.getText().toString());
+                bundle.putString("password", password.getText().toString());
+                setFragmentResult(RESULT_OK, bundle);
+                pop();
             }
 
             @Override
@@ -116,12 +123,23 @@ public class RegisterFragment extends BaseMainFragment implements View.OnClickLi
      */
     private void sendPhoneNumberByRegister() {
 
-        sendPhoneNumberByRegisterNext = new SubscriberOnNextListener<HttpResult3>() {
+        sendPhoneNumberByRegisterNext = new SubscriberOnNextListener<CaptchaBean>() {
 
             @Override
-            public void onNext(HttpResult3 response) {
-                ToastUtils.showCenterToast("验证码已发送到手机", 200);
+            public void onNext(CaptchaBean captchaBean) {
                 CountdownControl.changeBtnGetCode(verificationCode, _mActivity);
+
+                new SweetAlertDialog(_mActivity, SweetAlertDialog.SUCCESS_TYPE)
+                        .setTitleText("验证码已发送到手机")
+                        .setContentText(captchaBean.getCode())
+                        .setConfirmText("关闭")
+                        .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                            @Override
+                            public void onClick(SweetAlertDialog sweetAlertDialog) {
+                                sweetAlertDialog.dismissWithAnimation();
+                            }
+                        })
+                        .show();
             }
 
             @Override
@@ -145,7 +163,7 @@ public class RegisterFragment extends BaseMainFragment implements View.OnClickLi
             }
         };
         subscriber = new ProgressSubscriber(sendPhoneNumberByRegisterNext, _mActivity);
-        HttpMethods3.getInstance().sendVerificationCode(subscriber, phone.getText().toString(), 2);
+        HttpMethods3.getInstance().sendVerificationCode(subscriber, phone.getText().toString(), 1);
     }
 
     @Override
