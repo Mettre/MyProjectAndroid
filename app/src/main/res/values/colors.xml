@@ -26,6 +26,7 @@
     <color name="base">#AAAAAA</color>
     <color name="iron">#CCCCCC</color>
     <color name="white">#FFFFFF</color>
+    <color name="md_red_500">#e51c23</color>
     <color name="red_mettre">#ff0000</color>
     <color name="md_red_700">#d01716</color>
     <color name="dark_red">#B4282D</color>

@@ -244,7 +244,7 @@ public class AddAddressFragment extends BaseMainFragment implements View.OnClick
 
     private AddressBean submitAddress() {
         AddressBean request = new AddressBean();
-        if (TextUtils.isEmpty(addressId)) {
+        if (!TextUtils.isEmpty(addressId)) {
             request.setId(Integer.parseInt(addressId));
         }
         request.setRecipientName(name_address.getText().toString());

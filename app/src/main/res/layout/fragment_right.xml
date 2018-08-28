@@ -15,21 +15,24 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/md_grey_200"></TextView>
+
+
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
+                android:layout_marginTop="160dp"
                 android:background="@color/md_grey_200"></TextView>
 
             <TextView
                 android:id="@+id/address_text"
                 style="@style/textStyle"
-                android:layout_marginTop="160dp"
                 android:text="我的地址" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/md_grey_200"></TextView>
 
             <TextView
                 style="@style/textStyle"

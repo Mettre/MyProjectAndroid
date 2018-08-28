@@ -51,8 +51,14 @@ public class RightFragment extends BaseMainFragment implements View.OnClickListe
                 EventBus.getDefault().post(new StartBrotherEvent(MyAddressFragment.newInstance()));
                 break;
             case R.id.out_text:
-                EventBus.getDefault().post(new StartBrotherEvent(MyAddressFragment.newInstance()));
+                EventBus.getDefault().post(new StartBrotherEvent(LoginFragment.newInstance()));
                 break;
         }
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        EventBus.getDefault().unregister(this);
     }
 }

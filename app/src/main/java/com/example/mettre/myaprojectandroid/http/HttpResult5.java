@@ -9,10 +9,9 @@ import java.util.List;
 public class HttpResult5<T> {
 
     private List<T> data;
-    private boolean result;
+    private boolean success;
     private String message;
-    private String errCode;
-    private List<HttpResult3.ErrorsBean> errors;
+    private Integer code;
 
     public List<T> getData() {
         return data;
@@ -22,12 +21,12 @@ public class HttpResult5<T> {
         this.data = data;
     }
 
-    public boolean isResult() {
-        return result;
+    public boolean isSuccess() {
+        return success;
     }
 
-    public void setResult(boolean result) {
-        this.result = result;
+    public void setSuccess(boolean success) {
+        this.success = success;
     }
 
     public String getMessage() {
@@ -38,19 +37,11 @@ public class HttpResult5<T> {
         this.message = message;
     }
 
-    public String getErrCode() {
-        return errCode;
+    public Integer getCode() {
+        return code;
     }
 
-    public void setErrCode(String errCode) {
-        this.errCode = errCode;
-    }
-
-    public List<HttpResult3.ErrorsBean> getErrors() {
-        return errors;
-    }
-
-    public void setErrors(List<HttpResult3.ErrorsBean> errors) {
-        this.errors = errors;
+    public void setCode(Integer code) {
+        this.code = code;
     }
 }

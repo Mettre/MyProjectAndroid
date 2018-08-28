@@ -1,7 +1,5 @@
 package com.example.mettre.myaprojectandroid.http;
 
-import java.util.List;
-
 /**
  * Created by app on 2017/9/25.
  */
@@ -9,10 +7,9 @@ import java.util.List;
 public class HttpResult3<T> {
 
     private T data;
-    private boolean result;
+    private boolean success;
     private String message;
-    private String errCode;
-    private List<ErrorsBean> errors;
+    private Integer code;
 
     public T getData() {
         return data;
@@ -22,12 +19,12 @@ public class HttpResult3<T> {
         this.data = data;
     }
 
-    public boolean isResult() {
-        return result;
+    public boolean isSuccess() {
+        return success;
     }
 
-    public void setResult(boolean result) {
-        this.result = result;
+    public void setSuccess(boolean success) {
+        this.success = success;
     }
 
     public String getMessage() {
@@ -38,12 +35,12 @@ public class HttpResult3<T> {
         this.message = message;
     }
 
-    public String getErrCode() {
-        return errCode;
+    public Integer getCode() {
+        return code;
     }
 
-    public void setErrCode(String errCode) {
-        this.errCode = errCode;
+    public void setCode(Integer code) {
+        this.code = code;
     }
 
     public static class ErrorsBean {

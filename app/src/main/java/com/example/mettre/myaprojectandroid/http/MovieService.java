@@ -6,9 +6,10 @@ import com.example.mettre.myaprojectandroid.utils.ConstantUtil;
 import java.util.HashMap;
 
 import retrofit2.http.Body;
-import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
+import retrofit2.http.PartMap;
+import retrofit2.http.QueryMap;
 import rx.Observable;
 
 /**
@@ -17,27 +18,63 @@ import rx.Observable;
 public interface MovieService {
 
     /**
-     * 商品列表查询 =-新
+     * 登录
      */
-    @POST(ConstantUtil.SHOPPINGMALLSERVER + "/fproducts")
-    Observable<HttpResult3<AddressBean>> getlistgoodsInfoM(
-            @Header("Authorization") String Authorization,
-            @Body HashMap<String, Object> map);
+    @POST(ConstantUtil.USER_INFORMATION + "/login")
+    Observable<HttpResult3<AddressBean>> getLoginOnlineInfoM(
+            @QueryMap HashMap<String, Object> map);
 
     /**
-     * 商品列表查询 =-新
+     * 注册
      */
-    @POST(ConstantUtil.SHOPPINGMALLSERVER + "/fproducts")
-    Observable<HttpResult3<AddressBean>> getlistgoodsInfo(
-            @Header("Authorization") String Authorization,
-            @Body AddressBean addressBean);
+    @POST(ConstantUtil.USER_INFORMATION + "/register")
+    Observable<HttpResult3<AddressBean>> register(
+            @QueryMap HashMap<String, Object> map);
 
     /**
-     * 商品列表查询 =-新
+     * 获取用户信息
      */
-    @POST(ConstantUtil.SHOPPINGMALLSERVER + "/fproducts")
-    Observable<HttpResult3<AddressBean>> getAddressList(
+    @POST(ConstantUtil.USER_INFORMATION + "/loginEd/getUserId")
+    Observable<HttpResult3<AddressBean>> getUserInfo(
+            @QueryMap HashMap<String, Object> map);
+
+    /**
+     * 发送验证码
+     */
+    @POST(ConstantUtil.USER_INFORMATION + "/captcha")
+    Observable<HttpResult3<AddressBean>> sendVerificationCode(
+            @QueryMap HashMap<String, Object> map);
+
+    /**
+     * 忘记密码
+     */
+    @POST(ConstantUtil.USER_INFORMATION + "/forgetPassword")
+    Observable<HttpResult3<AddressBean>> forgetPassword(
+            @QueryMap HashMap<String, Object> map);
+
+    /**
+     * 添加收货地址
+     */
+    @POST(ConstantUtil.DELIVERY + "/loginEd/insertAddress")
+    Observable<HttpResult3<AddressBean>> addAddressRequest(
             @Header("Authorization") String Authorization,
-            @Body HashMap<String, String> map);
+            @QueryMap AddressBean bean);
+
+    /**
+     * 收货地址列表
+     */
+    @POST(ConstantUtil.DELIVERY + "/loginEd/updateAddress")
+    Observable<HttpResult3<AddressBean>> modifyAddressRequest(
+            @Header("Authorization") String Authorization,
+            @QueryMap AddressBean bean);
+
+
+    /**
+     * 收货地址列表
+     */
+    @POST(ConstantUtil.DELIVERY + "/loginEd/findByPage")
+    Observable<HttpResult3<AddressBean>> getListAddress(
+            @Header("Authorization") String Authorization,
+            @QueryMap HashMap<String, String> map);
 
 }

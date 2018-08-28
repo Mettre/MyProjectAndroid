@@ -88,29 +88,31 @@ public class ProgressSubscriber<T> extends Subscriber<T> implements ProgressCanc
     @Override
     public void onError(Throwable e) {
         dismissProgressDialog();
+        String message = "";
         if (e instanceof SocketTimeoutException) {
+            message = "连接服务器超时";
             mSubscriberOnNextListener.onSocketTimeout();
         } else if (e instanceof ConnectException) {
+            message = "服务器连接失败";
             mSubscriberOnNextListener.onConnectException();
         } else {
             mSubscriberOnNextListener.onError();
-            if (sweetAlertDialog == null) {
-                sweetAlertDialog = new SweetAlertDialog(context, SweetAlertDialog.ERROR_TYPE);
-                sweetAlertDialog.setTitleText("异常")
-                        .setContentText("" + e.getMessage())
-                        .setConfirmText("关闭")
-                        .show();
-            } else if (!sweetAlertDialog.isShowing()) {
-                sweetAlertDialog = new SweetAlertDialog(context, SweetAlertDialog.ERROR_TYPE);
-                sweetAlertDialog.setTitleText("异常")
-                        .setContentText("" + e.getMessage())
-                        .setConfirmText("关闭")
-                        .show();
-
-            }
+            message = e.getMessage();
         }
+        if (sweetAlertDialog == null) {
+            sweetAlertDialog = new SweetAlertDialog(context, SweetAlertDialog.ERROR_TYPE);
+            sweetAlertDialog.setTitleText("异常")
+                    .setContentText(message)
+                    .setConfirmText("关闭")
+                    .show();
+        } else if (!sweetAlertDialog.isShowing()) {
+            sweetAlertDialog = new SweetAlertDialog(context, SweetAlertDialog.ERROR_TYPE);
+            sweetAlertDialog.setTitleText("异常")
+                    .setContentText(message)
+                    .setConfirmText("关闭")
+                    .show();
 
-
+        }
     }
 
     /**

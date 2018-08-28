@@ -7,7 +7,7 @@ import java.io.Serializable;
  * 我的收货地址
  */
 
-public class AddressBean implements Serializable{
+public class AddressBean implements Serializable {
 
     private int id;
     private String recipientName;

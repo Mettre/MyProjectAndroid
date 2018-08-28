@@ -107,4 +107,10 @@ public class HomeFragment extends BaseMainFragment implements BaseMainFragment.O
     public void onOpenDrawer() {
         pop();
     }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        EventBus.getDefault().unregister(this);
+    }
 }
