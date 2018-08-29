@@ -28,14 +28,13 @@ import me.yokeyword.fragmentation.SupportFragment;
 
 public class HomeFragment extends BaseMainFragment implements BaseMainFragment.OnFragmentOpenDrawerListener {
 
-    private Toolbar mToolbar;
     private CommonTabLayout commonTabLayout;
     private int mCurrentPosition = 0;
-    private final SupportFragment[] mFragments = new SupportFragment[2];
-    private String[] mTitles = new String[]{"首页", "详情"};
+    private String[] mTitles = new String[]{"首页", "分类", "我的"};
+    private final SupportFragment[] mFragments = new SupportFragment[mTitles.length];
     private ArrayList<CustomTabEntity> mTabEntities;
-    private int[] checkeds = new int[]{R.drawable.home_icon5_true, R.drawable.home_icon5_true};
-    private int[] normals = new int[]{R.drawable.home_icon5_false, R.drawable.home_icon5_false};
+    private int[] checkeds = new int[]{R.drawable.home_icon5_true, R.drawable.home_icon5_true, R.drawable.home_icon5_true};
+    private int[] normals = new int[]{R.drawable.home_icon5_false, R.drawable.home_icon5_false, R.drawable.home_icon5_false};
 
 
     public static HomeFragment newInstance() {
@@ -51,15 +50,10 @@ public class HomeFragment extends BaseMainFragment implements BaseMainFragment.O
     }
 
     private void initView(View view) {
-        mToolbar = view.findViewById(R.id.toolbar);
         commonTabLayout = view.findViewById(R.id.tabLayout);
-
-        mToolbar.setTitle("首页");
-        mToolbar.setTitleTextColor(getResources().getColor(R.color.oil));
-        initToolbarNav(mToolbar, true);
-
         mFragments[0] = LeftFragment.newInstance();
         mFragments[1] = RightFragment.newInstance();
+        mFragments[2] = CategoryFragment.newInstance();
 
         mTabEntities = new ArrayList<>();
         for (int i = 0; i < mTitles.length; i++) {
@@ -81,8 +75,7 @@ public class HomeFragment extends BaseMainFragment implements BaseMainFragment.O
                 //TODO 重选
             }
         });
-        loadMultipleRootFragment(R.id.fl_change, 0, mFragments[0], mFragments[1]
-        );
+        loadMultipleRootFragment(R.id.fl_change, 0, mFragments[0], mFragments[1], mFragments[2]);
     }
 
     /**

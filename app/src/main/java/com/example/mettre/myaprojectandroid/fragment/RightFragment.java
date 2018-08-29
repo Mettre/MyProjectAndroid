@@ -116,12 +116,14 @@ public class RightFragment extends BaseMainFragment implements View.OnClickListe
         nice_name.setVisibility(View.GONE);
         nice_name_line.setVisibility(View.GONE);
         icon_img.setImageResource(R.drawable.icon_head2);
+        refreshLayout.setEnableRefresh(false);
     }
 
     private void loginUI() {
         login_btn.setVisibility(View.GONE);
         nice_name.setVisibility(View.VISIBLE);
         nice_name_line.setVisibility(View.VISIBLE);
+        refreshLayout.setEnableRefresh(true);
         getUserInfoNext();
     }
 
