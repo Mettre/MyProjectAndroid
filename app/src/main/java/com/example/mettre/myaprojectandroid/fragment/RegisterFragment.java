@@ -171,9 +171,7 @@ public class RegisterFragment extends BaseMainFragment implements View.OnClickLi
         switch (v.getId()) {
             case R.id.register_btn:
                 if (LoginUtils.getInstance().RegisterVerification(phone, verificationCodeNum, password)) {
-//                    showProgressDialog();
                     register();
-//                    getRegisterRequest();
                 }
                 break;
             case R.id.verification_code:

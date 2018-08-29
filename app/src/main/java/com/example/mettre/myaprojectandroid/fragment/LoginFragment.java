@@ -2,6 +2,7 @@ package com.example.mettre.myaprojectandroid.fragment;
 
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,7 +10,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.mettre.myaprojectandroid.R;
-import com.example.mettre.myaprojectandroid.app.MyApplication;
 import com.example.mettre.myaprojectandroid.base.BaseMainFragment;
 import com.example.mettre.myaprojectandroid.bean.LoginBean;
 import com.example.mettre.myaprojectandroid.http.HttpMethods3;
@@ -17,6 +17,7 @@ import com.example.mettre.myaprojectandroid.http.HttpResult3;
 import com.example.mettre.myaprojectandroid.subscribers.ProgressSubscriber;
 import com.example.mettre.myaprojectandroid.subscribers.SubscriberOnNextListener;
 import com.example.mettre.myaprojectandroid.utils.LoginUtils;
+import com.example.mettre.myaprojectandroid.utils.SharedPrefsUtil;
 import com.example.mettre.myaprojectandroid.view.ClearEditText;
 
 import rx.Subscriber;
@@ -35,7 +36,6 @@ public class LoginFragment extends BaseMainFragment implements View.OnClickListe
     private SubscriberOnNextListener getOnLoginListNext;
     private Subscriber<HttpResult3> subscriber2;
 
-    private String phoneNum;//存储的账号
     private ClearEditText phoneEdt;
     private TextView user_protocol;
     private EditText passwordEdt;
@@ -71,12 +71,14 @@ public class LoginFragment extends BaseMainFragment implements View.OnClickListe
         mToolbar.setTitleTextColor(getResources().getColor(R.color.oil));
         initToolbarNav(mToolbar);
         mToolbar.setTitle("登录");
+        String phone = SharedPrefsUtil.getValue(_mActivity, "phone", "");
+        phoneEdt.setText(phone);
     }
 
     @Override
     public void onFragmentResult(int requestCode, int resultCode, Bundle data) {
         super.onFragmentResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK && data != null) {
+        if (resultCode == RESULT_OK && data != null && requestCode == 2000) {
             String phone = data.getString("phone");
             String password = data.getString("password");
             phoneEdt.setText(phone);
@@ -87,13 +89,12 @@ public class LoginFragment extends BaseMainFragment implements View.OnClickListe
     /**
      * 登录
      */
-    private void loginOnLine(String phone, String password) {
-
+    private void loginOnLine(final String phone, String password) {
         getOnLoginListNext = new SubscriberOnNextListener<LoginBean>() {
 
             @Override
             public void onNext(LoginBean loginBean) {
-                MyApplication.getInstances().setToken(loginBean.getAccess_token());
+                LoginUtils.getInstance().loginSaveToken(phone, loginBean.getAccess_token());
                 pop();
             }
 
@@ -133,7 +134,7 @@ public class LoginFragment extends BaseMainFragment implements View.OnClickListe
                 start(ForgetPasswordFragment.newInstance());
                 break;
             case R.id.register_btn:
-                startForResult(RegisterFragment.newInstance(), 1000);
+                startForResult(RegisterFragment.newInstance(), 2000);
                 break;
             case R.id.wx_login_btn:
 //                WxPayUtils.wxLogin(_mActivity);

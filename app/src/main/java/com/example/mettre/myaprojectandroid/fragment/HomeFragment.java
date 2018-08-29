@@ -93,6 +93,8 @@ public class HomeFragment extends BaseMainFragment implements BaseMainFragment.O
         start(event.targetFragment);
     }
 
+
+
     /**
      * 类似于 Activity的 onNewIntent()
      */

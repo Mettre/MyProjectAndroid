@@ -4,9 +4,12 @@ import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
 
 import com.example.mettre.myaprojectandroid.app.MyApplication;
+import com.example.mettre.myaprojectandroid.event.StartBrotherEvent;
+import com.example.mettre.myaprojectandroid.fragment.LoginFragment;
 import com.example.mettre.myaprojectandroid.progress.ProgressCancelListener;
 import com.example.mettre.myaprojectandroid.progress.ProgressDialogHandler;
 
+import org.greenrobot.eventbus.EventBus;
 import org.json.JSONException;
 
 import java.net.ConnectException;
@@ -99,6 +102,10 @@ public class ProgressSubscriber<T> extends Subscriber<T> implements ProgressCanc
             mSubscriberOnNextListener.onError();
             message = e.getMessage();
         }
+        if ("未登录".equals(message)) {
+            EventBus.getDefault().post(new StartBrotherEvent(LoginFragment.newInstance()));
+        }
+
         if (sweetAlertDialog == null) {
             sweetAlertDialog = new SweetAlertDialog(context, SweetAlertDialog.ERROR_TYPE);
             sweetAlertDialog.setTitleText("异常")

@@ -2,6 +2,7 @@ package com.example.mettre.myaprojectandroid.http;
 
 import com.example.mettre.myaprojectandroid.app.MyApplication;
 import com.example.mettre.myaprojectandroid.bean.AddressBean;
+import com.example.mettre.myaprojectandroid.bean.UserBean;
 import com.example.mettre.myaprojectandroid.utils.AndroidScheduler;
 import com.example.mettre.myaprojectandroid.utils.HeaderInterceptor;
 import com.example.mettre.myaprojectandroid.utils.LoggerInterceptor;
@@ -25,9 +26,9 @@ import rx.schedulers.Schedulers;
 
 public class HttpMethods3 {
 
-//    public static final String BASE_URL = "http://192.168.0.231:8888/";//公司
+    public static final String BASE_URL = "http://192.168.0.231:8888/";//公司
 
-    public static final String BASE_URL = "http://192.168.1.107:8888/";//家
+//    public static final String BASE_URL = "http://192.168.1.107:8888/";//家
 
     private static final int DEFAULT_TIMEOUT = 25;
 
@@ -126,13 +127,39 @@ public class HttpMethods3 {
     }
 
     /**
+     * 删除收货地址
+     */
+    public void deleteDelivery(Subscriber<HttpResult3> subscriber, long addressIds) {
+        HashMap<String, String> map = new HashMap<String, String>();
+        map.put("addressIds", String.valueOf(addressIds));
+        Observable observable = movieService.deleteDelivery("Bearer " + MyApplication.getInstances().getToken(), map).map(new HttpMethods3.HttpResultFunc2<AddressBean>());
+        toSubscribe(observable, subscriber);
+    }
+
+    /**
      * 收货地址列表
      */
-    public void AddressList(Subscriber<HttpResult3> subscriber, int page, int size) {
+    public void AddressList(Subscriber<HttpResult5> subscriber, int page, int size) {
         HashMap<String, String> map = new HashMap<String, String>();
         map.put("page", String.valueOf(page));
         map.put("size", String.valueOf(size));
-        Observable observable = movieService.getListAddress("Bearer " + MyApplication.getInstances().getToken(), map).map(new HttpMethods3.HttpResultFunc2<AddressBean>());
+        Observable observable = movieService.getListAddress("Bearer " + MyApplication.getInstances().getToken(), map).map(new HttpMethods3.HttpResultFunc3<AddressBean>());
+        toSubscribe(observable, subscriber);
+    }
+
+    /**
+     * 修改个人信息
+     */
+    public void getEditUserInfo(Subscriber<HttpResult3> subscriber, UserBean userBean) {
+        Observable observable = movieService.getEditUserInfo("Bearer " + MyApplication.getInstances().getToken(), userBean).map(new HttpMethods3.HttpResultFunc2<UserBean>());
+        toSubscribe(observable, subscriber);
+    }
+
+    /**
+     * 获取个人信息
+     */
+    public void getUserInfo(Subscriber<HttpResult3> subscriber) {
+        Observable observable = movieService.getUserInfo("Bearer " + MyApplication.getInstances().getToken()).map(new HttpMethods3.HttpResultFunc2());
         toSubscribe(observable, subscriber);
     }
 

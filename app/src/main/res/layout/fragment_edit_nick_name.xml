@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/md_grey_100"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/md_grey_100">
+
+        <TextView
+            android:id="@+id/right_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_gravity="right"
+            android:layout_marginLeft="18dp"
+            android:layout_marginRight="5dp"
+            android:layout_centerVertical="true"
+            android:background="@drawable/bg_gray2"
+            android:gravity="center"
+            android:maxLines="2"
+            android:paddingBottom="6dp"
+            android:paddingTop="6dp"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:text="确定"
+            android:textColor="@color/oil2"
+            android:textSize="@dimen/size13" />
+    </android.support.v7.widget.Toolbar>
+
+    <EditText
+        android:id="@+id/nickname_edt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:background="@color/white"
+        android:hint="请输入昵称"
+        android:padding="12dp"
+        android:singleLine="true"
+        android:textColor="@color/oil"
+        android:textColorHint="@color/base"
+        android:textSize="@dimen/normal" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="18dp"
+        android:orientation="horizontal"
+        android:paddingRight="18dp">
+
+        <TextView
+            android:id="@+id/prompt_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="限制4-16位字符"
+            android:textColor="@color/monsoon"
+            android:textSize="@dimen/small" />
+
+        <TextView
+            android:id="@+id/len_num"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="18dp"
+            android:maxLines="2"
+            android:text="0/10"
+            android:textColor="@color/monsoon"
+            android:textSize="@dimen/small" />
+    </LinearLayout>
+
+    <RadioGroup
+        android:id="@+id/group_gender"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:padding="10dp"
+        android:visibility="gone">
+
+        <RadioButton
+            android:id="@+id/gender_male"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="12dp"
+            android:text="男"
+            android:textColor="@color/oil2"
+            android:textSize="@dimen/normal" />
+
+        <RadioButton
+            android:id="@+id/gender_female"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="12dp"
+            android:text="女"
+            android:textColor="@color/oil2"
+            android:textSize="@dimen/normal" />
+
+    </RadioGroup>
+</LinearLayout>

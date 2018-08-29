@@ -59,7 +59,7 @@ public class AddAddressFragment extends BaseMainFragment implements View.OnClick
     private String district2;
 
     private AddressBean item;
-    private String addressId;//地址id
+    private Long addressId;//地址id
     private String province;
     private String city;
     private String district;
@@ -75,10 +75,10 @@ public class AddAddressFragment extends BaseMainFragment implements View.OnClick
     private BottomDialog bottomDialog;
 
 
-    public static AddAddressFragment newInstance(String addressId, AddressBean addressBean) {
+    public static AddAddressFragment newInstance(Long addressId, AddressBean addressBean) {
         AddAddressFragment fragment = new AddAddressFragment();
         Bundle args = new Bundle();
-        args.putString("addressId", addressId);
+        args.putLong("addressId", addressId);
         args.putSerializable("item", addressBean);
         fragment.setArguments(args);
         return fragment;
@@ -102,7 +102,7 @@ public class AddAddressFragment extends BaseMainFragment implements View.OnClick
     }
 
     public void initView(View view) {
-        addressId = getArguments().getString("addressId");
+        addressId = getArguments().getLong("addressId");
         item = (AddressBean) getArguments().getSerializable("item");
 
         mToolbar = view.findViewById(R.id.toolbar);
@@ -115,7 +115,7 @@ public class AddAddressFragment extends BaseMainFragment implements View.OnClick
 
         mToolbar.setTitleTextColor(getResources().getColor(R.color.oil));
         initToolbarNav(mToolbar);
-        if (TextUtils.isEmpty(addressId)) {
+        if (0 == addressId) {
             mToolbar.setTitle("新建地址");
         } else {
             mToolbar.setTitle("修改地址");
@@ -123,7 +123,7 @@ public class AddAddressFragment extends BaseMainFragment implements View.OnClick
         /**
          * 修改信息
          */
-        if (TextUtils.isEmpty(addressId) && item != null) {
+        if (0 != addressId && item != null) {
             editContent(item);
         }
         //拿到本地JSON 并转成String
@@ -165,6 +165,9 @@ public class AddAddressFragment extends BaseMainFragment implements View.OnClick
                     case 2:
                         district2 = cityInterface.getCityName();
                         city_choice.setText(province2 + city2 + district2);
+                        province = province2;
+                        city = city2;
+                        district = district2;
                         bottomDialog.dismiss();
                         break;
                 }
@@ -232,11 +235,11 @@ public class AddAddressFragment extends BaseMainFragment implements View.OnClick
      * 修改地址信息
      */
     private void editContent(AddressBean item) {
-        name_address.setText(item.getRecipientName());
-        phone_address.setText(item.getRecipientPhoneNumber());
+        name_address.setText(item.getName());
+        phone_address.setText(item.getPhone());
         city_choice.setText(item.getProvince() + " " + item.getCity() + " " + item.getCounty());
         detailed_address.setText(item.getAddress());
-        checkbox.setChecked(item.isDefaulted());
+        checkbox.setChecked(item.isDefaults());
         province = item.getProvince();
         city = item.getCity();
         district = item.getCounty();
@@ -244,30 +247,30 @@ public class AddAddressFragment extends BaseMainFragment implements View.OnClick
 
     private AddressBean submitAddress() {
         AddressBean request = new AddressBean();
-        if (!TextUtils.isEmpty(addressId)) {
-            request.setId(Integer.parseInt(addressId));
+        if (0 != addressId) {
+            request.setId(addressId);
         }
-        request.setRecipientName(name_address.getText().toString());
-        request.setRecipientPhoneNumber(phone_address.getText().toString());
+        request.setName(name_address.getText().toString());
+        request.setPhone(phone_address.getText().toString());
         request.setAddress(detailed_address.getText().toString());
         request.setCity(city);
         request.setProvince(province);
         request.setCounty(district);
-        request.setDefaulted(checkbox.isChecked());
+        request.setDefaults(checkbox.isChecked());
         return request;
     }
 
     /**
      * 添加收货地址
      */
-    private void getAddCartInfo(AddressBean request, boolean type) {
+    private void getAddCartInfo(AddressBean request, final boolean type) {
 
         getAddAddressNext = new SubscriberOnNextListener<HttpResult3>() {
 
             @Override
             public void onNext(HttpResult3 response) {
                 new SweetAlertDialog(_mActivity, SweetAlertDialog.SUCCESS_TYPE)
-                        .setTitleText(TextUtils.isEmpty(addressId) ? "添加地址成功!" : "修改地址成功!")
+                        .setTitleText(type ? "添加地址成功!" : "修改地址成功!")
                         .setConfirmText("关闭")
                         .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
                             @Override
@@ -301,7 +304,11 @@ public class AddAddressFragment extends BaseMainFragment implements View.OnClick
                 ToastUtils.showCenterToast("暂无网络连接，请确认设备连接网络", 200);
             }
         };
-        HttpMethods3.getInstance().AddAddressRequest(new ProgressSubscriber(getAddAddressNext, _mActivity), request);
+        if (type) {
+            HttpMethods3.getInstance().AddAddressRequest(new ProgressSubscriber(getAddAddressNext, _mActivity), request);
+        } else {
+            HttpMethods3.getInstance().modifyAddressRequest(new ProgressSubscriber(getAddAddressNext, _mActivity), request);
+        }
     }
 
     @Override
@@ -309,7 +316,7 @@ public class AddAddressFragment extends BaseMainFragment implements View.OnClick
         switch (v.getId()) {
             case R.id.address_save:
                 if (LoginUtils.getInstance().AddAddress(name_address, phone_address, city_choice, detailed_address)) {
-                    getAddCartInfo(submitAddress(), TextUtils.isEmpty(addressId));
+                    getAddCartInfo(submitAddress(), 0 == addressId);
                 }
                 break;
             case R.id.city_choice:

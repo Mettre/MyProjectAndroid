@@ -24,7 +24,7 @@ public class HeaderInterceptor implements Interceptor {
             return chain.proceed(mRequest);
         } else {
             Request mRequest = chain.request().newBuilder()
-                    .header("Authorization", "Bearer " + token)
+                    .header("authorities", "Bearer " + token)
                     .build();
             return chain.proceed(mRequest);
         }

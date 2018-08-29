@@ -4,6 +4,7 @@ import android.text.TextUtils;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.example.mettre.myaprojectandroid.app.MyApplication;
 import com.example.mettre.myaprojectandroid.view.ClearEditText;
 
 import java.util.regex.Matcher;
@@ -177,7 +178,7 @@ public class LoginUtils {
             ToastUtils.showShortToastSafe("手机号不能为空！");
         } else if (!isMobileNO(phoneAddress.getText().toString())) {
             ToastUtils.showShortToastSafe("请输入正确的手机号码！");
-        } else if ( TextUtils.isEmpty(cityChoice.getText().toString())) {
+        } else if (TextUtils.isEmpty(cityChoice.getText().toString())) {
             ToastUtils.showShortToastSafe("请选择收货地址！");
         } else if (TextUtils.isEmpty(detailedAddress.getText().toString())) {
             ToastUtils.showShortToastSafe("请输入详细地址！");
@@ -240,5 +241,23 @@ public class LoginUtils {
 
     private static class LoginUtilsHolder {
         private static final LoginUtils INSTANCE = new LoginUtils();
+    }
+
+    /**
+     * 登录存储token 账号等
+     */
+    public void loginSaveToken(String phone, String access_token) {
+        SharedPrefsUtil.putValue(Utils.getContext(), "phone", phone);
+        SharedPrefsUtil.putValue(Utils.getContext(), "token", access_token);
+        MyApplication.getInstances().setToken(access_token);
+    }
+
+
+    /**
+     * 退出登录清除token
+     */
+    public void signOutRemoveToken() {
+        SharedPrefsUtil.removeValue(Utils.getContext(), "token");
+        MyApplication.getInstances().setToken("");
     }
 }

@@ -3,19 +3,23 @@ package com.example.mettre.myaprojectandroid.http;
 import com.example.mettre.myaprojectandroid.bean.AddressBean;
 import com.example.mettre.myaprojectandroid.bean.CaptchaBean;
 import com.example.mettre.myaprojectandroid.bean.LoginBean;
+import com.example.mettre.myaprojectandroid.bean.UserBean;
 import com.example.mettre.myaprojectandroid.utils.ConstantUtil;
 
 import java.util.HashMap;
 
 import retrofit2.http.Body;
+import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 import retrofit2.http.QueryMap;
 import rx.Observable;
 
 /**
  * Created by liukun on 16/3/9.
  */
+
 public interface MovieService {
 
     /**
@@ -58,24 +62,48 @@ public interface MovieService {
      */
     @POST(ConstantUtil.DELIVERY + "/loginEd/insertAddress")
     Observable<HttpResult3<AddressBean>> addAddressRequest(
-            @Header("Authorization") String Authorization,
-            @QueryMap AddressBean bean);
+            @Header("authorities") String authorities,
+            @Body AddressBean bean);
 
     /**
-     * 收货地址列表
+     * 修改收货地址
      */
     @POST(ConstantUtil.DELIVERY + "/loginEd/updateAddress")
     Observable<HttpResult3<AddressBean>> modifyAddressRequest(
-            @Header("Authorization") String Authorization,
-            @QueryMap AddressBean bean);
+            @Header("authorities") String authorities,
+            @Body AddressBean bean);
+
+    /**
+     * 删除收货地址
+     */
+    @POST(ConstantUtil.DELIVERY + "/loginEd/deleteDelivery")
+    Observable<HttpResult3<AddressBean>> deleteDelivery(
+            @Header("authorities") String authorities,
+            @Body HashMap<String, String> map);
 
 
     /**
      * 收货地址列表
      */
     @POST(ConstantUtil.DELIVERY + "/loginEd/findByPage")
-    Observable<HttpResult3<AddressBean>> getListAddress(
-            @Header("Authorization") String Authorization,
-            @QueryMap HashMap<String, String> map);
+    Observable<HttpResult5<AddressBean>> getListAddress(
+            @Header("authorities") String authorities,
+            @Body HashMap<String, String> map);
+
+
+    /**
+     * 修改个人信息
+     */
+    @POST(ConstantUtil.USER_INFORMATION + "/loginEd/editUserInfo")
+    Observable<HttpResult3<UserBean>> getEditUserInfo(
+            @Header("authorities") String authorities,
+            @Body UserBean bean);
+
+    /**
+     * 获取个人信息
+     */
+    @GET(ConstantUtil.USER_INFORMATION + "/loginEd/getUserInfo")
+    Observable<HttpResult3<UserBean>> getUserInfo(
+            @Header("authorities") String authorities);
 
 }

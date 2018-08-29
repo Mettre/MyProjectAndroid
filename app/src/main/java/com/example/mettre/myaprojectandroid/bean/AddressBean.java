@@ -9,38 +9,38 @@ import java.io.Serializable;
 
 public class AddressBean implements Serializable {
 
-    private int id;
-    private String recipientName;
-    private String recipientPhoneNumber;
+    private long id;
+    private String name;
+    private String phone;
     private String address;
     private String city;
     private String province;
     private String county;
-    private boolean defaulted;
+    private boolean defaults;
     private Boolean optional;
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
-    public String getRecipientName() {
-        return recipientName;
+    public String getName() {
+        return name;
     }
 
-    public void setRecipientName(String recipientName) {
-        this.recipientName = recipientName;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getRecipientPhoneNumber() {
-        return recipientPhoneNumber;
+    public String getPhone() {
+        return phone;
     }
 
-    public void setRecipientPhoneNumber(String recipientPhoneNumber) {
-        this.recipientPhoneNumber = recipientPhoneNumber;
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     public String getAddress() {
@@ -75,12 +75,12 @@ public class AddressBean implements Serializable {
         this.county = county;
     }
 
-    public boolean isDefaulted() {
-        return defaulted;
+    public boolean isDefaults() {
+        return defaults;
     }
 
-    public void setDefaulted(boolean defaulted) {
-        this.defaulted = defaulted;
+    public void setDefaults(boolean defaults) {
+        this.defaults = defaults;
     }
 
     public Boolean getOptional() {

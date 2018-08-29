@@ -31,4 +31,6 @@
     <color name="md_red_700">#d01716</color>
     <color name="dark_red">#B4282D</color>
     <color name="color_divider">#BDBDBD</color>
+    <color name="colorPrimary1">#3ca0ec</color>
+    <color name="colorPrimaryDark1">#5677fc</color>
 </resources>

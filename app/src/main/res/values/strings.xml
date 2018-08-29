@@ -1,5 +1,10 @@
 <resources>
     <string name="app_name">MyAProjectAndroid</string>
+  <string name="cancel">取消</string>
+  <string name="setting">设置</string>
+  <string name="title_settings_dialog">所需的权限</string>
+  <string name="rationale_ask_again">没有请求权限，此应用程序可能无法正常工作。打开应用程序设置屏幕以修改应用程序权限。</string>
+  <string name="returned_from_app_settings_to_activity">请到设置中开启定位权限</string>
     <string name="cities1">[{
         "Name": "上海",
         "Grade": "3",

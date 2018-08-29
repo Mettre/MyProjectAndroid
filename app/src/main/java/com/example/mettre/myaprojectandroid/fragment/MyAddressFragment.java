@@ -17,9 +17,11 @@ import com.example.mettre.myaprojectandroid.base.BaseMainFragment;
 import com.example.mettre.myaprojectandroid.bean.AddressBean;
 import com.example.mettre.myaprojectandroid.http.HttpMethods3;
 import com.example.mettre.myaprojectandroid.http.HttpResult3;
+import com.example.mettre.myaprojectandroid.http.HttpResult5;
 import com.example.mettre.myaprojectandroid.response.PageResponse;
 import com.example.mettre.myaprojectandroid.subscribers.ProgressSubscriber;
 import com.example.mettre.myaprojectandroid.subscribers.SubscriberOnNextListener;
+import com.example.mettre.myaprojectandroid.utils.ToastUtils;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
@@ -43,7 +45,10 @@ public class MyAddressFragment extends BaseMainFragment {
     private Toolbar mToolbar;
     private TextView add_btn;
     private SubscriberOnNextListener getAddAddressListNext;
-    private Subscriber<HttpResult3> subscriber2;
+    private Subscriber<HttpResult5> subscriber2;
+
+    private SubscriberOnNextListener deleteAddress;
+    private Subscriber<HttpResult3> subscriber;
 
     private RefreshLayout refreshLayout;
     private RecyclerView recyclerView;
@@ -98,7 +103,7 @@ public class MyAddressFragment extends BaseMainFragment {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
 
-                startForResult(AddAddressFragment.newInstance(), 1000);
+                startForResult(AddAddressFragment.newInstance(addressList.get(position).getId(), addressList.get(position)), 1000);
 
             }
         });
@@ -117,7 +122,7 @@ public class MyAddressFragment extends BaseMainFragment {
                             @Override
                             public void onClick(SweetAlertDialog sweetAlertDialog) {
                                 sweetAlertDialog.dismissWithAnimation();
-//                                deleteAddress(String.valueOf(addressList.get(position).getId()), position);
+                                deleteAddress(addressList.get(position).getId(), position);
 
                             }
                         })
@@ -127,12 +132,58 @@ public class MyAddressFragment extends BaseMainFragment {
             }
         });
         setRefresh();
+        getAddressList();
         add_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                start(AddAddressFragment.newInstance());
+                startForResult(AddAddressFragment.newInstance(), 1000);
             }
         });
+    }
+
+
+    @Override
+    public void onFragmentResult(int requestCode, int resultCode, Bundle data) {
+        super.onFragmentResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK) {
+            refreshLayout.autoRefresh();
+        }
+    }
+
+    /**
+     * 删除收货地址
+     */
+    private void deleteAddress(Long id, final int position) {
+
+        deleteAddress = new SubscriberOnNextListener<HttpResult3>() {
+
+            @Override
+            public void onNext(HttpResult3 response) {
+                myAdapter.remove(position);
+            }
+
+            @Override
+            public void onCompleted() {
+
+            }
+
+            @Override
+            public void onError() {
+
+            }
+
+            @Override
+            public void onSocketTimeout() {
+                ToastUtils.showCenterToast("网络连接超时，请稍后重试", 200);
+            }
+
+            @Override
+            public void onConnectException() {
+                ToastUtils.showCenterToast("暂无网络连接，请确认设备连接网络", 200);
+            }
+        };
+
+        HttpMethods3.getInstance().deleteDelivery(new ProgressSubscriber(deleteAddress, _mActivity), id);
     }
 
     /**
@@ -140,25 +191,26 @@ public class MyAddressFragment extends BaseMainFragment {
      */
     private void getAddressList() {
 
-        getAddAddressListNext = new SubscriberOnNextListener<PageResponse<AddressBean>>() {
+        getAddAddressListNext = new SubscriberOnNextListener<List<AddressBean>>() {
 
             @Override
-            public void onNext(PageResponse<AddressBean> response) {
+            public void onNext(List<AddressBean> response) {
                 if (page == 1) {
-                    addressList = response.getList();
+                    addressList = response;
                     if (addressList == null || addressList.size() == 0) {
+
                     } else {
                         myAdapter.setNewData(addressList);
                     }
                 } else {
-                    myAdapter.addData(response.getList());
+                    myAdapter.addData(response);
                     page++;
                 }
-                if (response.isHasNextPage()) {
-                    refreshLayout.setEnableLoadmore(true);
-                } else {
-                    refreshLayout.setEnableLoadmore(false);
-                }
+//                if (response.isHasNextPage()) {
+//                    refreshLayout.setEnableLoadmore(true);
+//                } else {
+//                    refreshLayout.setEnableLoadmore(false);
+//                }
 
             }
 

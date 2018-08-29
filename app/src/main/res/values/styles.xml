@@ -23,6 +23,7 @@
     </style>
 
     <style name="textStyle">
+        <item name="android:background">@color/white</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:padding">14dp</item>
@@ -33,6 +34,11 @@
     <style name="take_photo_anim_bottom" parent="android:Animation">
         <item name="android:windowEnterAnimation">@anim/pop_bottom_in</item>
         <item name="android:windowExitAnimation">@anim/pop_bottom_out</item>
+    </style>
+
+    <style name="PopupAnimation" mce_bogus="1" parent="android:Animation">
+        <item name="android:windowEnterAnimation">@anim/popup_enter</item>
+        <item name="android:windowExitAnimation">@anim/popup_exit</item>
     </style>
 
 

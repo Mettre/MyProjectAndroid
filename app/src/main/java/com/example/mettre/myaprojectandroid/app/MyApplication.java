@@ -2,6 +2,7 @@ package com.example.mettre.myaprojectandroid.app;
 
 import android.app.Application;
 
+import com.example.mettre.myaprojectandroid.utils.SharedPrefsUtil;
 import com.example.mettre.myaprojectandroid.utils.Utils;
 
 /**
@@ -31,5 +32,7 @@ public class MyApplication extends Application {
         super.onCreate();
         instances = this;
         Utils.init(instances);
+        String token = SharedPrefsUtil.getValue(getApplicationContext(), "token", "");
+        MyApplication.getInstances().setToken(token);
     }
 }

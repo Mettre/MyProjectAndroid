@@ -22,9 +22,9 @@ public class AddressListAdapter extends BaseQuickAdapter<AddressBean, BaseViewHo
 
     @Override
     protected void convert(final BaseViewHolder helper, final AddressBean item) {
-        helper.setText(R.id.name, item.getRecipientName());
-        helper.getView(R.id.address_normal).setVisibility(item.isDefaulted() ? View.VISIBLE : View.INVISIBLE);
-        helper.setText(R.id.phone, item.getRecipientPhoneNumber());
+        helper.setText(R.id.name, item.getName());
+        helper.getView(R.id.address_normal).setVisibility(item.isDefaults() ? View.VISIBLE : View.INVISIBLE);
+        helper.setText(R.id.phone, item.getPhone());
         helper.setText(R.id.address, item.getProvince() + item.getCity() + item.getCounty() + item.getAddress());
     }
 }
