@@ -13,16 +13,17 @@ import com.example.mettre.myaprojectandroid.R;
 import com.example.mettre.myaprojectandroid.app.MyApplication;
 import com.example.mettre.myaprojectandroid.base.BaseMainFragment;
 import com.example.mettre.myaprojectandroid.bean.UserBean;
+import com.example.mettre.myaprojectandroid.constant.CommonConstant;
 import com.example.mettre.myaprojectandroid.event.StartBrotherEvent;
 import com.example.mettre.myaprojectandroid.http.HttpMethods3;
 import com.example.mettre.myaprojectandroid.subscribers.ProgressSubscriber;
 import com.example.mettre.myaprojectandroid.subscribers.SubscriberOnNextListener;
 import com.example.mettre.myaprojectandroid.utils.LoginUtils;
-import com.example.mettre.myaprojectandroid.utils.ToastUtils;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 /**
  * Created by Mettre on 2018/8/14.
@@ -51,6 +52,7 @@ public class RightFragment extends BaseMainFragment implements View.OnClickListe
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        EventBus.getDefault().register(this);
         View view = inflater.inflate(R.layout.fragment_right, container, false);
         initView(view);
         setRefresh(view);
@@ -107,6 +109,29 @@ public class RightFragment extends BaseMainFragment implements View.OnClickListe
     }
 
 
+    private void signOutUI() {
+        userBean = null;
+        nice_name.setText("");
+        login_btn.setVisibility(View.VISIBLE);
+        nice_name.setVisibility(View.GONE);
+        nice_name_line.setVisibility(View.GONE);
+        icon_img.setImageResource(R.drawable.icon_head2);
+    }
+
+    private void loginUI() {
+        login_btn.setVisibility(View.GONE);
+        nice_name.setVisibility(View.VISIBLE);
+        nice_name_line.setVisibility(View.VISIBLE);
+        getUserInfoNext();
+    }
+
+    @Subscribe
+    public void startBrother(StartBrotherEvent event) {
+        if (event.EventType == CommonConstant.USER_INFOR) {
+            loginUI();
+        }
+    }
+
     /**
      * 获取个人信息
      */
@@ -152,6 +177,7 @@ public class RightFragment extends BaseMainFragment implements View.OnClickListe
             case R.id.out_text:
                 LoginUtils.getInstance().signOutRemoveToken();
                 EventBus.getDefault().post(new StartBrotherEvent(LoginFragment.newInstance()));
+                signOutUI();
                 break;
             case R.id.information_linearLayout:
                 if (!TextUtils.isEmpty(MyApplication.getInstances().getToken()) && userBean != null) {

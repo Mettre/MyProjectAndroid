@@ -9,24 +9,9 @@ package com.example.mettre.myaprojectandroid.constant;
 public interface CommonConstant {
 
     /**
-     * 用户正常状态
+     * 个人信息刷新
      */
-    Integer USER_STATUS_NORMAL = 0;
-
-    /**
-     * 用户禁用状态
-     */
-    Integer USER_STATUS_LOCK = -1;
-
-    /**
-     * 普通用户
-     */
-    Integer USER_TYPE_NORMAL = 0;
-
-    /**
-     * 管理员
-     */
-    Integer USER_TYPE_ADMIN = 1;
+    Integer USER_INFOR = 1111;
 
     /**
      * 性别男

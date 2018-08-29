@@ -12,6 +12,8 @@ import android.widget.TextView;
 import com.example.mettre.myaprojectandroid.R;
 import com.example.mettre.myaprojectandroid.base.BaseMainFragment;
 import com.example.mettre.myaprojectandroid.bean.LoginBean;
+import com.example.mettre.myaprojectandroid.constant.CommonConstant;
+import com.example.mettre.myaprojectandroid.event.StartBrotherEvent;
 import com.example.mettre.myaprojectandroid.http.HttpMethods3;
 import com.example.mettre.myaprojectandroid.http.HttpResult3;
 import com.example.mettre.myaprojectandroid.subscribers.ProgressSubscriber;
@@ -19,6 +21,8 @@ import com.example.mettre.myaprojectandroid.subscribers.SubscriberOnNextListener
 import com.example.mettre.myaprojectandroid.utils.LoginUtils;
 import com.example.mettre.myaprojectandroid.utils.SharedPrefsUtil;
 import com.example.mettre.myaprojectandroid.view.ClearEditText;
+
+import org.greenrobot.eventbus.EventBus;
 
 import rx.Subscriber;
 
@@ -95,7 +99,9 @@ public class LoginFragment extends BaseMainFragment implements View.OnClickListe
             @Override
             public void onNext(LoginBean loginBean) {
                 LoginUtils.getInstance().loginSaveToken(phone, loginBean.getAccess_token());
+                EventBus.getDefault().post(new StartBrotherEvent(CommonConstant.USER_INFOR));
                 pop();
+
             }
 
             @Override
@@ -141,4 +147,6 @@ public class LoginFragment extends BaseMainFragment implements View.OnClickListe
                 break;
         }
     }
+
+
 }

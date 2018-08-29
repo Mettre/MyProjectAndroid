@@ -81,18 +81,19 @@ public class HomeFragment extends BaseMainFragment implements BaseMainFragment.O
                 //TODO 重选
             }
         });
-
         loadMultipleRootFragment(R.id.fl_change, 0, mFragments[0], mFragments[1]
         );
     }
+
     /**
      * start other BrotherFragment
      */
     @Subscribe
     public void startBrother(StartBrotherEvent event) {
-        start(event.targetFragment);
+        if (event.targetFragment != null) {
+            start(event.targetFragment);
+        }
     }
-
 
 
     /**
@@ -101,7 +102,6 @@ public class HomeFragment extends BaseMainFragment implements BaseMainFragment.O
     @Override
     public void onNewBundle(Bundle args) {
         super.onNewBundle(args);
-
         Toast.makeText(_mActivity, args.getString("from"), Toast.LENGTH_SHORT).show();
     }
 
