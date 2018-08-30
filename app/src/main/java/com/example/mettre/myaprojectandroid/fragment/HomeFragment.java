@@ -1,7 +1,6 @@
 package com.example.mettre.myaprojectandroid.fragment;
 
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -52,8 +51,8 @@ public class HomeFragment extends BaseMainFragment implements BaseMainFragment.O
     private void initView(View view) {
         commonTabLayout = view.findViewById(R.id.tabLayout);
         mFragments[0] = LeftFragment.newInstance();
-        mFragments[1] = RightFragment.newInstance();
-        mFragments[2] = CategoryFragment.newInstance();
+        mFragments[1] = CategoryFragment.newInstance();
+        mFragments[2] = RightFragment.newInstance();
 
         mTabEntities = new ArrayList<>();
         for (int i = 0; i < mTitles.length; i++) {

@@ -174,7 +174,7 @@ public class RightFragment extends BaseMainFragment implements View.OnClickListe
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.address_text:
-                EventBus.getDefault().post(new StartBrotherEvent(MyAddressFragment.newInstance()));
+                EventBus.getDefault().post(new StartBrotherEvent(AddressListFragment.newInstance()));
                 break;
             case R.id.out_text:
                 LoginUtils.getInstance().signOutRemoveToken();

@@ -2,6 +2,7 @@ package com.example.mettre.myaprojectandroid.http;
 
 import com.example.mettre.myaprojectandroid.bean.AddressBean;
 import com.example.mettre.myaprojectandroid.bean.CaptchaBean;
+import com.example.mettre.myaprojectandroid.bean.CategoryBean;
 import com.example.mettre.myaprojectandroid.bean.LoginBean;
 import com.example.mettre.myaprojectandroid.bean.UserBean;
 import com.example.mettre.myaprojectandroid.utils.ConstantUtil;
@@ -105,5 +106,12 @@ public interface MovieService {
     @GET(ConstantUtil.USER_INFORMATION + "/loginEd/getUserInfo")
     Observable<HttpResult3<UserBean>> getUserInfo(
             @Header("authorities") String authorities);
+
+
+    /**
+     * 商品三级分类
+     */
+    @POST(ConstantUtil.SHOPPING + "/category/findAllCategory")
+    Observable<HttpResult5<CategoryBean>> getCategoryList();
 
 }

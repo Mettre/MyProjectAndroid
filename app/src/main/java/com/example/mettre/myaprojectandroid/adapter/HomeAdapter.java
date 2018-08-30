@@ -12,12 +12,16 @@ import com.example.mettre.myaprojectandroid.view.GridViewForScrollView;
 
 import java.util.List;
 
+/**
+ * Created by Mettre on 2018/8/30.
+ */
+
 public class HomeAdapter extends BaseAdapter {
 
     private Context context;
-    private List<CategoryBean.DataBean> foodDatas;
+    private List<CategoryBean> foodDatas;
 
-    public HomeAdapter(Context context, List<CategoryBean.DataBean> foodDatas) {
+    public HomeAdapter(Context context, List<CategoryBean> foodDatas) {
         this.context = context;
         this.foodDatas = foodDatas;
     }
@@ -44,20 +48,20 @@ public class HomeAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        CategoryBean.DataBean dataBean = foodDatas.get(position);
-        List<CategoryBean.DataBean.DataListBean> dataList = dataBean.getDataList();
-        ViewHold viewHold = null;
+        CategoryBean dataBean = foodDatas.get(position);
+        List<CategoryBean> dataList = dataBean.getChildCategory();
+        HomeAdapter.ViewHold viewHold = null;
         if (convertView == null) {
             convertView = View.inflate(context, R.layout.item_home, null);
-            viewHold = new ViewHold();
+            viewHold = new HomeAdapter.ViewHold();
             viewHold.gridView = (GridViewForScrollView) convertView.findViewById(R.id.gridView);
             viewHold.blank = (TextView) convertView.findViewById(R.id.blank);
             convertView.setTag(viewHold);
         } else {
-            viewHold = (ViewHold) convertView.getTag();
+            viewHold = (HomeAdapter.ViewHold) convertView.getTag();
         }
         HomeItemAdapter adapter = new HomeItemAdapter(context, dataList);
-        viewHold.blank.setText(dataBean.getModuleTitle());
+        viewHold.blank.setText(dataBean.getCategoryName());
         viewHold.gridView.setAdapter(adapter);
         return convertView;
     }

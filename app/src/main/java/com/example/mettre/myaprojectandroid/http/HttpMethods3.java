@@ -26,9 +26,9 @@ import rx.schedulers.Schedulers;
 
 public class HttpMethods3 {
 
-//    public static final String BASE_URL = "http://192.168.0.231:8888/";//公司
+    public static final String BASE_URL = "http://192.168.0.231:8888/";//公司
 
-    public static final String BASE_URL = "http://192.168.1.107:8888/";//家
+//    public static final String BASE_URL = "http://192.168.1.107:8888/";//家
 
     private static final int DEFAULT_TIMEOUT = 25;
 
@@ -163,6 +163,13 @@ public class HttpMethods3 {
         toSubscribe(observable, subscriber);
     }
 
+    /**
+     * 商品三级分类
+     */
+    public void getCategoryList(Subscriber<HttpResult5> subscriber) {
+        Observable observable = movieService.getCategoryList().map(new HttpMethods3.HttpResultFunc3());
+        toSubscribe(observable, subscriber);
+    }
 
     private <T> void toSubscribe(Observable<T> o, Subscriber<T> s) {
         o.subscribeOn(Schedulers.io())

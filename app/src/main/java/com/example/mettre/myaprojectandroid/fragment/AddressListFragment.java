@@ -1,7 +1,6 @@
 package com.example.mettre.myaprojectandroid.fragment;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -18,7 +17,6 @@ import com.example.mettre.myaprojectandroid.bean.AddressBean;
 import com.example.mettre.myaprojectandroid.http.HttpMethods3;
 import com.example.mettre.myaprojectandroid.http.HttpResult3;
 import com.example.mettre.myaprojectandroid.http.HttpResult5;
-import com.example.mettre.myaprojectandroid.response.PageResponse;
 import com.example.mettre.myaprojectandroid.subscribers.ProgressSubscriber;
 import com.example.mettre.myaprojectandroid.subscribers.SubscriberOnNextListener;
 import com.example.mettre.myaprojectandroid.utils.ToastUtils;
@@ -37,7 +35,7 @@ import rx.Subscriber;
  * 我的收货地址
  */
 
-public class MyAddressFragment extends BaseMainFragment {
+public class AddressListFragment extends BaseMainFragment {
 
     /**
      * 收货地址列表
@@ -55,8 +53,8 @@ public class MyAddressFragment extends BaseMainFragment {
     private AddressListAdapter myAdapter;
     private List<AddressBean> addressList;
 
-    public static MyAddressFragment newInstance() {
-        return new MyAddressFragment();
+    public static AddressListFragment newInstance() {
+        return new AddressListFragment();
     }
 
     @Override

@@ -10,15 +10,17 @@ import android.widget.TextView;
 
 import com.example.mettre.myaprojectandroid.R;
 import com.example.mettre.myaprojectandroid.bean.CategoryBean;
+import com.example.mettre.myaprojectandroid.utils.MyImageLoader;
+import com.example.mettre.myaprojectandroid.view.SquareImageView;
 
 import java.util.List;
 
 public class HomeItemAdapter extends BaseAdapter {
 
     private Context context;
-    private List<CategoryBean.DataBean.DataListBean> foodDatas;
+    private List<CategoryBean> foodDatas;
 
-    public HomeItemAdapter(Context context, List<CategoryBean.DataBean.DataListBean> foodDatas) {
+    public HomeItemAdapter(Context context, List<CategoryBean> foodDatas) {
         this.context = context;
         this.foodDatas = foodDatas;
     }
@@ -29,7 +31,7 @@ public class HomeItemAdapter extends BaseAdapter {
         if (foodDatas != null) {
             return foodDatas.size();
         } else {
-            return 10;
+            return 0;
         }
     }
 
@@ -46,20 +48,19 @@ public class HomeItemAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        CategoryBean.DataBean.DataListBean subcategory = foodDatas.get(position);
+        CategoryBean subcategory = foodDatas.get(position);
         ViewHold viewHold = null;
         if (convertView == null) {
             convertView = View.inflate(context, R.layout.item_home_category, null);
             viewHold = new ViewHold();
             viewHold.tv_name = (TextView) convertView.findViewById(R.id.item_home_name);
-            viewHold.iv_icon = (ImageView) convertView.findViewById(R.id.item_album);
+            viewHold.iv_icon = (SquareImageView) convertView.findViewById(R.id.item_album);
             convertView.setTag(viewHold);
         } else {
             viewHold = (ViewHold) convertView.getTag();
         }
-        viewHold.tv_name.setText(subcategory.getTitle());
-        Uri uri = Uri.parse(subcategory.getImgURL());
-        viewHold.iv_icon.setImageURI(uri);
+        viewHold.tv_name.setText(subcategory.getCategoryName());
+        MyImageLoader.getInstance().displayImage(context, "https://wicdn.xiaohongchun.com/xhc-plat/1498710514471_4WzijshZNF.png", viewHold.iv_icon);
         return convertView;
 
 
@@ -67,7 +68,7 @@ public class HomeItemAdapter extends BaseAdapter {
 
     private static class ViewHold {
         private TextView tv_name;
-        private ImageView iv_icon;
+        private SquareImageView iv_icon;
     }
 
 }

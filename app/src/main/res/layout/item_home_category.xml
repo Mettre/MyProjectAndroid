@@ -9,7 +9,7 @@
         android:layout_height="120dp"
         android:orientation="vertical">
 
-        <ImageView
+        <com.example.mettre.myaprojectandroid.view.SquareImageView
             android:id="@+id/item_album"
             android:layout_width="85dp"
             android:layout_height="85dp"
@@ -24,9 +24,9 @@
             android:gravity="center"
             android:singleLine="true"
             android:text="标题"
-            android:textSize="12dp" />
+            android:textColor="@color/oil2"
+            android:textSize="@dimen/small" />
 
     </LinearLayout>
-
 
 </LinearLayout>

@@ -1,250 +1,74 @@
 package com.example.mettre.myaprojectandroid.bean;
 
-import java.io.Serializable;
 import java.util.List;
 
-public class CategoryBean implements Serializable {
+/**
+ * 分类列表 大小分类集合
+ */
+public class CategoryBean {
 
     /**
-     * code : 0
-     * data :
+     * 分类id
      */
+    private int categoryId;
 
-    private int code;
-    private List<DataBean> data;
+    /**
+     * 分类名称
+     */
+    private String categoryName;
 
-    public int getCode() {
-        return code;
+    /**
+     * 分类名称
+     */
+    private String imgURL;
+
+    /**
+     * 父分类Id
+     */
+    private int parentId;
+
+    /**
+     * 分类列表
+     */
+    private List<CategoryBean> childCategory;
+
+    public int getCategoryId() {
+        return categoryId;
     }
 
-    public void setCode(int code) {
-        this.code = code;
+    public void setCategoryId(int categoryId) {
+        this.categoryId = categoryId;
     }
 
-    public List<DataBean> getData() {
-        return data;
+    public String getCategoryName() {
+        return categoryName;
     }
 
-    public void setData(List<DataBean> data) {
-        this.data = data;
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
     }
 
-    public static class DataBean {
+    public int getParentId() {
+        return parentId;
+    }
 
+    public void setParentId(int parentId) {
+        this.parentId = parentId;
+    }
 
-        private String type;
-        private String moreIcon;
-        private String moreText;
-        private String moduleStyle;
-        private String moduleTitle;
-        private String moreLinkType;
-        private String interfaceLink;
-        private String moreLinkParam;
-        private String moreTextDisplay;
-        private String moreUniversalNavigator;
-        private List<DataListBean> dataList;
+    public List<CategoryBean> getChildCategory() {
+        return childCategory;
+    }
 
-        public String getType() {
-            return type;
-        }
+    public void setChildCategory(List<CategoryBean> childCategory) {
+        this.childCategory = childCategory;
+    }
 
-        public void setType(String type) {
-            this.type = type;
-        }
+    public String getImgURL() {
+        return imgURL;
+    }
 
-        public String getMoreIcon() {
-            return moreIcon;
-        }
-
-        public void setMoreIcon(String moreIcon) {
-            this.moreIcon = moreIcon;
-        }
-
-        public String getMoreText() {
-            return moreText;
-        }
-
-        public void setMoreText(String moreText) {
-            this.moreText = moreText;
-        }
-
-        public String getModuleStyle() {
-            return moduleStyle;
-        }
-
-        public void setModuleStyle(String moduleStyle) {
-            this.moduleStyle = moduleStyle;
-        }
-
-        public String getModuleTitle() {
-            return moduleTitle;
-        }
-
-        public void setModuleTitle(String moduleTitle) {
-            this.moduleTitle = moduleTitle;
-        }
-
-        public String getMoreLinkType() {
-            return moreLinkType;
-        }
-
-        public void setMoreLinkType(String moreLinkType) {
-            this.moreLinkType = moreLinkType;
-        }
-
-        public String getInterfaceLink() {
-            return interfaceLink;
-        }
-
-        public void setInterfaceLink(String interfaceLink) {
-            this.interfaceLink = interfaceLink;
-        }
-
-        public String getMoreLinkParam() {
-            return moreLinkParam;
-        }
-
-        public void setMoreLinkParam(String moreLinkParam) {
-            this.moreLinkParam = moreLinkParam;
-        }
-
-        public String getMoreTextDisplay() {
-            return moreTextDisplay;
-        }
-
-        public void setMoreTextDisplay(String moreTextDisplay) {
-            this.moreTextDisplay = moreTextDisplay;
-        }
-
-        public String getMoreUniversalNavigator() {
-            return moreUniversalNavigator;
-        }
-
-        public void setMoreUniversalNavigator(String moreUniversalNavigator) {
-            this.moreUniversalNavigator = moreUniversalNavigator;
-        }
-
-        public List<DataListBean> getDataList() {
-            return dataList;
-        }
-
-        public void setDataList(List<DataListBean> dataList) {
-            this.dataList = dataList;
-        }
-
-        public static class DataListBean {
-            /**
-             * type:我自己加的一个标识
-             * id :
-             * desc :
-             * type : category
-             * title : 防晒
-             * imgURL : https://wicdn.xiaohongchun.com/xhc-plat/1498710441052_sEBKxDGdsk.png
-             * linkType : storeTags
-             * linkParam :
-             * online_time :
-             * offline_time :
-             * universalNavigator : xhc://xiaohongchun/params?storeTags=&track_info=%7B%22api%22%3A%22%2Fauto_index%2Fauto_index%2Fcategory_index_modules%22%7D
-             */
-
-            private String id;
-            private String desc;
-            private String type;
-            private String title;
-            private String imgURL;
-            private String linkType;
-            private String linkParam;
-            private String online_time;
-            private String offline_time;
-            private String universalNavigator;
-
-            public DataListBean() {
-                super();
-            }
-
-            public DataListBean(String type) {
-                this.type = type;
-            }
-
-            public String getId() {
-                return id;
-            }
-
-            public void setId(String id) {
-                this.id = id;
-            }
-
-            public String getDesc() {
-                return desc;
-            }
-
-            public void setDesc(String desc) {
-                this.desc = desc;
-            }
-
-            public String getType() {
-                return type;
-            }
-
-            public void setType(String type) {
-                this.type = type;
-            }
-
-            public String getTitle() {
-                return title;
-            }
-
-            public void setTitle(String title) {
-                this.title = title;
-            }
-
-            public String getImgURL() {
-                return imgURL;
-            }
-
-            public void setImgURL(String imgURL) {
-                this.imgURL = imgURL;
-            }
-
-            public String getLinkType() {
-                return linkType;
-            }
-
-            public void setLinkType(String linkType) {
-                this.linkType = linkType;
-            }
-
-            public String getLinkParam() {
-                return linkParam;
-            }
-
-            public void setLinkParam(String linkParam) {
-                this.linkParam = linkParam;
-            }
-
-            public String getOnline_time() {
-                return online_time;
-            }
-
-            public void setOnline_time(String online_time) {
-                this.online_time = online_time;
-            }
-
-            public String getOffline_time() {
-                return offline_time;
-            }
-
-            public void setOffline_time(String offline_time) {
-                this.offline_time = offline_time;
-            }
-
-            public String getUniversalNavigator() {
-                return universalNavigator;
-            }
-
-            public void setUniversalNavigator(String universalNavigator) {
-                this.universalNavigator = universalNavigator;
-            }
-        }
+    public void setImgURL(String imgURL) {
+        this.imgURL = imgURL;
     }
 }
