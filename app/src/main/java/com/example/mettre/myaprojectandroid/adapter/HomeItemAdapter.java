@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.example.mettre.myaprojectandroid.R;
 import com.example.mettre.myaprojectandroid.bean.CategoryBean;
 import com.example.mettre.myaprojectandroid.utils.MyImageLoader;
+import com.example.mettre.myaprojectandroid.utils.RandomURL;
 import com.example.mettre.myaprojectandroid.view.SquareImageView;
 
 import java.util.List;
@@ -60,7 +61,7 @@ public class HomeItemAdapter extends BaseAdapter {
             viewHold = (ViewHold) convertView.getTag();
         }
         viewHold.tv_name.setText(subcategory.getCategoryName());
-        MyImageLoader.getInstance().displayImage(context, "https://wicdn.xiaohongchun.com/xhc-plat/1498710514471_4WzijshZNF.png", viewHold.iv_icon);
+        MyImageLoader.getInstance().displayImage(context, RandomURL.getInstance().getRandomUrl(), viewHold.iv_icon);
         return convertView;
 
 

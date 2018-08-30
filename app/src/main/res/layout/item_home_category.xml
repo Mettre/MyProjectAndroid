@@ -11,21 +11,23 @@
 
         <com.example.mettre.myaprojectandroid.view.SquareImageView
             android:id="@+id/item_album"
-            android:layout_width="85dp"
-            android:layout_height="85dp"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
             android:layout_gravity="center_horizontal"
             android:scaleType="centerCrop" />
 
         <TextView
             android:id="@+id/item_home_name"
-            android:layout_width="50dp"
+            android:layout_width="90dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
+            android:layout_marginTop="6dp"
+            android:ellipsize="end"
             android:gravity="center"
             android:singleLine="true"
             android:text="标题"
-            android:textColor="@color/oil2"
-            android:textSize="@dimen/small" />
+            android:textColor="@color/oil3"
+            android:textSize="@dimen/smallLittle" />
 
     </LinearLayout>
 
