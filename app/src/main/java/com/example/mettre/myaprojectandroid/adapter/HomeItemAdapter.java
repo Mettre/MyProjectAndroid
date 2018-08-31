@@ -64,7 +64,6 @@ public class HomeItemAdapter extends BaseAdapter {
         MyImageLoader.getInstance().displayImage(context, RandomURL.getInstance().getRandomUrl(), viewHold.iv_icon);
         return convertView;
 
-
     }
 
     private static class ViewHold {

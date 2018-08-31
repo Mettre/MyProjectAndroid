@@ -51,7 +51,7 @@ public class HomeFragment extends BaseMainFragment implements BaseMainFragment.O
     private void initView(View view) {
         commonTabLayout = view.findViewById(R.id.tabLayout);
         mFragments[0] = LeftFragment.newInstance();
-        mFragments[1] = CategoryFragment.newInstance();
+        mFragments[1] = GoodsCategoryFragment.newInstance();
         mFragments[2] = RightFragment.newInstance();
 
         mTabEntities = new ArrayList<>();

@@ -2,6 +2,8 @@ package com.example.mettre.myaprojectandroid.http;
 
 import com.example.mettre.myaprojectandroid.app.MyApplication;
 import com.example.mettre.myaprojectandroid.bean.AddressBean;
+import com.example.mettre.myaprojectandroid.bean.CategoryBean;
+import com.example.mettre.myaprojectandroid.bean.GoodsListBean;
 import com.example.mettre.myaprojectandroid.bean.UserBean;
 import com.example.mettre.myaprojectandroid.utils.AndroidScheduler;
 import com.example.mettre.myaprojectandroid.utils.HeaderInterceptor;
@@ -26,9 +28,9 @@ import rx.schedulers.Schedulers;
 
 public class HttpMethods3 {
 
-//    public static final String BASE_URL = "http://192.168.0.231:8888/";//公司
+    public static final String BASE_URL = "http://192.168.0.231:8888/";//公司
 
-    public static final String BASE_URL = "http://192.168.1.107:8888/";//家
+//    public static final String BASE_URL = "http://192.168.1.107:8888/";//家
 
     private static final int DEFAULT_TIMEOUT = 25;
 
@@ -171,12 +173,22 @@ public class HttpMethods3 {
         toSubscribe(observable, subscriber);
     }
 
+
+    /**
+     * 获取商品列表
+     */
+    public void getGoodsList(Subscriber<HttpResult5> subscriber, int categoryId, int page, int size) {
+        Observable observable = movieService.getGoodsList(categoryId, page, size).map(new HttpMethods3.HttpResultFunc3<GoodsListBean>());
+        toSubscribe(observable, subscriber);
+    }
+
     private <T> void toSubscribe(Observable<T> o, Subscriber<T> s) {
         o.subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidScheduler.mainThread())
                 .subscribe(s);
     }
+
 
     //在访问HttpMethods时创建单例
     private static class SingletonHolder {

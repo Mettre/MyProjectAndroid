@@ -10,13 +10,11 @@ import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 
 import com.example.mettre.myaprojectandroid.R;
-import com.example.mettre.myaprojectandroid.bean.City;
+import com.example.mettre.myaprojectandroid.bean.CityBean;
 import com.yiguo.adressselectorlib.AddressSelector;
 import com.yiguo.adressselectorlib.OnItemClickListener;
 
 import java.util.ArrayList;
-
-import me.yokeyword.fragmentation.SupportActivity;
 
 
 /**
@@ -29,7 +27,7 @@ public class BottomDialog extends PopupWindow {
 
     private AddressSelector addressSelector;
 
-    public BottomDialog(int TabAmount, FragmentActivity _mActivity, ArrayList<City> cities, OnItemClickListener onItemClickListener, AddressSelector.OnTabSelectedListener onTabSelectedListener) {
+    public BottomDialog(int TabAmount, FragmentActivity _mActivity, ArrayList<CityBean> cities, OnItemClickListener onItemClickListener, AddressSelector.OnTabSelectedListener onTabSelectedListener) {
 
         this.view = LayoutInflater.from(_mActivity).inflate(R.layout.bottom_address, null);
 

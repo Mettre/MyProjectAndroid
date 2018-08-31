@@ -3,6 +3,7 @@ package com.example.mettre.myaprojectandroid.adapter;
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
@@ -20,10 +21,12 @@ public class HomeAdapter extends BaseAdapter {
 
     private Context context;
     private List<CategoryBean> foodDatas;
+    private onGridViewItemListener onGridViewItemListener;
 
-    public HomeAdapter(Context context, List<CategoryBean> foodDatas) {
+    public HomeAdapter(Context context, List<CategoryBean> foodDatas, onGridViewItemListener onGridViewItemListener) {
         this.context = context;
         this.foodDatas = foodDatas;
+        this.onGridViewItemListener = onGridViewItemListener;
     }
 
     @Override
@@ -48,7 +51,7 @@ public class HomeAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        CategoryBean dataBean = foodDatas.get(position);
+        final CategoryBean dataBean = foodDatas.get(position);
         List<CategoryBean> dataList = dataBean.getChildCategory();
         HomeAdapter.ViewHold viewHold = null;
         if (convertView == null) {
@@ -63,7 +66,17 @@ public class HomeAdapter extends BaseAdapter {
         HomeItemAdapter adapter = new HomeItemAdapter(context, dataList);
         viewHold.blank.setText(dataBean.getCategoryName());
         viewHold.gridView.setAdapter(adapter);
+        viewHold.gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                onGridViewItemListener.onItemClick(dataBean.getChildCategory().get(i));
+            }
+        });
         return convertView;
+    }
+
+    public interface onGridViewItemListener {
+        void onItemClick(CategoryBean dataBean);
     }
 
     private static class ViewHold {

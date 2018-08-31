@@ -1,11 +1,12 @@
 package com.example.mettre.myaprojectandroid.bean;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * 分类列表 大小分类集合
  */
-public class CategoryBean {
+public class CategoryBean implements Serializable{
 
     /**
      * 分类id

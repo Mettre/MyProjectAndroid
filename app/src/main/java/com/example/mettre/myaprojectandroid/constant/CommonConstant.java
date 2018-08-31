@@ -14,6 +14,11 @@ public interface CommonConstant {
     Integer USER_INFOR = 1111;
 
     /**
+     * 商品列表刷新
+     */
+    Integer GOODS_REFRESH = 2222222;
+
+    /**
      * 性别男
      */
     Integer SEX_MAN = 1;

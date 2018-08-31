@@ -9,7 +9,7 @@ import java.util.ArrayList;
  * Created by app on 2017/11/5.
  */
 
-public class City implements CityInterface,Serializable {
+public class CityBean implements CityInterface,Serializable {
 
     private String Name;
     private String id;

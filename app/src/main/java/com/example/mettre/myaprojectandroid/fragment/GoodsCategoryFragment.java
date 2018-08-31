@@ -1,9 +1,6 @@
 package com.example.mettre.myaprojectandroid.fragment;
 
-import android.content.res.AssetManager;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,15 +14,14 @@ import com.example.mettre.myaprojectandroid.adapter.HomeAdapter;
 import com.example.mettre.myaprojectandroid.adapter.MenuAdapter;
 import com.example.mettre.myaprojectandroid.base.BaseMainFragment;
 import com.example.mettre.myaprojectandroid.bean.CategoryBean;
+import com.example.mettre.myaprojectandroid.event.StartBrotherEvent;
 import com.example.mettre.myaprojectandroid.http.HttpMethods3;
 import com.example.mettre.myaprojectandroid.http.HttpResult5;
 import com.example.mettre.myaprojectandroid.subscribers.ProgressSubscriber;
 import com.example.mettre.myaprojectandroid.subscribers.SubscriberOnNextListener;
-import com.google.gson.Gson;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,7 +30,7 @@ import rx.Subscriber;
 /**
  * 三级商品分类
  */
-public class CategoryFragment extends BaseMainFragment {
+public class GoodsCategoryFragment extends BaseMainFragment implements HomeAdapter.onGridViewItemListener {
 
     /**
      * 分级列表
@@ -56,8 +52,8 @@ public class CategoryFragment extends BaseMainFragment {
 
     private TextView tv_title;
 
-    public static CategoryFragment newInstance() {
-        return new CategoryFragment();
+    public static GoodsCategoryFragment newInstance() {
+        return new GoodsCategoryFragment();
     }
 
     @Override
@@ -74,7 +70,7 @@ public class CategoryFragment extends BaseMainFragment {
         menuAdapter = new MenuAdapter(_mActivity, menuList);
         lv_menu.setAdapter(menuAdapter);
 
-        homeAdapter = new HomeAdapter(_mActivity, secondList);
+        homeAdapter = new HomeAdapter(_mActivity, secondList, this);
         lv_home.setAdapter(homeAdapter);
 
         lv_menu.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -176,36 +172,14 @@ public class CategoryFragment extends BaseMainFragment {
                 listList.add(list);
             }
         }
-
-        Log.e("-------11111------", "" + new Gson().toJson(listList));
         tv_title.setText(categoryList.get(0).getChildCategory().get(0).getCategoryName());
 
         menuAdapter.notifyDataSetChanged();
         homeAdapter.notifyDataSetChanged();
     }
 
-    /**
-     * 得到json文件中的内容
-     *
-     * @param _mActivity
-     * @param fileName
-     * @return
-     */
-    public static String getJson(FragmentActivity _mActivity, String fileName) {
-        StringBuilder stringBuilder = new StringBuilder();
-        //获得assets资源管理器
-        AssetManager assetManager = _mActivity.getAssets();
-        //使用IO流读取json文件内容
-        try {
-            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(
-                    assetManager.open(fileName), "utf-8"));
-            String line;
-            while ((line = bufferedReader.readLine()) != null) {
-                stringBuilder.append(line);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return stringBuilder.toString();
+    @Override
+    public void onItemClick(CategoryBean dataBean) {
+        EventBus.getDefault().post(new StartBrotherEvent((GoodsListFragment.newInstance(dataBean.getCategoryId()))));
     }
 }

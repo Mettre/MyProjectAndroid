@@ -2,7 +2,6 @@ package com.example.mettre.myaprojectandroid.fragment;
 
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,7 +15,7 @@ import android.widget.TextView;
 import com.example.mettre.myaprojectandroid.R;
 import com.example.mettre.myaprojectandroid.base.BaseMainFragment;
 import com.example.mettre.myaprojectandroid.bean.AddressBean;
-import com.example.mettre.myaprojectandroid.bean.City;
+import com.example.mettre.myaprojectandroid.bean.CityBean;
 import com.example.mettre.myaprojectandroid.dialog.BottomDialog;
 import com.example.mettre.myaprojectandroid.http.HttpMethods3;
 import com.example.mettre.myaprojectandroid.http.HttpResult3;
@@ -64,9 +63,9 @@ public class AddAddressFragment extends BaseMainFragment implements View.OnClick
     private String city;
     private String district;
 
-    private ArrayList<City> cities1 = new ArrayList<>();//省
-    private ArrayList<City> cities2 = new ArrayList<>();//市
-    private ArrayList<City> cities3 = new ArrayList<>();//区
+    private ArrayList<CityBean> cities1 = new ArrayList<>();//省
+    private ArrayList<CityBean> cities2 = new ArrayList<>();//市
+    private ArrayList<CityBean> cities3 = new ArrayList<>();//区
 
     /**
      * 添加收货地址
@@ -130,15 +129,15 @@ public class AddAddressFragment extends BaseMainFragment implements View.OnClick
         try {
             JSONArray jsonArray = new JSONArray(getString(R.string.cities1));
             for (int i = 0; i < jsonArray.length(); i++) {
-                cities1.add(new Gson().fromJson(jsonArray.get(i).toString(), City.class));
+                cities1.add(new Gson().fromJson(jsonArray.get(i).toString(), CityBean.class));
             }
             JSONArray jsonArray2 = new JSONArray(getString(R.string.cities2));
             for (int i = 0; i < jsonArray2.length(); i++) {
-                cities2.add(new Gson().fromJson(jsonArray2.get(i).toString(), City.class));
+                cities2.add(new Gson().fromJson(jsonArray2.get(i).toString(), CityBean.class));
             }
             JSONArray jsonArray3 = new JSONArray(getString(R.string.cities3));
             for (int i = 0; i < jsonArray3.length(); i++) {
-                cities3.add(new Gson().fromJson(jsonArray3.get(i).toString(), City.class));
+                cities3.add(new Gson().fromJson(jsonArray3.get(i).toString(), CityBean.class));
             }
         } catch (JSONException e) {
             e.printStackTrace();
