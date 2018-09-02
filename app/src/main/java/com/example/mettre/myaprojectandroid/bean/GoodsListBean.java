@@ -1,56 +1,63 @@
 package com.example.mettre.myaprojectandroid.bean;
 
+import java.io.Serializable;
+
 /**
  * Created by Mettre on 2018/8/31.
  * 商品列表
  */
 
-public class GoodsListBean {
+public class GoodsListBean implements Serializable{
+
 
     /**
-     * goodsId : 3
-     * goodsName : iphone7 64G 黑色
-     * categoryId : 19
-     * goodsSn : 2222222321221221
-     * brandId : 20
-     * stock : 99
-     * marketPrice : 4999
-     * shopPrice : 4688
-     * goodsBrief : 苹果手机，西半球最好的手机
-     * goodsDesc : iPhone7乔布斯的最后遗作，品质很好，质量很好
-     * createTime : 2018-08-28 08:56:23
+     * brandId : 42
+     * brandName : 华为
+     * categoryId : 35
+     * categoryName : 智能手机
+     * createTime : 2018-09-01 19:49:19
+     * goodsBrief : 华为最好用的手机
+     * goodsDesc : 华为最好用的手机
+     * goodsId : 2
+     * goodsName : 华为P20黑色32G
+     * goodsSn : 233111113423423432
      * isPromote : false
-     * lastUpdate : 2018-08-31 14:19:15
+     * lastUpdate : 2018-09-01 19:49:19
+     * marketPrice : 4688.0
+     * shopPrice : 4599.0
+     * stock : 999
      */
 
-    private int goodsId;
-    private String goodsName;
-    private int categoryId;
-    private long goodsSn;
     private int brandId;
-    private int stock;
-    private int marketPrice;
-    private int shopPrice;
+    private String brandName;
+    private int categoryId;
+    private String categoryName;
+    private String createTime;
     private String goodsBrief;
     private String goodsDesc;
-    private String createTime;
+    private int goodsId;
+    private String goodsName;
+    private long goodsSn;
     private boolean isPromote;
     private String lastUpdate;
+    private double marketPrice;
+    private double shopPrice;
+    private int stock;
 
-    public int getGoodsId() {
-        return goodsId;
+    public int getBrandId() {
+        return brandId;
     }
 
-    public void setGoodsId(int goodsId) {
-        this.goodsId = goodsId;
+    public void setBrandId(int brandId) {
+        this.brandId = brandId;
     }
 
-    public String getGoodsName() {
-        return goodsName;
+    public String getBrandName() {
+        return brandName;
     }
 
-    public void setGoodsName(String goodsName) {
-        this.goodsName = goodsName;
+    public void setBrandName(String brandName) {
+        this.brandName = brandName;
     }
 
     public int getCategoryId() {
@@ -61,44 +68,20 @@ public class GoodsListBean {
         this.categoryId = categoryId;
     }
 
-    public long getGoodsSn() {
-        return goodsSn;
+    public String getCategoryName() {
+        return categoryName;
     }
 
-    public void setGoodsSn(long goodsSn) {
-        this.goodsSn = goodsSn;
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
     }
 
-    public int getBrandId() {
-        return brandId;
+    public String getCreateTime() {
+        return createTime;
     }
 
-    public void setBrandId(int brandId) {
-        this.brandId = brandId;
-    }
-
-    public int getStock() {
-        return stock;
-    }
-
-    public void setStock(int stock) {
-        this.stock = stock;
-    }
-
-    public int getMarketPrice() {
-        return marketPrice;
-    }
-
-    public void setMarketPrice(int marketPrice) {
-        this.marketPrice = marketPrice;
-    }
-
-    public int getShopPrice() {
-        return shopPrice;
-    }
-
-    public void setShopPrice(int shopPrice) {
-        this.shopPrice = shopPrice;
+    public void setCreateTime(String createTime) {
+        this.createTime = createTime;
     }
 
     public String getGoodsBrief() {
@@ -117,12 +100,28 @@ public class GoodsListBean {
         this.goodsDesc = goodsDesc;
     }
 
-    public String getCreateTime() {
-        return createTime;
+    public int getGoodsId() {
+        return goodsId;
     }
 
-    public void setCreateTime(String createTime) {
-        this.createTime = createTime;
+    public void setGoodsId(int goodsId) {
+        this.goodsId = goodsId;
+    }
+
+    public String getGoodsName() {
+        return goodsName;
+    }
+
+    public void setGoodsName(String goodsName) {
+        this.goodsName = goodsName;
+    }
+
+    public long getGoodsSn() {
+        return goodsSn;
+    }
+
+    public void setGoodsSn(long goodsSn) {
+        this.goodsSn = goodsSn;
     }
 
     public boolean isIsPromote() {
@@ -139,5 +138,29 @@ public class GoodsListBean {
 
     public void setLastUpdate(String lastUpdate) {
         this.lastUpdate = lastUpdate;
+    }
+
+    public double getMarketPrice() {
+        return marketPrice;
+    }
+
+    public void setMarketPrice(double marketPrice) {
+        this.marketPrice = marketPrice;
+    }
+
+    public double getShopPrice() {
+        return shopPrice;
+    }
+
+    public void setShopPrice(double shopPrice) {
+        this.shopPrice = shopPrice;
+    }
+
+    public int getStock() {
+        return stock;
+    }
+
+    public void setStock(int stock) {
+        this.stock = stock;
     }
 }

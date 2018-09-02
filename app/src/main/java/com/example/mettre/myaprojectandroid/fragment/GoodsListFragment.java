@@ -45,7 +45,6 @@ public class GoodsListFragment extends BaseMainFragment {
     private SubscriberOnNextListener getRefreshGoodsListNext;
     private Subscriber<HttpResult5> subscriber;
 
-
     //商品分类
     private int categoryId;
 
@@ -102,7 +101,7 @@ public class GoodsListFragment extends BaseMainFragment {
         myAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-
+                start(GoodsDetailsFragment.newInstance(goodsList.get(position).getGoodsId()));
             }
         });
 

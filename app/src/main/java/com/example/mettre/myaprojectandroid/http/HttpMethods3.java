@@ -3,6 +3,7 @@ package com.example.mettre.myaprojectandroid.http;
 import com.example.mettre.myaprojectandroid.app.MyApplication;
 import com.example.mettre.myaprojectandroid.bean.AddressBean;
 import com.example.mettre.myaprojectandroid.bean.CategoryBean;
+import com.example.mettre.myaprojectandroid.bean.GoodsDetailsBean;
 import com.example.mettre.myaprojectandroid.bean.GoodsListBean;
 import com.example.mettre.myaprojectandroid.bean.UserBean;
 import com.example.mettre.myaprojectandroid.utils.AndroidScheduler;
@@ -28,9 +29,9 @@ import rx.schedulers.Schedulers;
 
 public class HttpMethods3 {
 
-    public static final String BASE_URL = "http://192.168.0.231:8888/";//公司
+//    public static final String BASE_URL = "http://192.168.0.231:8888/";//公司
 
-//    public static final String BASE_URL = "http://192.168.1.107:8888/";//家
+    public static final String BASE_URL = "http://192.168.1.107:8888/";//家
 
     private static final int DEFAULT_TIMEOUT = 25;
 
@@ -179,6 +180,15 @@ public class HttpMethods3 {
      */
     public void getGoodsList(Subscriber<HttpResult5> subscriber, int categoryId, int page, int size) {
         Observable observable = movieService.getGoodsList(categoryId, page, size).map(new HttpMethods3.HttpResultFunc3<GoodsListBean>());
+        toSubscribe(observable, subscriber);
+    }
+
+
+    /**
+     * 获取商品详细地址
+     */
+    public void getGoodsDetails(Subscriber<HttpResult3> subscriber, long goodsId) {
+        Observable observable = movieService.getGoodsDetails(goodsId).map(new HttpMethods3.HttpResultFunc2<GoodsDetailsBean>());
         toSubscribe(observable, subscriber);
     }
 

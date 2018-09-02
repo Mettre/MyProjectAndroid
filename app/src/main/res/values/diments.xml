@@ -1,9 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <dimen name="spacing_tiny">6dp</dimen>
+    <dimen name="spacing_tinyer">4dp</dimen>
+    <dimen name="spacing_tinyest">2dp</dimen>
+    <dimen name="spacing_smallest">8dp</dimen>
+    <dimen name="spacing_smaller">10dp</dimen>
     <dimen name="smallLittle">11sp</dimen>
     <dimen name="small">12sp</dimen>
     <dimen name="size13">13sp</dimen>
     <dimen name="normal">14sp</dimen>
     <dimen name="slightly">15sp</dimen>
     <dimen name="medium">16sp</dimen>
+
+    <dimen name="font_large">18sp</dimen>
+    <dimen name="font_smaller">14sp</dimen>
+    <dimen name="font_small">12sp</dimen>
+
+    <dimen name="spacing_larger">34dp</dimen>
+
+    <dimen name="spacing_large">24dp</dimen>
 </resources>

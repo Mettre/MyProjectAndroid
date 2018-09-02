@@ -3,6 +3,7 @@ package com.example.mettre.myaprojectandroid.http;
 import com.example.mettre.myaprojectandroid.bean.AddressBean;
 import com.example.mettre.myaprojectandroid.bean.CaptchaBean;
 import com.example.mettre.myaprojectandroid.bean.CategoryBean;
+import com.example.mettre.myaprojectandroid.bean.GoodsDetailsBean;
 import com.example.mettre.myaprojectandroid.bean.GoodsListBean;
 import com.example.mettre.myaprojectandroid.bean.LoginBean;
 import com.example.mettre.myaprojectandroid.bean.UserBean;
@@ -126,5 +127,13 @@ public interface MovieService {
     @POST(ConstantUtil.SHOPPING + "/goods/findGoods")
     Observable<HttpResult5<GoodsListBean>> getGoodsList(
             @Field(value = "categoryId") int categoryId, @Field(value = "page") int page, @Field(value = "size") int size);
+
+    /**
+     * 获取商品详细地址
+     */
+    @FormUrlEncoded
+    @POST(ConstantUtil.SHOPPING + "/goods/findGoodDetails")
+    Observable<HttpResult3<GoodsDetailsBean>> getGoodsDetails(
+            @Field(value = "goodsId") long goodsId);
 
 }
