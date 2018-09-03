@@ -33,20 +33,11 @@ public interface CommonConstant {
      */
     Integer SEX_SECRET = 2;
 
-    /**
-     * 正常状态
-     */
-    Integer STATUS_NORMAL = 0;
+    //首页轮播图编码
+    String HOME_PROMOTION = "HOME_PROMOTION";
 
-    /**
-     * 禁用状态
-     */
-    Integer STATUS_DISABLE = -1;
-
-    /**
-     * 删除标志
-     */
-    Integer DEL_FLAG = 1;
+    //首页推荐图编码
+    String HOME_RECOMMENT = "HOME_RECOMMENT";
 
     /**
      * 限流标识

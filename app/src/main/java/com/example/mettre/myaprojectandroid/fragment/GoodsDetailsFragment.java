@@ -17,7 +17,7 @@ import android.widget.TextView;
 import com.example.mettre.myaprojectandroid.R;
 import com.example.mettre.myaprojectandroid.base.BaseMainFragment;
 import com.example.mettre.myaprojectandroid.bean.GoodsDetailsBean;
-import com.example.mettre.myaprojectandroid.http.HttpMethods3;
+import com.example.mettre.myaprojectandroid.http.HttpMethods;
 import com.example.mettre.myaprojectandroid.http.HttpResult3;
 import com.example.mettre.myaprojectandroid.subscribers.ProgressSubscriber;
 import com.example.mettre.myaprojectandroid.subscribers.SubscriberOnNextListener;
@@ -33,7 +33,6 @@ import com.joanzapata.android.QuickAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
-import cn.pedant.SweetAlert.SweetAlertDialog;
 import rx.Subscriber;
 
 /**
@@ -43,7 +42,7 @@ public class GoodsDetailsFragment extends BaseMainFragment implements GradationS
 
 
     private long goodsId;
-    private TextView goods_name,goods_brief_text,shop_price_text,market_price_text;
+    private TextView goods_name, goods_brief_text, shop_price_text, market_price_text;
     private GoodsDetailsBean goodsDetailsBean;
     private SubscriberOnNextListener getGoodsDetailsNext;
     private Subscriber<HttpResult3> subscriber;
@@ -78,7 +77,7 @@ public class GoodsDetailsFragment extends BaseMainFragment implements GradationS
         View view = inflater.inflate(R.layout.fragment_goods_details, container, false);
 
         goodsId = getArguments().getLong("goodsId");
-        initClickListener(view,R.id.back_ImageView,R.id.tv_good_detail_buy,R.id.tv_good_detail_shop_cart,R.id.iv_good_detail_shop,R.id.iv_good_detail_share);
+        initClickListener(view, R.id.back_ImageView, R.id.tv_good_detail_buy, R.id.tv_good_detail_shop_cart, R.id.iv_good_detail_shop, R.id.iv_good_detail_share);
         initView(view);
 
         getGoodsDetails(goodsId);
@@ -120,7 +119,7 @@ public class GoodsDetailsFragment extends BaseMainFragment implements GradationS
     }
 
 
-    private void initGoodsDetailsDate(){
+    private void initGoodsDetailsDate() {
         goods_name.setText(goodsDetailsBean.getGoodsName());
         goods_brief_text.setText(goodsDetailsBean.getGoodsBrief());
         shop_price_text.setText(BigDecimalUtils.wipeBigDecimalZero(goodsDetailsBean.getShopPrice()));
@@ -162,14 +161,14 @@ public class GoodsDetailsFragment extends BaseMainFragment implements GradationS
             }
         };
         subscriber = new ProgressSubscriber(getGoodsDetailsNext, _mActivity);
-        HttpMethods3.getInstance().getGoodsDetails(subscriber, goodsId);
-        }
+        HttpMethods.getInstance().getGoodsDetails(subscriber, goodsId);
+    }
 
 
     @Override
     public void onClick(View v) {
         super.onClick(v);
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.back_ImageView:
                 pop();
                 break;

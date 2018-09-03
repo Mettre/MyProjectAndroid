@@ -15,7 +15,7 @@ import com.example.mettre.myaprojectandroid.adapter.MenuAdapter;
 import com.example.mettre.myaprojectandroid.base.BaseMainFragment;
 import com.example.mettre.myaprojectandroid.bean.CategoryBean;
 import com.example.mettre.myaprojectandroid.event.StartBrotherEvent;
-import com.example.mettre.myaprojectandroid.http.HttpMethods3;
+import com.example.mettre.myaprojectandroid.http.HttpMethods;
 import com.example.mettre.myaprojectandroid.http.HttpResult5;
 import com.example.mettre.myaprojectandroid.subscribers.ProgressSubscriber;
 import com.example.mettre.myaprojectandroid.subscribers.SubscriberOnNextListener;
@@ -150,7 +150,7 @@ public class GoodsCategoryFragment extends BaseMainFragment implements HomeAdapt
             }
         };
         subscriber = new ProgressSubscriber(getCategoryListNext, _mActivity, false);
-        HttpMethods3.getInstance().getCategoryList(subscriber);
+        HttpMethods.getInstance().getCategoryList(subscriber);
     }
 
 

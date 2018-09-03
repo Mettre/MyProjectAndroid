@@ -14,7 +14,7 @@ import com.example.mettre.myaprojectandroid.R;
 import com.example.mettre.myaprojectandroid.adapter.AddressListAdapter;
 import com.example.mettre.myaprojectandroid.base.BaseMainFragment;
 import com.example.mettre.myaprojectandroid.bean.AddressBean;
-import com.example.mettre.myaprojectandroid.http.HttpMethods3;
+import com.example.mettre.myaprojectandroid.http.HttpMethods;
 import com.example.mettre.myaprojectandroid.http.HttpResult3;
 import com.example.mettre.myaprojectandroid.http.HttpResult5;
 import com.example.mettre.myaprojectandroid.subscribers.ProgressSubscriber;
@@ -181,7 +181,7 @@ public class AddressListFragment extends BaseMainFragment {
             }
         };
 
-        HttpMethods3.getInstance().deleteDelivery(new ProgressSubscriber(deleteAddress, _mActivity), id);
+        HttpMethods.getInstance().deleteDelivery(new ProgressSubscriber(deleteAddress, _mActivity), id);
     }
 
     /**
@@ -249,7 +249,7 @@ public class AddressListFragment extends BaseMainFragment {
             }
         };
         subscriber2 = new ProgressSubscriber(getAddAddressListNext, _mActivity, false);
-        HttpMethods3.getInstance().AddressList(subscriber2, page, pageSize);
+        HttpMethods.getInstance().AddressList(subscriber2, page, pageSize);
     }
 
 }

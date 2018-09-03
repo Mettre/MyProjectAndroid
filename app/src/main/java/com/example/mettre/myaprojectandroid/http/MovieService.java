@@ -97,6 +97,14 @@ public interface MovieService {
             @Header("authorities") String authorities,
             @Body HashMap<String, String> map);
 
+    /**
+     * 广告列表
+     */
+    @FormUrlEncoded
+    @POST(ConstantUtil.SHOPPING + "/getBannerList")
+    Observable<HttpResult5<AddressBean>> getBannerList(
+            @Field(value = "adPositionNo") String adPositionNo);
+
 
     /**
      * 修改个人信息

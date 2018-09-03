@@ -9,7 +9,6 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -25,7 +24,7 @@ import android.widget.Toast;
 import com.example.mettre.myaprojectandroid.R;
 import com.example.mettre.myaprojectandroid.base.BaseMainFragment;
 import com.example.mettre.myaprojectandroid.bean.UserBean;
-import com.example.mettre.myaprojectandroid.http.HttpMethods3;
+import com.example.mettre.myaprojectandroid.http.HttpMethods;
 import com.example.mettre.myaprojectandroid.http.HttpResult3;
 import com.example.mettre.myaprojectandroid.subscribers.ProgressSubscriber;
 import com.example.mettre.myaprojectandroid.subscribers.SubscriberOnNextListener;
@@ -172,7 +171,7 @@ public class InformationFragment extends BaseMainFragment implements View.OnClic
                 ToastUtils.showCenterToast("暂无网路连接，请稍后重试", 200);
             }
         };
-        HttpMethods3.getInstance().getEditUserInfo(new ProgressSubscriber(getEditNickNameNext, _mActivity), setEditInformation())
+        HttpMethods.getInstance().getEditUserInfo(new ProgressSubscriber(getEditNickNameNext, _mActivity), setEditInformation())
         ;
     }
 

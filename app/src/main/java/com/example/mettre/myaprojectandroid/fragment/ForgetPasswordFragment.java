@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import com.example.mettre.myaprojectandroid.R;
 import com.example.mettre.myaprojectandroid.base.BaseMainFragment;
-import com.example.mettre.myaprojectandroid.http.HttpMethods3;
+import com.example.mettre.myaprojectandroid.http.HttpMethods;
 import com.example.mettre.myaprojectandroid.http.HttpResult3;
 import com.example.mettre.myaprojectandroid.subscribers.ProgressSubscriber;
 import com.example.mettre.myaprojectandroid.subscribers.SubscriberOnNextListener;
@@ -122,7 +122,7 @@ public class ForgetPasswordFragment extends BaseMainFragment implements View.OnC
             }
         };
         subscriber = new ProgressSubscriber(sendPhoneNumberByResetPasswordNext, _mActivity);
-        HttpMethods3.getInstance().sendVerificationCode(subscriber, phone.getText().toString(),1);
+        HttpMethods.getInstance().sendVerificationCode(subscriber, phone.getText().toString(),1);
     }
 
     /**
@@ -171,7 +171,7 @@ public class ForgetPasswordFragment extends BaseMainFragment implements View.OnC
             }
         };
         subscriber2 = new ProgressSubscriber(resetPasswordNext, _mActivity);
-        HttpMethods3.getInstance().forgetPassword(subscriber2, phoneNumText.getText().toString(), newPassword.getText().toString(), verificationCodeNum.getText().toString());
+        HttpMethods.getInstance().forgetPassword(subscriber2, phoneNumText.getText().toString(), newPassword.getText().toString(), verificationCodeNum.getText().toString());
     }
 
 

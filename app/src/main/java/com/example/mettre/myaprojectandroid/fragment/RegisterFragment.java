@@ -12,7 +12,7 @@ import android.widget.TextView;
 import com.example.mettre.myaprojectandroid.R;
 import com.example.mettre.myaprojectandroid.base.BaseMainFragment;
 import com.example.mettre.myaprojectandroid.bean.CaptchaBean;
-import com.example.mettre.myaprojectandroid.http.HttpMethods3;
+import com.example.mettre.myaprojectandroid.http.HttpMethods;
 import com.example.mettre.myaprojectandroid.http.HttpResult3;
 import com.example.mettre.myaprojectandroid.subscribers.ProgressSubscriber;
 import com.example.mettre.myaprojectandroid.subscribers.SubscriberOnNextListener;
@@ -114,7 +114,7 @@ public class RegisterFragment extends BaseMainFragment implements View.OnClickLi
             }
         };
         subscriber2 = new ProgressSubscriber(registerNext, _mActivity);
-        HttpMethods3.getInstance().register(subscriber2, phone.getText().toString(), password.getText().toString(), verificationCodeNum.getText().toString());
+        HttpMethods.getInstance().register(subscriber2, phone.getText().toString(), password.getText().toString(), verificationCodeNum.getText().toString());
     }
 
 
@@ -163,7 +163,7 @@ public class RegisterFragment extends BaseMainFragment implements View.OnClickLi
             }
         };
         subscriber = new ProgressSubscriber(sendPhoneNumberByRegisterNext, _mActivity);
-        HttpMethods3.getInstance().sendVerificationCode(subscriber, phone.getText().toString(), 1);
+        HttpMethods.getInstance().sendVerificationCode(subscriber, phone.getText().toString(), 1);
     }
 
     @Override

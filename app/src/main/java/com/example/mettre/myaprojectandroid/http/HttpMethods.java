@@ -2,7 +2,6 @@ package com.example.mettre.myaprojectandroid.http;
 
 import com.example.mettre.myaprojectandroid.app.MyApplication;
 import com.example.mettre.myaprojectandroid.bean.AddressBean;
-import com.example.mettre.myaprojectandroid.bean.CategoryBean;
 import com.example.mettre.myaprojectandroid.bean.GoodsDetailsBean;
 import com.example.mettre.myaprojectandroid.bean.GoodsListBean;
 import com.example.mettre.myaprojectandroid.bean.UserBean;
@@ -27,11 +26,11 @@ import rx.schedulers.Schedulers;
  * Created by app on 2017/9/22.
  */
 
-public class HttpMethods3 {
+public class HttpMethods {
 
-//    public static final String BASE_URL = "http://192.168.0.231:8888/";//公司
+    public static final String BASE_URL = "http://192.168.0.176:8888/";//公司
 
-    public static final String BASE_URL = "http://192.168.1.107:8888/";//家
+//    public static final String BASE_URL = "http://192.168.1.107:8888/";//家
 
     private static final int DEFAULT_TIMEOUT = 25;
 
@@ -39,7 +38,7 @@ public class HttpMethods3 {
     private MovieService movieService;
 
     //构造方法私有
-    private HttpMethods3() {
+    private HttpMethods() {
         //手动创建一个OkHttpClient并设置超时时间
         OkHttpClient.Builder builder = new OkHttpClient.Builder();
 
@@ -58,8 +57,8 @@ public class HttpMethods3 {
     }
 
     //获取单例
-    public static HttpMethods3 getInstance() {
-        return HttpMethods3.SingletonHolder.INSTANCE;
+    public static HttpMethods getInstance() {
+        return HttpMethods.SingletonHolder.INSTANCE;
     }
 
     /**
@@ -96,7 +95,7 @@ public class HttpMethods3 {
         HashMap<String, Object> map = new HashMap<String, Object>();
         map.put("phone", phone);
         map.put("captchaType", captchaType);
-        Observable observable = movieService.sendVerificationCode(map).map(new HttpMethods3.HttpResultFunc2());
+        Observable observable = movieService.sendVerificationCode(map).map(new HttpMethods.HttpResultFunc2());
         toSubscribe(observable, subscriber);
     }
 
@@ -109,7 +108,7 @@ public class HttpMethods3 {
         map.put("phone", phone);
         map.put("password", password);
         map.put("captchaCode", captchaCode);
-        Observable observable = movieService.forgetPassword(map).map(new HttpMethods3.HttpResultFunc2<AddressBean>());
+        Observable observable = movieService.forgetPassword(map).map(new HttpMethods.HttpResultFunc2<AddressBean>());
         toSubscribe(observable, subscriber);
     }
 
@@ -117,7 +116,7 @@ public class HttpMethods3 {
      * 添加收货地址
      */
     public void AddAddressRequest(Subscriber<HttpResult3> subscriber, AddressBean addressBean) {
-        Observable observable = movieService.addAddressRequest("Bearer " + MyApplication.getInstances().getToken(), addressBean).map(new HttpMethods3.HttpResultFunc2<AddressBean>());
+        Observable observable = movieService.addAddressRequest("Bearer " + MyApplication.getInstances().getToken(), addressBean).map(new HttpMethods.HttpResultFunc2<AddressBean>());
         toSubscribe(observable, subscriber);
     }
 
@@ -125,7 +124,7 @@ public class HttpMethods3 {
      * 修改收货地址
      */
     public void modifyAddressRequest(Subscriber<HttpResult3> subscriber, AddressBean addressBean) {
-        Observable observable = movieService.modifyAddressRequest("Bearer " + MyApplication.getInstances().getToken(), addressBean).map(new HttpMethods3.HttpResultFunc2<AddressBean>());
+        Observable observable = movieService.modifyAddressRequest("Bearer " + MyApplication.getInstances().getToken(), addressBean).map(new HttpMethods.HttpResultFunc2<AddressBean>());
         toSubscribe(observable, subscriber);
     }
 
@@ -135,7 +134,7 @@ public class HttpMethods3 {
     public void deleteDelivery(Subscriber<HttpResult3> subscriber, long addressIds) {
         HashMap<String, String> map = new HashMap<String, String>();
         map.put("addressIds", String.valueOf(addressIds));
-        Observable observable = movieService.deleteDelivery("Bearer " + MyApplication.getInstances().getToken(), map).map(new HttpMethods3.HttpResultFunc2<AddressBean>());
+        Observable observable = movieService.deleteDelivery("Bearer " + MyApplication.getInstances().getToken(), map).map(new HttpMethods.HttpResultFunc2<AddressBean>());
         toSubscribe(observable, subscriber);
     }
 
@@ -146,7 +145,15 @@ public class HttpMethods3 {
         HashMap<String, String> map = new HashMap<String, String>();
         map.put("page", String.valueOf(page));
         map.put("size", String.valueOf(size));
-        Observable observable = movieService.getListAddress("Bearer " + MyApplication.getInstances().getToken(), map).map(new HttpMethods3.HttpResultFunc3<AddressBean>());
+        Observable observable = movieService.getListAddress("Bearer " + MyApplication.getInstances().getToken(), map).map(new HttpMethods.HttpResultFunc3<AddressBean>());
+        toSubscribe(observable, subscriber);
+    }
+
+    /**
+     * 广告列表
+     */
+    public void getBannerList(Subscriber<HttpResult5> subscriber, String adPositionNo) {
+        Observable observable = movieService.getBannerList(adPositionNo).map(new HttpMethods.HttpResultFunc3<AddressBean>());
         toSubscribe(observable, subscriber);
     }
 
@@ -154,7 +161,7 @@ public class HttpMethods3 {
      * 修改个人信息
      */
     public void getEditUserInfo(Subscriber<HttpResult3> subscriber, UserBean userBean) {
-        Observable observable = movieService.getEditUserInfo("Bearer " + MyApplication.getInstances().getToken(), userBean).map(new HttpMethods3.HttpResultFunc2<UserBean>());
+        Observable observable = movieService.getEditUserInfo("Bearer " + MyApplication.getInstances().getToken(), userBean).map(new HttpMethods.HttpResultFunc2<UserBean>());
         toSubscribe(observable, subscriber);
     }
 
@@ -162,7 +169,7 @@ public class HttpMethods3 {
      * 获取个人信息
      */
     public void getUserInfo(Subscriber<HttpResult3> subscriber) {
-        Observable observable = movieService.getUserInfo("Bearer " + MyApplication.getInstances().getToken()).map(new HttpMethods3.HttpResultFunc2());
+        Observable observable = movieService.getUserInfo("Bearer " + MyApplication.getInstances().getToken()).map(new HttpMethods.HttpResultFunc2());
         toSubscribe(observable, subscriber);
     }
 
@@ -170,7 +177,7 @@ public class HttpMethods3 {
      * 商品三级分类
      */
     public void getCategoryList(Subscriber<HttpResult5> subscriber) {
-        Observable observable = movieService.getCategoryList().map(new HttpMethods3.HttpResultFunc3());
+        Observable observable = movieService.getCategoryList().map(new HttpMethods.HttpResultFunc3());
         toSubscribe(observable, subscriber);
     }
 
@@ -179,7 +186,7 @@ public class HttpMethods3 {
      * 获取商品列表
      */
     public void getGoodsList(Subscriber<HttpResult5> subscriber, int categoryId, int page, int size) {
-        Observable observable = movieService.getGoodsList(categoryId, page, size).map(new HttpMethods3.HttpResultFunc3<GoodsListBean>());
+        Observable observable = movieService.getGoodsList(categoryId, page, size).map(new HttpMethods.HttpResultFunc3<GoodsListBean>());
         toSubscribe(observable, subscriber);
     }
 
@@ -188,7 +195,7 @@ public class HttpMethods3 {
      * 获取商品详细地址
      */
     public void getGoodsDetails(Subscriber<HttpResult3> subscriber, long goodsId) {
-        Observable observable = movieService.getGoodsDetails(goodsId).map(new HttpMethods3.HttpResultFunc2<GoodsDetailsBean>());
+        Observable observable = movieService.getGoodsDetails(goodsId).map(new HttpMethods.HttpResultFunc2<GoodsDetailsBean>());
         toSubscribe(observable, subscriber);
     }
 
@@ -202,7 +209,7 @@ public class HttpMethods3 {
 
     //在访问HttpMethods时创建单例
     private static class SingletonHolder {
-        private static final HttpMethods3 INSTANCE = new HttpMethods3();
+        private static final HttpMethods INSTANCE = new HttpMethods();
     }
 
     private class HttpResultFunc<T> implements Func1<T, T> {
@@ -224,7 +231,7 @@ public class HttpMethods3 {
         @Override
         public T call(HttpResult3<T> httpResult) {
             if (!httpResult.isSuccess()) {
-                throw new ApiException3(httpResult.getCode(), httpResult.getMessage());
+                throw new ApiException(httpResult.getCode(), httpResult.getMessage());
             }
             return httpResult.getData();
         }
@@ -241,7 +248,7 @@ public class HttpMethods3 {
         @Override
         public List<T> call(HttpResult5<T> httpResult) {
             if (!httpResult.isSuccess()) {
-                throw new ApiException3(httpResult.getCode(), httpResult.getMessage());
+                throw new ApiException(httpResult.getCode(), httpResult.getMessage());
             }
             return httpResult.getData();
         }

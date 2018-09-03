@@ -1,17 +1,18 @@
 package com.example.mettre.myaprojectandroid.http;
 
 /**
- * Created by liukun on 16/3/10.
+ * Created by app on 2017/9/25.
  */
+
 public class ApiException extends RuntimeException {
 
-    public static final int USER_NOT_EXIST = 100;
-    public static final int WRONG_PASSWORD = 101;
-    private static final int LOGINEXPIRED =401;
-    private static final int USER_CODE_ERROR =3014;
+    public static final int USER_NOT_EXIST = 200;
+    public static final int WRONG_PASSWORD = 100;
+    private static final int LOGINEXPIRED = 300;
+    private static final int USER_CODE_ERROR = 400;
 
-    public ApiException(int status,String Message) {
-        this(getApiExceptionMessage(status,Message));
+    public ApiException(Integer code, String Message) {
+        this(getApiExceptionMessage(code, Message));
     }
 
     public ApiException(String detailMessage) {
@@ -21,12 +22,13 @@ public class ApiException extends RuntimeException {
     /**
      * 由于服务器传递过来的错误信息直接给用户看的话，用户未必能够理解
      * 需要根据错误码对错误信息进行一个转换，在显示给用户
-     * @param status
+     *
+     * @param code
      * @return
      */
-    private static String getApiExceptionMessage(int status, String Message){
+    private static String getApiExceptionMessage(int code, String Message) {
         String message = "";
-        switch (status) {
+        switch (code) {
             case USER_NOT_EXIST:
                 message = "该用户不存在";
                 break;
@@ -46,4 +48,3 @@ public class ApiException extends RuntimeException {
         return message;
     }
 }
-

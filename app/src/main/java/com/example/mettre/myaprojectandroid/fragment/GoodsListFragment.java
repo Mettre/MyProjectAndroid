@@ -2,7 +2,6 @@ package com.example.mettre.myaprojectandroid.fragment;
 
 import android.graphics.Paint;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
@@ -17,7 +16,7 @@ import com.example.mettre.myaprojectandroid.R;
 import com.example.mettre.myaprojectandroid.base.BaseMainFragment;
 import com.example.mettre.myaprojectandroid.bean.GoodsListBean;
 import com.example.mettre.myaprojectandroid.constant.CommonConstant;
-import com.example.mettre.myaprojectandroid.http.HttpMethods3;
+import com.example.mettre.myaprojectandroid.http.HttpMethods;
 import com.example.mettre.myaprojectandroid.http.HttpResult5;
 import com.example.mettre.myaprojectandroid.subscribers.ProgressSubscriber;
 import com.example.mettre.myaprojectandroid.subscribers.SubscriberOnNextListener;
@@ -186,7 +185,7 @@ public class GoodsListFragment extends BaseMainFragment {
             }
         };
         subscriber = new ProgressSubscriber(getRefreshGoodsListNext, _mActivity, false);
-        HttpMethods3.getInstance().getGoodsList(subscriber, categoryId, page, pageSize);
+        HttpMethods.getInstance().getGoodsList(subscriber, categoryId, page, pageSize);
     }
 
 

@@ -13,7 +13,7 @@ import com.example.mettre.myaprojectandroid.base.BaseMainFragment;
 import com.example.mettre.myaprojectandroid.bean.LoginBean;
 import com.example.mettre.myaprojectandroid.constant.CommonConstant;
 import com.example.mettre.myaprojectandroid.event.StartBrotherEvent;
-import com.example.mettre.myaprojectandroid.http.HttpMethods3;
+import com.example.mettre.myaprojectandroid.http.HttpMethods;
 import com.example.mettre.myaprojectandroid.http.HttpResult3;
 import com.example.mettre.myaprojectandroid.subscribers.ProgressSubscriber;
 import com.example.mettre.myaprojectandroid.subscribers.SubscriberOnNextListener;
@@ -122,7 +122,7 @@ public class LoginFragment extends BaseMainFragment implements View.OnClickListe
             }
         };
         subscriber2 = new ProgressSubscriber(getOnLoginListNext, _mActivity);
-        HttpMethods3.getInstance().getLoginOnlineInfo(subscriber2, phone, password);
+        HttpMethods.getInstance().getLoginOnlineInfo(subscriber2, phone, password);
     }
 
 

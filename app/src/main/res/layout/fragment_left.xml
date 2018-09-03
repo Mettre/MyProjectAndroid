@@ -1,15 +1,288 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/md_grey_100"
     android:orientation="vertical">
 
-    <TextView
+    <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:text="左"
-        android:textColor="@color/oil"
-        android:textSize="16sp" />
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:theme="@style/AppTheme"
+        app:elevation="0dp">
 
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:minHeight="?actionBarSize"
+            app:contentInsetStart="0dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:id="@+id/malls_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:drawablePadding="3dp"
+                    android:drawableRight="@drawable/icon_down"
+                    android:gravity="center_vertical"
+                    android:maxWidth="120dp"
+                    android:paddingBottom="3dp"
+                    android:paddingLeft="13dp"
+                    android:paddingRight="1dp"
+                    android:paddingTop="3dp"
+                    android:singleLine="true"
+                    android:text="苏州市"
+                    android:textColor="@color/oil2"
+                    android:textSize="@dimen/size13" />
+
+                <LinearLayout
+                    android:id="@+id/search_LinearLayout"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="6dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="6dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_gray_radio180"
+                    android:gravity="center"
+                    android:paddingBottom="5dp"
+                    android:paddingLeft="18dp"
+                    android:paddingTop="5dp">
+
+                    <ImageView
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:src="@drawable/search" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="10dp"
+                        android:gravity="center"
+                        android:text="请输入商品名称"
+                        android:textColor="@color/monsoon"
+                        android:textSize="@dimen/size13" />
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/zxing_img"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_vertical"
+                    android:paddingLeft="12dp"
+                    android:paddingRight="10dp"
+                    android:src="@drawable/icon_scanner" />
+
+            </LinearLayout>
+
+
+        </android.support.v7.widget.Toolbar>
+    </android.support.design.widget.AppBarLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <com.zhouwei.mzbanner.MZBannerView
+                android:id="@+id/banner"
+                android:layout_width="match_parent"
+                android:layout_height="170dp"
+                app:canLoop="true"
+                app:indicatorAlign="center"
+                app:indicatorPaddingLeft="10dp"
+                app:open_mz_mode="true" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:padding="10dp"
+                android:text="每 日 购"
+                android:textColor="@color/colorAccent"
+                android:textSize="@dimen/medium" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/bg_white"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:id="@+id/linearLayout_left_top"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:padding="8dp">
+
+                    <TextView
+                        android:id="@+id/title_left_top"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="闪购"
+                        android:textColor="@color/colorAccent"
+                        android:textSize="@dimen/slightly" />
+
+                    <TextView
+                        android:id="@+id/describe_left_top"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="1dp"
+                        android:text="闪购"
+                        android:textColor="@color/oil3"
+                        android:textSize="@dimen/size13" />
+
+                    <ImageView
+                        android:id="@+id/image_left_top"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/md_grey_100" />
+
+                <LinearLayout
+                    android:id="@+id/linearLayout_right_top"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:padding="8dp">
+
+                    <TextView
+                        android:id="@+id/title_right_top"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="闪购"
+                        android:textColor="@color/colorAccent"
+                        android:textSize="@dimen/slightly" />
+
+                    <TextView
+                        android:id="@+id/describe_right_top"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="1dp"
+                        android:text="闪购"
+                        android:textColor="@color/oil3"
+                        android:textSize="@dimen/size13" />
+
+                    <ImageView
+                        android:id="@+id/image_right_top"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/md_grey_100" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/bg_white"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:id="@+id/linearLayout_left_bottom"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:padding="8dp">
+
+                    <TextView
+                        android:id="@+id/title_left_bottom"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="闪购"
+                        android:textColor="@color/colorAccent"
+                        android:textSize="@dimen/slightly" />
+
+                    <TextView
+                        android:id="@+id/describe_left_bottom"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="1dp"
+                        android:text="闪购"
+                        android:textColor="@color/oil3"
+                        android:textSize="@dimen/size13" />
+
+                    <ImageView
+                        android:id="@+id/imageView_left_bottom"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/md_grey_100" />
+
+                <LinearLayout
+                    android:id="@+id/linearLayout_right_bottom"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:padding="8dp">
+
+                    <TextView
+                        android:id="@+id/title_right_bottom"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="闪购"
+                        android:textColor="@color/colorAccent"
+                        android:textSize="@dimen/slightly" />
+
+                    <TextView
+                        android:id="@+id/describe_right_bottom"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="1dp"
+                        android:text="闪购"
+                        android:textColor="@color/oil3"
+                        android:textSize="@dimen/size13" />
+
+                    <ImageView
+                        android:id="@+id/imageView_right_bottom"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+    </ScrollView>
 </LinearLayout>

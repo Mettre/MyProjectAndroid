@@ -17,7 +17,7 @@ import com.example.mettre.myaprojectandroid.base.BaseMainFragment;
 import com.example.mettre.myaprojectandroid.bean.AddressBean;
 import com.example.mettre.myaprojectandroid.bean.CityBean;
 import com.example.mettre.myaprojectandroid.dialog.BottomDialog;
-import com.example.mettre.myaprojectandroid.http.HttpMethods3;
+import com.example.mettre.myaprojectandroid.http.HttpMethods;
 import com.example.mettre.myaprojectandroid.http.HttpResult3;
 import com.example.mettre.myaprojectandroid.subscribers.ProgressSubscriber;
 import com.example.mettre.myaprojectandroid.subscribers.SubscriberOnNextListener;
@@ -304,9 +304,9 @@ public class AddAddressFragment extends BaseMainFragment implements View.OnClick
             }
         };
         if (type) {
-            HttpMethods3.getInstance().AddAddressRequest(new ProgressSubscriber(getAddAddressNext, _mActivity), request);
+            HttpMethods.getInstance().AddAddressRequest(new ProgressSubscriber(getAddAddressNext, _mActivity), request);
         } else {
-            HttpMethods3.getInstance().modifyAddressRequest(new ProgressSubscriber(getAddAddressNext, _mActivity), request);
+            HttpMethods.getInstance().modifyAddressRequest(new ProgressSubscriber(getAddAddressNext, _mActivity), request);
         }
     }
 

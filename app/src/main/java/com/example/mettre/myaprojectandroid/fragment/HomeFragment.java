@@ -10,6 +10,7 @@ import com.example.mettre.myaprojectandroid.R;
 import com.example.mettre.myaprojectandroid.base.BaseMainFragment;
 import com.example.mettre.myaprojectandroid.event.StartBrotherEvent;
 import com.example.mettre.myaprojectandroid.utils.TabEntity;
+import com.example.mettre.myaprojectandroid.utils.ToastUtils;
 import com.flyco.tablayout.CommonTabLayout;
 import com.flyco.tablayout.listener.CustomTabEntity;
 import com.flyco.tablayout.listener.OnTabSelectListener;
@@ -27,6 +28,8 @@ import me.yokeyword.fragmentation.SupportFragment;
 
 public class HomeFragment extends BaseMainFragment implements BaseMainFragment.OnFragmentOpenDrawerListener {
 
+    private long TOUCH_TIME = 0;
+    private static final long WAIT_TIME = 2000L;
     private CommonTabLayout commonTabLayout;
     private int mCurrentPosition = 0;
     private String[] mTitles = new String[]{"首页", "分类", "我的"};
@@ -106,5 +109,22 @@ public class HomeFragment extends BaseMainFragment implements BaseMainFragment.O
     public void onDestroyView() {
         super.onDestroyView();
         EventBus.getDefault().unregister(this);
+    }
+
+
+    @Override
+    public boolean onBackPressedSupport() {
+        if (getActivity().getSupportFragmentManager().getBackStackEntryCount() > 1) {
+            pop();
+        } else {
+            if (System.currentTimeMillis() - TOUCH_TIME < WAIT_TIME) {
+                getActivity().finish();
+            } else {
+                TOUCH_TIME = System.currentTimeMillis();
+                ToastUtils.showShortToast("再按一次退出程序！");
+            }
+            return true;
+        }
+        return true;
     }
 }

@@ -15,7 +15,7 @@ import com.example.mettre.myaprojectandroid.base.BaseMainFragment;
 import com.example.mettre.myaprojectandroid.bean.UserBean;
 import com.example.mettre.myaprojectandroid.constant.CommonConstant;
 import com.example.mettre.myaprojectandroid.event.StartBrotherEvent;
-import com.example.mettre.myaprojectandroid.http.HttpMethods3;
+import com.example.mettre.myaprojectandroid.http.HttpMethods;
 import com.example.mettre.myaprojectandroid.subscribers.ProgressSubscriber;
 import com.example.mettre.myaprojectandroid.subscribers.SubscriberOnNextListener;
 import com.example.mettre.myaprojectandroid.utils.LoginUtils;
@@ -167,7 +167,7 @@ public class RightFragment extends BaseMainFragment implements View.OnClickListe
                 refreshLayout.finishRefresh(10);
             }
         };
-        HttpMethods3.getInstance().getUserInfo(new ProgressSubscriber(getUserInfoNext, _mActivity));
+        HttpMethods.getInstance().getUserInfo(new ProgressSubscriber(getUserInfoNext, _mActivity));
     }
 
     @Override
