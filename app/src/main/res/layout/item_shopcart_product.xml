@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/child_main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/md_grey_50"
+        android:orientation="horizontal">
+
+        <CheckBox
+            android:id="@+id/check_box"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="10dp"
+            android:button="@drawable/checkbox_style"
+            android:checkMark="?android:attr/listChoiceIndicatorMultiple"
+            android:gravity="center"
+            android:minHeight="64dp"
+            android:minWidth="22dp"
+            android:paddingLeft="10dp"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <com.example.mettre.myaprojectandroid.view.SquareImageView
+            android:id="@+id/iv_adapter_list_pic"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_margin="5dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/mock" />
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_margin="7dp">
+
+            <TextView
+                android:id="@+id/tv_intro"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:textColor="@color/oil"
+                android:textSize="@dimen/size13" />
+
+            <LinearLayout
+                android:id="@+id/sku_linearLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_intro"
+                android:layout_marginTop="6dp">
+
+                <TextView
+                    android:id="@+id/sku"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:ellipsize="end"
+                    android:singleLine="true"
+                    android:text="规格：红色、25"
+                    android:textColor="@color/monsoon"
+                    android:textSize="@dimen/small" />
+
+                <TextView
+                    android:id="@+id/promotionType_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_intro"
+                    android:layout_marginLeft="4dp"
+                    android:background="@color/red_mettre"
+                    android:ellipsize="end"
+                    android:paddingLeft="2dp"
+                    android:paddingRight="2dp"
+                    android:singleLine="true"
+                    android:text="满"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/smallLittle"
+                    android:visibility="gone" />
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@id/sku_linearLayout"
+                android:gravity="bottom"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tv_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:maxWidth="200dp"
+                    android:singleLine="true"
+                    android:text="￥200"
+                    android:textColor="@color/red_mettre"
+                    android:textSize="@dimen/slightly" />
+
+                <TextView
+                    android:id="@+id/price_market"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@id/tv_price"
+                    android:layout_weight="1"
+                    android:maxWidth="120dp"
+                    android:singleLine="true"
+                    android:text="￥2000"
+                    android:textColor="@color/oil"
+                    android:textSize="@dimen/size13"
+                    android:visibility="invisible" />
+
+                <LinearLayout
+                    android:id="@+id/add_reduce_LinearLayout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/bg_gray_line"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tv_reduce"
+                        android:layout_width="26dp"
+                        android:layout_height="26dp"
+                        android:gravity="center"
+                        android:text="一"
+                        android:textColor="@color/oil"
+                        android:textSize="@dimen/size13" />
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:background="@color/md_grey_300"></View>
+
+                    <TextView
+                        android:id="@+id/tv_num"
+                        android:layout_width="26dp"
+                        android:layout_height="26dp"
+                        android:gravity="center"
+                        android:singleLine="true"
+                        android:text="1"
+                        android:textColor="@color/oil"
+                        android:textSize="@dimen/size13" />
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:background="@color/md_grey_300"></View>
+
+                    <TextView
+                        android:id="@+id/tv_add"
+                        android:layout_width="26dp"
+                        android:layout_height="26dp"
+                        android:gravity="center"
+                        android:text="+"
+                        android:textColor="@color/oil"
+                        android:textSize="@dimen/size13" />
+                </LinearLayout>
+            </LinearLayout>
+        </RelativeLayout>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/bottom_line"
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:visibility="gone" />
+
+</LinearLayout>

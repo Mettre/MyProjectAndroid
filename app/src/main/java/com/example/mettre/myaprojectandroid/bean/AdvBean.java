@@ -14,8 +14,8 @@ public class AdvBean {
     private String adDescribe;
     private int adType;//   "广告属性---1：跳转H5  2：跳转商品  3：公告")
     private String adLink;
-    private Date startTime;
-    private Date endTime;
+    private String startTime;
+    private String endTime;
     private String adImage;
     private boolean enabled = true;
     private int clickCount;
@@ -68,19 +68,19 @@ public class AdvBean {
         this.adLink = adLink;
     }
 
-    public Date getStartTime() {
+    public String getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(Date startTime) {
+    public void setStartTime(String startTime) {
         this.startTime = startTime;
     }
 
-    public Date getEndTime() {
+    public String getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(Date endTime) {
+    public void setEndTime(String endTime) {
         this.endTime = endTime;
     }
 

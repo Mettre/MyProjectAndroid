@@ -237,7 +237,7 @@
                 android:layout_width="10dp"
                 android:layout_height="10dp"
                 android:layout_gravity="center_vertical"
-                android:src="@drawable/rightarrow" />
+                android:src="@drawable/right_arrow" />
         </LinearLayout>
 
         <include layout="@layout/layout_line" />
@@ -285,7 +285,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:src="@drawable/rightarrow" />
+                android:src="@drawable/right_arrow" />
         </RelativeLayout>
 
 
@@ -299,7 +299,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/list_gray_item"
-            android:drawableRight="@drawable/rightarrow"
+            android:drawableRight="@drawable/right_arrow"
             android:padding="@dimen/small"
             android:text="选择  产品分类" />
 

@@ -35,7 +35,7 @@ public class GoodsListBean implements Serializable{
     private String createTime;
     private String goodsBrief;
     private String goodsDesc;
-    private int goodsId;
+    private Long goodsId;
     private String goodsName;
     private long goodsSn;
     private boolean isPromote;
@@ -100,12 +100,20 @@ public class GoodsListBean implements Serializable{
         this.goodsDesc = goodsDesc;
     }
 
-    public int getGoodsId() {
+    public Long getGoodsId() {
         return goodsId;
     }
 
-    public void setGoodsId(int goodsId) {
+    public void setGoodsId(Long goodsId) {
         this.goodsId = goodsId;
+    }
+
+    public boolean isPromote() {
+        return isPromote;
+    }
+
+    public void setPromote(boolean promote) {
+        isPromote = promote;
     }
 
     public String getGoodsName() {

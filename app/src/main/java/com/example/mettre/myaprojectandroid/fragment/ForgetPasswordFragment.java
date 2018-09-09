@@ -19,7 +19,7 @@ import com.example.mettre.myaprojectandroid.utils.CountdownControl;
 import com.example.mettre.myaprojectandroid.utils.SharedPrefsUtil;
 import com.example.mettre.myaprojectandroid.utils.ToastUtils;
 
-import cn.pedant.SweetAlert.SweetAlertDialog;
+import com.cazaea.sweetalert.SweetAlertDialog;
 import rx.Subscriber;
 
 import static com.example.mettre.myaprojectandroid.utils.LoginUtils.isMobileNO;

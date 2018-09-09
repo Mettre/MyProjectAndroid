@@ -5,6 +5,9 @@
     <dimen name="spacing_tinyest">2dp</dimen>
     <dimen name="spacing_smallest">8dp</dimen>
     <dimen name="spacing_smaller">10dp</dimen>
+    <dimen name="spacing_large">24dp</dimen>
+    <dimen name="width_">90dp</dimen>
+
     <dimen name="smallLittle">11sp</dimen>
     <dimen name="small">12sp</dimen>
     <dimen name="size13">13sp</dimen>
@@ -13,11 +16,8 @@
     <dimen name="medium">16sp</dimen>
     <dimen name="font_large">18sp</dimen>
     <dimen name="twenty">20sp</dimen>
-
     <dimen name="font_smaller">14sp</dimen>
     <dimen name="font_small">12sp</dimen>
-
     <dimen name="spacing_larger">34dp</dimen>
 
-    <dimen name="spacing_large">24dp</dimen>
 </resources>

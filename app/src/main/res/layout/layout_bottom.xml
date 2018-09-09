@@ -20,7 +20,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/list_gray_item"
-            android:drawableRight="@drawable/rightarrow"
+            android:drawableRight="@drawable/right_arrow"
             android:padding="@dimen/small"
             android:textColor="@color/oil3"
             android:text="安全交易" />
@@ -31,7 +31,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/list_gray_item"
-            android:drawableRight="@drawable/rightarrow"
+            android:drawableRight="@drawable/right_arrow"
             android:padding="@dimen/small"
             android:textColor="@color/oil3"
             android:text="免责声明" />
@@ -42,7 +42,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/list_gray_item"
-            android:drawableRight="@drawable/rightarrow"
+            android:drawableRight="@drawable/right_arrow"
             android:padding="@dimen/small"
             android:textColor="@color/oil3"
             android:text="交易担保" />
@@ -53,7 +53,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/list_gray_item"
-            android:drawableRight="@drawable/rightarrow"
+            android:drawableRight="@drawable/right_arrow"
             android:padding="@dimen/small"
             android:textColor="@color/oil3"
             android:text="我要入驻" />

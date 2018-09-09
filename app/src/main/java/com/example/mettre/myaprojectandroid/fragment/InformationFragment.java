@@ -39,7 +39,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.List;
 
-import cn.pedant.SweetAlert.SweetAlertDialog;
+import com.cazaea.sweetalert.SweetAlertDialog;
 import pub.devrel.easypermissions.AppSettingsDialog;
 import pub.devrel.easypermissions.EasyPermissions;
 

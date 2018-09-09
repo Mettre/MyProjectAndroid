@@ -17,6 +17,5 @@ public class StartBrotherEvent {
 
     public StartBrotherEvent(int EventType) {
         this.EventType = EventType;
-
     }
 }

@@ -14,6 +14,11 @@ public interface CommonConstant {
     Integer USER_INFOR = 1111;
 
     /**
+     * 回首页
+     */
+    Integer BACK_HOME = 2222;
+
+    /**
      * 商品列表刷新
      */
     Integer GOODS_REFRESH = 2222222;

@@ -8,6 +8,7 @@ import android.widget.Toast;
 
 import com.example.mettre.myaprojectandroid.R;
 import com.example.mettre.myaprojectandroid.base.BaseMainFragment;
+import com.example.mettre.myaprojectandroid.constant.CommonConstant;
 import com.example.mettre.myaprojectandroid.event.StartBrotherEvent;
 import com.example.mettre.myaprojectandroid.utils.TabEntity;
 import com.example.mettre.myaprojectandroid.utils.ToastUtils;
@@ -32,11 +33,11 @@ public class HomeFragment extends BaseMainFragment implements BaseMainFragment.O
     private static final long WAIT_TIME = 2000L;
     private CommonTabLayout commonTabLayout;
     private int mCurrentPosition = 0;
-    private String[] mTitles = new String[]{"首页", "分类", "我的"};
+    private String[] mTitles = new String[]{"首页", "分类", "购物车", "我的"};
     private final SupportFragment[] mFragments = new SupportFragment[mTitles.length];
     private ArrayList<CustomTabEntity> mTabEntities;
-    private int[] checkeds = new int[]{R.drawable.home_icon5_true, R.drawable.home_icon5_true, R.drawable.home_icon5_true};
-    private int[] normals = new int[]{R.drawable.home_icon5_false, R.drawable.home_icon5_false, R.drawable.home_icon5_false};
+    private int[] checkeds = new int[]{R.drawable.home_icon5_true, R.drawable.home_icon5_true, R.drawable.home_icon5_true, R.drawable.home_icon5_true};
+    private int[] normals = new int[]{R.drawable.home_icon5_false, R.drawable.home_icon5_false, R.drawable.home_icon5_false, R.drawable.home_icon5_false};
 
 
     public static HomeFragment newInstance() {
@@ -55,12 +56,14 @@ public class HomeFragment extends BaseMainFragment implements BaseMainFragment.O
         commonTabLayout = view.findViewById(R.id.tabLayout);
         mFragments[0] = LeftFragment.newInstance();
         mFragments[1] = GoodsCategoryFragment.newInstance();
-        mFragments[2] = RightFragment.newInstance();
+        mFragments[2] = CartFragment.newInstance();
+        mFragments[3] = RightFragment.newInstance();
 
         mTabEntities = new ArrayList<>();
         for (int i = 0; i < mTitles.length; i++) {
             mTabEntities.add(new TabEntity(mTitles[i], checkeds[i], normals[i]));
         }
+
 
         commonTabLayout.setTabData(mTabEntities);
         commonTabLayout.setOnTabSelectListener(new OnTabSelectListener() {
@@ -77,7 +80,7 @@ public class HomeFragment extends BaseMainFragment implements BaseMainFragment.O
                 //TODO 重选
             }
         });
-        loadMultipleRootFragment(R.id.fl_change, 0, mFragments[0], mFragments[1], mFragments[2]);
+        loadMultipleRootFragment(R.id.fl_change, 0, mFragments[0], mFragments[1], mFragments[2], mFragments[3]);
     }
 
     /**
@@ -87,6 +90,12 @@ public class HomeFragment extends BaseMainFragment implements BaseMainFragment.O
     public void startBrother(StartBrotherEvent event) {
         if (event.targetFragment != null) {
             start(event.targetFragment);
+        }
+
+        if(event.EventType==CommonConstant.BACK_HOME){
+            commonTabLayout.setCurrentTab(0);
+            showHideFragment(mFragments[0], mFragments[mCurrentPosition]);
+            mCurrentPosition = 0;
         }
     }
 

@@ -22,8 +22,12 @@ import com.example.mettre.myaprojectandroid.http.HttpResult3;
 import com.example.mettre.myaprojectandroid.subscribers.ProgressSubscriber;
 import com.example.mettre.myaprojectandroid.subscribers.SubscriberOnNextListener;
 import com.example.mettre.myaprojectandroid.utils.BigDecimalUtils;
+import com.example.mettre.myaprojectandroid.utils.ConstantUtil;
 import com.example.mettre.myaprojectandroid.utils.MyImageLoader;
+import com.example.mettre.myaprojectandroid.utils.SharedPrefsUtil;
 import com.example.mettre.myaprojectandroid.utils.StatusBarUtil;
+import com.example.mettre.myaprojectandroid.utils.ToastUtils;
+import com.example.mettre.myaprojectandroid.utils.Utils;
 import com.example.mettre.myaprojectandroid.view.GradationScrollView;
 import com.example.mettre.myaprojectandroid.view.NoScrollListView;
 import com.example.mettre.myaprojectandroid.view.ScrollViewContainer;
@@ -32,6 +36,7 @@ import com.joanzapata.android.QuickAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import rx.Subscriber;
 
@@ -41,11 +46,22 @@ import rx.Subscriber;
 public class GoodsDetailsFragment extends BaseMainFragment implements GradationScrollView.ScrollViewListener {
 
 
-    private long goodsId;
+    private Long goodsId;
+    private int stock;
     private TextView goods_name, goods_brief_text, shop_price_text, market_price_text;
     private GoodsDetailsBean goodsDetailsBean;
+
+    /**
+     * 商品详情
+     */
     private SubscriberOnNextListener getGoodsDetailsNext;
     private Subscriber<HttpResult3> subscriber;
+
+    /**
+     * 加入购物车
+     */
+    private SubscriberOnNextListener getAddCartNext;
+    private Subscriber<HttpResult3> subscriber3;
 
     private GradationScrollView scrollView;
     private ImageView iv;
@@ -63,7 +79,7 @@ public class GoodsDetailsFragment extends BaseMainFragment implements GradationS
     private int height;
     private int width;
 
-    public static GoodsDetailsFragment newInstance(long goodsId) {
+    public static GoodsDetailsFragment newInstance(Long goodsId) {
         GoodsDetailsFragment goodsListFragment = new GoodsDetailsFragment();
         Bundle bundle = new Bundle();
         bundle.putLong("goodsId", goodsId);
@@ -120,6 +136,7 @@ public class GoodsDetailsFragment extends BaseMainFragment implements GradationS
 
 
     private void initGoodsDetailsDate() {
+        stock = goodsDetailsBean.getStock();
         goods_name.setText(goodsDetailsBean.getGoodsName());
         goods_brief_text.setText(goodsDetailsBean.getGoodsBrief());
         shop_price_text.setText(BigDecimalUtils.wipeBigDecimalZero(goodsDetailsBean.getShopPrice()));
@@ -129,7 +146,7 @@ public class GoodsDetailsFragment extends BaseMainFragment implements GradationS
     /**
      * 获取商品详细信息
      */
-    private void getGoodsDetails(long goodsId) {
+    private void getGoodsDetails(Long goodsId) {
 
         getGoodsDetailsNext = new SubscriberOnNextListener<GoodsDetailsBean>() {
 
@@ -165,6 +182,43 @@ public class GoodsDetailsFragment extends BaseMainFragment implements GradationS
     }
 
 
+    /**
+     * 加入购物车
+     */
+    private void getAddCartInfo(int quantity) {
+
+        getAddCartNext = new SubscriberOnNextListener<HttpResult3>() {
+
+            @Override
+            public void onNext(HttpResult3 response) {
+                ToastUtils.imageToastShow(_mActivity);
+            }
+
+            @Override
+            public void onCompleted() {
+
+            }
+
+            @Override
+            public void onError() {
+
+            }
+
+            @Override
+            public void onSocketTimeout() {
+
+            }
+
+            @Override
+            public void onConnectException() {
+
+            }
+        };
+        subscriber3 = new ProgressSubscriber(getAddCartNext, _mActivity);
+        String timestamp = SharedPrefsUtil.getValue(Utils.getContext(), ConstantUtil.TIMESTAMP, String.valueOf(new Random().nextInt(10000)));
+        HttpMethods.getInstance().getCartGoodsInfo(subscriber3, Long.parseLong(timestamp), goodsId, quantity);
+    }
+
     @Override
     public void onClick(View v) {
         super.onClick(v);
@@ -175,6 +229,11 @@ public class GoodsDetailsFragment extends BaseMainFragment implements GradationS
             case R.id.tv_good_detail_buy:
                 break;
             case R.id.tv_good_detail_shop_cart:
+                if(stock<0){
+                   ToastUtils.showCenterToast("库存不足",200);
+                }else {
+                    getAddCartInfo(1);
+                }
                 break;
             case R.id.iv_good_detail_shop:
                 break;

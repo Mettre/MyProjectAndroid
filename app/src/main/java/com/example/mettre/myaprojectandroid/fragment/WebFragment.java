@@ -88,6 +88,7 @@ public class WebFragment extends BaseMainFragment {
             }
         });
         copy_btn.setText("复制链接");
+        copy_btn.setVisibility(View.GONE);
         copy_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

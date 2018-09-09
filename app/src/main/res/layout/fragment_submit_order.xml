@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/md_grey_100"
+    android:orientation="vertical">
+
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        style="@style/Toolbar.TitleText"
+        android:layout_width="match_parent"
+        android:layout_gravity="center"
+        android:minHeight="?attr/actionBarSize"
+        android:layout_height="?attr/actionBarSize"/>
+
+
+    <ExpandableListView
+        android:id="@+id/exListView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:childIndicator="@null"
+        android:groupIndicator="@null"
+        android:scrollbars="none" />
+
+    <LinearLayout
+        android:id="@+id/bottom_view"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@drawable/shape_main_list_bg"
+        android:orientation="horizontal">
+
+
+        <TextView
+            android:id="@+id/textView8"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:gravity="right|center"
+            android:paddingRight="12dp"
+            android:singleLine="true"
+            android:text="实付款:"
+            android:textColor="@color/oil"
+            android:textSize="@dimen/slightly" />
+
+        <TextView
+            android:id="@+id/price_total"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:gravity="left|center"
+            android:paddingRight="12dp"
+            android:singleLine="true"
+            android:text="¥0.00"
+            android:textColor="@color/jet"
+            android:textSize="@dimen/normal" />
+
+
+        <Button
+            android:id="@+id/submit_order_order"
+            android:layout_width="130dp"
+            android:layout_height="match_parent"
+            android:background="@color/red_mettre"
+            android:text="提交订单"
+            android:textColor="@color/white"
+            android:textSize="@dimen/medium" />
+    </LinearLayout>
+
+</LinearLayout>

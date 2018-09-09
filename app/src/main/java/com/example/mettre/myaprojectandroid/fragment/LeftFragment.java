@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -82,10 +83,29 @@ public class LeftFragment extends BaseMainFragment {
         linearLayout_left_bottom = view.findViewById(R.id.linearLayout_left_bottom);
         linearLayout_right_bottom = view.findViewById(R.id.linearLayout_right_bottom);
 
+        setHeightWeight(image_left_top);
+        setHeightWeight(image_right_top);
+        setHeightWeight(imageView_left_bottom);
+        setHeightWeight(imageView_right_bottom);
+
         mMZBanner.setBannerPageClickListener(new MZBannerView.BannerPageClickListener() {
             @Override
             public void onPageClick(View view, int i) {
                 onAdvClick(advBeanList.get(i));
+            }
+        });
+    }
+
+
+    private void setHeightWeight(final ImageView imageView) {
+        imageView.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
+            @Override
+            public boolean onPreDraw() {
+                imageView.getViewTreeObserver().removeOnPreDrawListener(this);
+                ViewGroup.LayoutParams layoutParams = imageView.getLayoutParams();
+                layoutParams.height = (int) (imageView.getWidth() / 2);
+                imageView.setLayoutParams(layoutParams);
+                return true;
             }
         });
     }
@@ -113,21 +133,21 @@ public class LeftFragment extends BaseMainFragment {
         linearLayout_left_top.setOnClickListener(this);
         if (advRecommendList.size() == 1) return;
 
-        title_left_top.setText(advRecommendList.get(1).getAdName());
-        describe_left_top.setText(advRecommendList.get(1).getAdDescribe());
-        MyImageLoader.getInstance().displayImage(_mActivity, advRecommendList.get(1).getAdImage(), image_left_top);
+        title_right_top.setText(advRecommendList.get(1).getAdName());
+        describe_right_top.setText(advRecommendList.get(1).getAdDescribe());
+        MyImageLoader.getInstance().displayImage(_mActivity, advRecommendList.get(1).getAdImage(), image_right_top);
         linearLayout_right_top.setOnClickListener(this);
         if (advRecommendList.size() == 2) return;
 
-        title_left_top.setText(advRecommendList.get(2).getAdName());
-        describe_left_top.setText(advRecommendList.get(2).getAdDescribe());
-        MyImageLoader.getInstance().displayImage(_mActivity, advRecommendList.get(2).getAdImage(), image_left_top);
+        title_left_bottom.setText(advRecommendList.get(2).getAdName());
+        describe_left_bottom.setText(advRecommendList.get(2).getAdDescribe());
+        MyImageLoader.getInstance().displayImage(_mActivity, advRecommendList.get(2).getAdImage(), imageView_left_bottom);
         linearLayout_left_bottom.setOnClickListener(this);
         if (advRecommendList.size() == 3) return;
 
-        title_left_top.setText(advRecommendList.get(3).getAdName());
-        describe_left_top.setText(advRecommendList.get(3).getAdDescribe());
-        MyImageLoader.getInstance().displayImage(_mActivity, advRecommendList.get(3).getAdImage(), image_left_top);
+        title_right_bottom.setText(advRecommendList.get(3).getAdName());
+        describe_right_bottom.setText(advRecommendList.get(3).getAdDescribe());
+        MyImageLoader.getInstance().displayImage(_mActivity, advRecommendList.get(3).getAdImage(), imageView_right_bottom);
         linearLayout_right_bottom.setOnClickListener(this);
     }
 

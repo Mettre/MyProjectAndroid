@@ -1,15 +1,19 @@
 package com.example.mettre.myaprojectandroid.http;
 
 import com.example.mettre.myaprojectandroid.bean.AddressBean;
+import com.example.mettre.myaprojectandroid.bean.AdvBean;
 import com.example.mettre.myaprojectandroid.bean.CaptchaBean;
+import com.example.mettre.myaprojectandroid.bean.CartBean;
 import com.example.mettre.myaprojectandroid.bean.CategoryBean;
 import com.example.mettre.myaprojectandroid.bean.GoodsDetailsBean;
 import com.example.mettre.myaprojectandroid.bean.GoodsListBean;
 import com.example.mettre.myaprojectandroid.bean.LoginBean;
+import com.example.mettre.myaprojectandroid.bean.OrderRequestBean;
 import com.example.mettre.myaprojectandroid.bean.UserBean;
 import com.example.mettre.myaprojectandroid.utils.ConstantUtil;
 
 import java.util.HashMap;
+import java.util.List;
 
 import retrofit2.http.Body;
 import retrofit2.http.Field;
@@ -101,8 +105,8 @@ public interface MovieService {
      * 广告列表
      */
     @FormUrlEncoded
-    @POST(ConstantUtil.SHOPPING + "/getBannerList")
-    Observable<HttpResult5<AddressBean>> getBannerList(
+    @POST(ConstantUtil.SHOPPING + "/adv/findSpecificAdv")
+    Observable<HttpResult5<AdvBean>> getBannerList(
             @Field(value = "adPositionNo") String adPositionNo);
 
 
@@ -143,5 +147,47 @@ public interface MovieService {
     @POST(ConstantUtil.SHOPPING + "/goods/findGoodDetails")
     Observable<HttpResult3<GoodsDetailsBean>> getGoodsDetails(
             @Field(value = "goodsId") long goodsId);
+
+    /**
+     * 编辑购物车数量
+     */
+    @FormUrlEncoded
+    @POST(ConstantUtil.SHOPPING + "/cart/editCartNum")
+    Observable<HttpResult3<GoodsDetailsBean>> editCartNum(
+            @Field(value = "sessionId") Long sessionId, @Field(value = "goodsId") long goodsId, @Field(value = "cartNumber") int cartNumber);
+
+
+    /**
+     * 购物车添加商品
+     */
+    @FormUrlEncoded
+    @POST(ConstantUtil.SHOPPING + "/cart/addCart")
+    Observable<HttpResult3> getCartGoodsNoInfo(
+            @Field(value = "sessionId") Long sessionId,
+            @Field(value = "goodsId")Long goodsId, @Field(value = "cartNumber") int cartNumber);
+
+    /**
+     * 获取购物车列表
+     */
+    @FormUrlEncoded
+    @POST(ConstantUtil.SHOPPING + "/cart/findAllCart")
+    Observable<HttpResult5<CartBean>> getCartListInfo(
+            @Field(value = "sessionId") Long sessionId);
+
+    /**
+     * 删除某个购物车项
+     */
+    @FormUrlEncoded
+    @POST(ConstantUtil.SHOPPING + "/cart/deleteCart")
+    Observable<HttpResult3> deleteCart(
+            @Field(value = "cartIds") List<Long> cartIds);
+
+    /**
+     * 提交订单
+     */
+    @POST(ConstantUtil.SHOPPING + "/loginEd/order/addOrder")
+    Observable<HttpResult3> submitOrder(
+            OrderRequestBean orderRequest);
+
 
 }

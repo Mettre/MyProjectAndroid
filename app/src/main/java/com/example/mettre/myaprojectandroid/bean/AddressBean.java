@@ -17,7 +17,6 @@ public class AddressBean implements Serializable {
     private String province;
     private String county;
     private boolean defaults;
-    private Boolean optional;
 
     public long getId() {
         return id;
@@ -81,13 +80,5 @@ public class AddressBean implements Serializable {
 
     public void setDefaults(boolean defaults) {
         this.defaults = defaults;
-    }
-
-    public Boolean getOptional() {
-        return optional;
-    }
-
-    public void setOptional(Boolean optional) {
-        this.optional = optional;
     }
 }

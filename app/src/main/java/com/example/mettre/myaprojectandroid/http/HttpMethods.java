@@ -2,8 +2,11 @@ package com.example.mettre.myaprojectandroid.http;
 
 import com.example.mettre.myaprojectandroid.app.MyApplication;
 import com.example.mettre.myaprojectandroid.bean.AddressBean;
+import com.example.mettre.myaprojectandroid.bean.AdvBean;
+import com.example.mettre.myaprojectandroid.bean.CartBean;
 import com.example.mettre.myaprojectandroid.bean.GoodsDetailsBean;
 import com.example.mettre.myaprojectandroid.bean.GoodsListBean;
+import com.example.mettre.myaprojectandroid.bean.OrderRequestBean;
 import com.example.mettre.myaprojectandroid.bean.UserBean;
 import com.example.mettre.myaprojectandroid.utils.AndroidScheduler;
 import com.example.mettre.myaprojectandroid.utils.HeaderInterceptor;
@@ -28,9 +31,9 @@ import rx.schedulers.Schedulers;
 
 public class HttpMethods {
 
-    public static final String BASE_URL = "http://192.168.0.176:8888/";//公司
+//    public static final String BASE_URL = "http://192.168.0.176:8888/";//公司
 
-//    public static final String BASE_URL = "http://192.168.1.107:8888/";//家
+    public static final String BASE_URL = "http://192.168.1.107:8888/";//家
 
     private static final int DEFAULT_TIMEOUT = 25;
 
@@ -153,7 +156,7 @@ public class HttpMethods {
      * 广告列表
      */
     public void getBannerList(Subscriber<HttpResult5> subscriber, String adPositionNo) {
-        Observable observable = movieService.getBannerList(adPositionNo).map(new HttpMethods.HttpResultFunc3<AddressBean>());
+        Observable observable = movieService.getBannerList(adPositionNo).map(new HttpMethods.HttpResultFunc3<AdvBean>());
         toSubscribe(observable, subscriber);
     }
 
@@ -194,8 +197,54 @@ public class HttpMethods {
     /**
      * 获取商品详细地址
      */
-    public void getGoodsDetails(Subscriber<HttpResult3> subscriber, long goodsId) {
+    public void getGoodsDetails(Subscriber<HttpResult3> subscriber, Long goodsId) {
         Observable observable = movieService.getGoodsDetails(goodsId).map(new HttpMethods.HttpResultFunc2<GoodsDetailsBean>());
+        toSubscribe(observable, subscriber);
+    }
+
+    /**
+     * 编辑购物车数量
+     */
+    public void editCartNum(Subscriber<HttpResult3> subscriber, Long sessionId, long goodsId, int cartNumber) {
+        Observable observable = movieService.editCartNum(sessionId,goodsId, cartNumber).map(new HttpMethods.HttpResultFunc2<GoodsDetailsBean>());
+        toSubscribe(observable, subscriber);
+    }
+
+    /**
+     * 删除某个购物车项
+     */
+    public void deleteCart(Subscriber<HttpResult3> subscriber, List<Long> cartIds) {
+        Observable observable = movieService.deleteCart(cartIds).map(new HttpMethods.HttpResultFunc2());
+        toSubscribe(observable, subscriber);
+    }
+
+
+    /**
+     * 加入购物车
+     */
+    public void getCartGoodsInfo(Subscriber<HttpResult3> subscriber, Long sessionId, Long goodsId, int cartNumber) {
+        HashMap<String, Object> map = new HashMap<String, Object>();
+        map.put("sessionId", sessionId);
+        map.put("goodsId", goodsId);
+        map.put("cartNumber", cartNumber);
+        Observable observable = movieService.getCartGoodsNoInfo(sessionId,goodsId,cartNumber).map(new HttpMethods.HttpResultFunc2());
+        toSubscribe(observable, subscriber);
+    }
+
+    /**
+     * 获取购物车列表
+     */
+    public void getCartListInfo(Subscriber<HttpResult5> subscriber, long sessionId) {
+        Observable observable = movieService.getCartListInfo(sessionId).map(new HttpMethods.HttpResultFunc3<CartBean>());
+        toSubscribe(observable, subscriber);
+    }
+
+
+    /**
+     * 提交订单
+     */
+    public void submitOrder(Subscriber<HttpResult3> subscriber, OrderRequestBean orderRequest) {
+        Observable observable = movieService.submitOrder(orderRequest).map(new HttpMethods.HttpResultFunc2());
         toSubscribe(observable, subscriber);
     }
 

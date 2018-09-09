@@ -2,12 +2,15 @@ package com.example.mettre.myaprojectandroid.subscribers;
 
 import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
+import android.util.Log;
+import android.widget.Toast;
 
 import com.example.mettre.myaprojectandroid.app.MyApplication;
 import com.example.mettre.myaprojectandroid.event.StartBrotherEvent;
 import com.example.mettre.myaprojectandroid.fragment.LoginFragment;
 import com.example.mettre.myaprojectandroid.progress.ProgressCancelListener;
 import com.example.mettre.myaprojectandroid.progress.ProgressDialogHandler;
+import com.example.mettre.myaprojectandroid.utils.ToastUtils;
 
 import org.greenrobot.eventbus.EventBus;
 import org.json.JSONException;
@@ -15,7 +18,8 @@ import org.json.JSONException;
 import java.net.ConnectException;
 import java.net.SocketTimeoutException;
 
-import cn.pedant.SweetAlert.SweetAlertDialog;
+import com.cazaea.sweetalert.SweetAlertDialog;
+
 import me.yokeyword.fragmentation.SupportActivity;
 import me.yokeyword.fragmentation.anim.FragmentAnimator;
 import rx.Subscriber;
@@ -105,7 +109,6 @@ public class ProgressSubscriber<T> extends Subscriber<T> implements ProgressCanc
         if ("未登录".equals(message)) {
             EventBus.getDefault().post(new StartBrotherEvent(LoginFragment.newInstance()));
         }
-
         if (sweetAlertDialog == null) {
             sweetAlertDialog = new SweetAlertDialog(context, SweetAlertDialog.ERROR_TYPE);
             sweetAlertDialog.setTitleText("异常")

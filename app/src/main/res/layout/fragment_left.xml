@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/md_grey_100"
@@ -113,7 +114,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
-                android:padding="10dp"
+                android:padding="7dp"
                 android:text="每 日 购"
                 android:textColor="@color/colorAccent"
                 android:textSize="@dimen/medium" />
@@ -121,8 +122,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
                 android:background="@drawable/bg_white"
                 android:orientation="horizontal">
 
@@ -138,6 +139,7 @@
                         android:id="@+id/title_left_top"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:singleLine="true"
                         android:text="闪购"
                         android:textColor="@color/colorAccent"
                         android:textSize="@dimen/slightly" />
@@ -147,6 +149,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:padding="1dp"
+                        android:singleLine="true"
                         android:text="闪购"
                         android:textColor="@color/oil3"
                         android:textSize="@dimen/size13" />
@@ -154,14 +157,16 @@
                     <ImageView
                         android:id="@+id/image_left_top"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:scaleType="fitXY" />
 
                 </LinearLayout>
 
                 <TextView
-                    android:layout_width="1dp"
+                    android:layout_width="0.6dp"
                     android:layout_height="match_parent"
-                    android:background="@color/md_grey_100" />
+                    android:background="@color/md_grey_100"
+                    tools:ignore="Suspicious0dp" />
 
                 <LinearLayout
                     android:id="@+id/linearLayout_right_top"
@@ -175,6 +180,7 @@
                         android:id="@+id/title_right_top"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:singleLine="true"
                         android:text="闪购"
                         android:textColor="@color/colorAccent"
                         android:textSize="@dimen/slightly" />
@@ -184,6 +190,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:padding="1dp"
+                        android:singleLine="true"
                         android:text="闪购"
                         android:textColor="@color/oil3"
                         android:textSize="@dimen/size13" />
@@ -191,7 +198,8 @@
                     <ImageView
                         android:id="@+id/image_right_top"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:scaleType="fitXY" />
 
                 </LinearLayout>
 
@@ -199,14 +207,15 @@
 
             <TextView
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/md_grey_100" />
+                android:layout_height="0.6dp"
+                android:background="@color/md_grey_100"
+                tools:ignore="Suspicious0dp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
                 android:background="@drawable/bg_white"
                 android:orientation="horizontal">
 
@@ -238,14 +247,16 @@
                     <ImageView
                         android:id="@+id/imageView_left_bottom"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:scaleType="fitXY" />
 
                 </LinearLayout>
 
                 <TextView
-                    android:layout_width="1dp"
+                    android:layout_width="0.6dp"
                     android:layout_height="match_parent"
-                    android:background="@color/md_grey_100" />
+                    android:background="@color/md_grey_100"
+                    tools:ignore="Suspicious0dp" />
 
                 <LinearLayout
                     android:id="@+id/linearLayout_right_bottom"
@@ -259,6 +270,7 @@
                         android:id="@+id/title_right_bottom"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:singleLine="true"
                         android:text="闪购"
                         android:textColor="@color/colorAccent"
                         android:textSize="@dimen/slightly" />
@@ -268,6 +280,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:padding="1dp"
+                        android:singleLine="true"
                         android:text="闪购"
                         android:textColor="@color/oil3"
                         android:textSize="@dimen/size13" />
@@ -275,7 +288,8 @@
                     <ImageView
                         android:id="@+id/imageView_right_bottom"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:scaleType="fitXY" />
 
                 </LinearLayout>
 

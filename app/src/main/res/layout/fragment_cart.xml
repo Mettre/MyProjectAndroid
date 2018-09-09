@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main_LinearLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/md_grey_100"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:minHeight="?attr/actionBarSize"
+        app:contentInsetStart="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerInParent="true"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center"
+            android:singleLine="true"
+            android:text="购物车"
+            android:textStyle="bold"
+            android:textAlignment="center"
+            android:textColor="@color/oil"
+            android:textSize="@dimen/font_large" />
+    </android.support.v7.widget.Toolbar>
+
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        android:id="@+id/refreshLayout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        app:srlAccentColor="@color/jet"
+        app:srlEnableLoadmore="false"
+        app:srlEnablePreviewInEditMode="true"
+        app:srlHeaderHeight="60dp"
+        app:srlPrimaryColor="@color/md_grey_100">
+
+        <com.example.mettre.myaprojectandroid.view.ClassicsHeaderM
+            android:id="@+id/classicsHeader"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/main_load_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:id="@+id/empty_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/md_grey_100"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:paddingBottom="20dp"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:id="@+id/tv_empty_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:layout_gravity="center"
+                        android:padding="0dp"
+                        android:text="购物车还是空的"
+                        android:textColor="@color/md_grey_700"
+                        android:textSize="@dimen/medium" />
+
+                    <TextView
+                        android:id="@+id/tv_empty_content"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="10dp"
+                        android:padding="0dp"
+                        android:text="快去挑选商品吧"
+                        android:textColor="@color/monsoon"
+                        android:textSize="@dimen/slightly" />
+
+                    <TextView
+                        android:id="@+id/go_home"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="15dp"
+                        android:background="@drawable/bg_orange_line"
+                        android:paddingBottom="7dp"
+                        android:paddingLeft="25dp"
+                        android:paddingRight="25dp"
+                        android:paddingTop="7dp"
+                        android:text="回首页"
+                        android:textColor="@color/md_orange_800"
+                        android:textSize="@dimen/normal" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/loading_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <ProgressBar
+                        style="?android:attr/progressBarStyleSmall"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/connection_failed_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:paddingBottom="60dp"
+                    android:visibility="gone">
+
+                    <ImageView
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:background="@drawable/icon_connection_failed" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:text="连接失败"
+                        android:textColor="@color/md_grey_900"
+                        android:textSize="@dimen/medium" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:text="请检查您的手机是否联网"
+                        android:textColor="@color/monsoon"
+                        android:textSize="@dimen/size13" />
+
+                    <TextView
+                        android:id="@+id/reconnect_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:background="@drawable/bg_white_gray2"
+                        android:paddingBottom="8dp"
+                        android:paddingLeft="25dp"
+                        android:paddingRight="25dp"
+                        android:paddingTop="8dp"
+                        android:text="重新加载" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <com.example.mettre.myaprojectandroid.view.SuperExpandableListView
+                android:id="@+id/exListView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:childIndicator="@null"
+                android:divider="@color/md_grey_100"
+                android:dividerHeight="0.7dp"
+                android:groupIndicator="@null"
+                android:scrollbars="none" />
+
+        </LinearLayout>
+
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+
+    <LinearLayout
+        android:id="@+id/bottom_view"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:background="@drawable/shape_main_list_bg"
+        android:orientation="horizontal">
+
+        <CheckBox
+            android:id="@+id/all_chekbox"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="14dp"
+            android:button="@drawable/checkbox_style"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:text="全选"
+            android:textColor="@color/jet"
+            android:textSize="@dimen/normal" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:textColor="@color/oil"
+            android:textSize="@dimen/size13"></TextView>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="8dp"
+            android:text="合计："
+            android:textColor="@color/oil"
+            android:textSize="@dimen/size13" />
+
+        <TextView
+            android:id="@+id/price_total"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:gravity="center_vertical"
+            android:paddingLeft="5dp"
+            android:singleLine="true"
+            android:text="¥0.00"
+            android:textColor="@color/jet"
+            android:textSize="@dimen/normal" />
+
+        <TextView
+            android:id="@+id/ull_cut_text"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:paddingRight="15dp"
+            android:text="-"
+            android:textColor="@color/oil"
+            android:textSize="11sp"
+            android:visibility="invisible"></TextView>
+
+
+        <Button
+            android:id="@+id/tv_go_to_pay"
+            android:layout_width="110dp"
+            android:layout_height="match_parent"
+            android:background="@color/red_mettre"
+            android:text="结算(0)"
+            android:textColor="@color/white" />
+    </LinearLayout>
+
+</LinearLayout>

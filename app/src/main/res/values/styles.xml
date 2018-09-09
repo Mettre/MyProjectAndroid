@@ -49,6 +49,10 @@
 
     <!--normal白色文本-->
 
+    <style name="Toolbar.TitleText" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/oil</item>
+    </style>
 
     <style name="whiteTextStyleTitle">
     <item name="android:textSize">@dimen/font_large</item>

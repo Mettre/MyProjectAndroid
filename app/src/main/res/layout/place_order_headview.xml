@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/address_yes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:visibility="gone">
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:padding="8dp">
+
+
+            <TextView
+                android:id="@+id/address_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:gravity="left"
+                android:singleLine="true"
+                android:text="刘国梁"
+                android:textColor="@color/oil"
+                android:textSize="@dimen/normal" />
+
+            <TextView
+                android:id="@+id/address_normal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="9dp"
+                android:layout_toRightOf="@id/address_name"
+                android:background="@drawable/bg_red_line"
+                android:paddingBottom="1dp"
+                android:paddingLeft="12dp"
+                android:paddingRight="8dp"
+                android:paddingTop="1dp"
+                android:text="默认"
+                android:textColor="@color/md_red_700"
+                android:textSize="@dimen/small" />
+
+            <TextView
+                android:id="@+id/address_phone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginLeft="30dp"
+                android:singleLine="true"
+                android:text="18844157767"
+                android:textColor="@color/oil"
+                android:textSize="@dimen/normal" />
+
+
+            <ImageView
+                android:id="@+id/address_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/address_name"
+                android:layout_marginLeft="1dp"
+                android:layout_marginTop="8dp"
+                android:src="@drawable/address_icon" />
+
+            <TextView
+                android:id="@+id/address_details"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@id/address_name"
+                android:layout_below="@id/address_name"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="8dp"
+                android:gravity="left"
+                android:lineSpacingExtra="2dp"
+                android:maxLines="2"
+                android:text="江苏省苏州市姑苏区苏州工业园区直属镇金阊区1088号石路国际商城11F1105室"
+                android:textColor="@color/oil"
+                android:textSize="@dimen/size13" />
+        </RelativeLayout>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="10dp"
+            android:src="@drawable/turn_right" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/address_no"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:background="@color/white"
+        android:paddingBottom="20dp"
+        android:paddingLeft="12dp"
+        android:paddingRight="12dp"
+        android:paddingTop="20dp"
+        android:visibility="visible">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="收货地址"
+            android:textColor="@color/oil"
+            android:textSize="@dimen/normal" />
+
+        <LinearLayout
+            android:id="@+id/address_LinearLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="right">
+
+            <TextView
+                android:id="@+id/address"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="请添加收货地址"
+                android:textColor="@color/monsoon"
+                android:textSize="@dimen/normal" />
+
+            <ImageView
+                android:id="@+id/imageView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="2dp"
+                android:src="@drawable/turn_right" />
+        </LinearLayout>
+
+    </LinearLayout>
+</LinearLayout>

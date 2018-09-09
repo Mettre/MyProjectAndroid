@@ -33,7 +33,7 @@ import org.json.JSONException;
 
 import java.util.ArrayList;
 
-import cn.pedant.SweetAlert.SweetAlertDialog;
+import com.cazaea.sweetalert.SweetAlertDialog;
 
 /**
  * Created by app on 2017/7/21.

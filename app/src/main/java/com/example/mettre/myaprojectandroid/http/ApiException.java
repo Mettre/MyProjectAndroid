@@ -32,9 +32,6 @@ public class ApiException extends RuntimeException {
             case USER_NOT_EXIST:
                 message = "该用户不存在";
                 break;
-            case WRONG_PASSWORD:
-                message = "密码错误";
-                break;
             case LOGINEXPIRED:
                 message = "用户登录已过期，请重新登录!";
                 break;
@@ -43,7 +40,7 @@ public class ApiException extends RuntimeException {
                 break;
             default:
                 message = Message;
-
+                break;
         }
         return message;
     }

@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.cazaea.sweetalert.SweetAlertDialog;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.mettre.myaprojectandroid.R;
 import com.example.mettre.myaprojectandroid.adapter.AddressListAdapter;
@@ -26,8 +27,6 @@ import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import cn.pedant.SweetAlert.SweetAlertDialog;
 import rx.Subscriber;
 
 /**
@@ -40,6 +39,7 @@ public class AddressListFragment extends BaseMainFragment {
     /**
      * 收货地址列表
      */
+    private Boolean choice = false;
     private Toolbar mToolbar;
     private TextView add_btn;
     private SubscriberOnNextListener getAddAddressListNext;
@@ -53,8 +53,12 @@ public class AddressListFragment extends BaseMainFragment {
     private AddressListAdapter myAdapter;
     private List<AddressBean> addressList;
 
-    public static AddressListFragment newInstance() {
-        return new AddressListFragment();
+    public static AddressListFragment newInstance(Boolean choice) {
+        AddressListFragment fragment = new AddressListFragment();
+        Bundle args = new Bundle();
+        args.putBoolean("choice", choice);
+        fragment.setArguments(args);
+        return fragment;
     }
 
     @Override
@@ -85,6 +89,7 @@ public class AddressListFragment extends BaseMainFragment {
     }
 
     private void initView(View view) {
+        choice = getArguments().getBoolean("choice");
         mToolbar = view.findViewById(R.id.toolbar);
         recyclerView = view.findViewById(R.id.recyclerView);
         add_btn = view.findViewById(R.id.add_btn);
@@ -100,9 +105,14 @@ public class AddressListFragment extends BaseMainFragment {
         myAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-
-                startForResult(AddAddressFragment.newInstance(addressList.get(position).getId(), addressList.get(position)), 1000);
-
+                if(choice){
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("addressBean", addressList.get(position));
+                    setFragmentResult(RESULT_OK, bundle);
+                    pop();
+                }else {
+                    startForResult(AddAddressFragment.newInstance(addressList.get(position).getId(), addressList.get(position)), 1000);
+                }
             }
         });
 
@@ -180,8 +190,8 @@ public class AddressListFragment extends BaseMainFragment {
                 ToastUtils.showCenterToast("暂无网络连接，请确认设备连接网络", 200);
             }
         };
-
-        HttpMethods.getInstance().deleteDelivery(new ProgressSubscriber(deleteAddress, _mActivity), id);
+        subscriber = new ProgressSubscriber(deleteAddress, _mActivity);
+        HttpMethods.getInstance().deleteDelivery(subscriber, id);
     }
 
     /**
@@ -250,6 +260,14 @@ public class AddressListFragment extends BaseMainFragment {
         };
         subscriber2 = new ProgressSubscriber(getAddAddressListNext, _mActivity, false);
         HttpMethods.getInstance().AddressList(subscriber2, page, pageSize);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (subscriber != null && (!subscriber.isUnsubscribed())) {
+            subscriber.unsubscribe();
+        }
     }
 
 }
