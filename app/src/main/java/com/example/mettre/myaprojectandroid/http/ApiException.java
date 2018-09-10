@@ -40,7 +40,6 @@ public class ApiException extends RuntimeException {
                 break;
             default:
                 message = Message;
-                break;
         }
         return message;
     }

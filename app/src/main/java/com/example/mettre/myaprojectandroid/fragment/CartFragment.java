@@ -35,6 +35,7 @@ import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -89,6 +90,7 @@ public class CartFragment extends BaseMainFragment implements ShopCartExpandable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_cart, container, false);
+        EventBus.getDefault().register(this);
         initView(view);
         getAddCartInfo();
         setRefresh();
@@ -167,7 +169,6 @@ public class CartFragment extends BaseMainFragment implements ShopCartExpandable
                 }, true);
             }
         };
-        SharedPrefsUtil.putValue(Utils.getContext(), ConstantUtil.TIMESTAMP, "18844157372");
         Long timestamp = Long.parseLong(SharedPrefsUtil.getValue(Utils.getContext(), ConstantUtil.TIMESTAMP, String.valueOf(new Random().nextInt(10000))));
         subscriber = new ProgressSubscriber(getCartListNext, _mActivity, false);
         HttpMethods.getInstance().getCartListInfo(subscriber, timestamp);
@@ -403,6 +404,16 @@ public class CartFragment extends BaseMainFragment implements ShopCartExpandable
     }
 
     /**
+     * start other BrotherFragment
+     */
+    @Subscribe
+    public void startBrother(StartBrotherEvent event) {
+        if (event.EventType == CommonConstant.REFRESH_CART) {
+            refreshLayout.autoRefresh();
+        }
+    }
+
+    /**
      * 购物车创建订单
      */
     private void createOrder(List<CartBean> cartList) {
@@ -416,6 +427,7 @@ public class CartFragment extends BaseMainFragment implements ShopCartExpandable
     private SubmitOrderGroup.GoodsItem setOrderListDate(CartGoodsItem cartItemsBean) {
         SubmitOrderGroup.GoodsItem orderItemsBean = new SubmitOrderGroup.GoodsItem();
         orderItemsBean.setGoodsId(cartItemsBean.getGoodsId());
+        orderItemsBean.setCartId(cartItemsBean.getCartId());
         orderItemsBean.setGoodsName(cartItemsBean.getGoodsName());
         orderItemsBean.setGoodsPrice(cartItemsBean.getGoodsPrice());
         orderItemsBean.setGoodsNumber(cartItemsBean.getCartNumber());//具体数量
@@ -548,7 +560,7 @@ public class CartFragment extends BaseMainFragment implements ShopCartExpandable
     @Override
     public void onDestroy() {
         super.onDestroy();
-
+        EventBus.getDefault().unregister(this);
         if (subscriber != null && (!subscriber.isUnsubscribed())) {
             subscriber.unsubscribe();
         }

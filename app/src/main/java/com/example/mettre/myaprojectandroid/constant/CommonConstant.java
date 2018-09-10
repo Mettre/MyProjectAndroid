@@ -19,6 +19,11 @@ public interface CommonConstant {
     Integer BACK_HOME = 2222;
 
     /**
+     * 刷新购物车
+     */
+    Integer REFRESH_CART = 3333;
+
+    /**
      * 商品列表刷新
      */
     Integer GOODS_REFRESH = 2222222;

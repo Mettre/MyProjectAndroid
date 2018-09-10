@@ -16,12 +16,16 @@ import com.example.mettre.myaprojectandroid.base.BaseMainFragment;
 import com.example.mettre.myaprojectandroid.bean.AddressBean;
 import com.example.mettre.myaprojectandroid.bean.OrderRequestBean;
 import com.example.mettre.myaprojectandroid.bean.SubmitOrderGroup;
+import com.example.mettre.myaprojectandroid.constant.CommonConstant;
+import com.example.mettre.myaprojectandroid.event.StartBrotherEvent;
 import com.example.mettre.myaprojectandroid.http.HttpMethods;
 import com.example.mettre.myaprojectandroid.http.HttpResult3;
 import com.example.mettre.myaprojectandroid.subscribers.ProgressSubscriber;
 import com.example.mettre.myaprojectandroid.subscribers.SubscriberOnNextListener;
 import com.example.mettre.myaprojectandroid.utils.BigDecimalUtils;
 import com.example.mettre.myaprojectandroid.utils.ToastUtils;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -47,8 +51,8 @@ public class SubmitOrderFragment extends BaseMainFragment {
     private AddressBean addressBean;
     private ProgressSubscriber<HttpResult3> subscriber;
     private SubscriberOnNextListener getTopMovieOnNext;
-    private OrderRequestBean orderRequest;
     private List<SubmitOrderGroup> orderVMList;
+    private List<OrderRequestBean> orderItems = new ArrayList<>();
 
     /**
      * 默认收货地址
@@ -97,7 +101,6 @@ public class SubmitOrderFragment extends BaseMainFragment {
 
         type = getArguments().getInt("type");
         orderVMList = (List<SubmitOrderGroup>) getArguments().getSerializable("orderVMList");
-        orderRequest = new OrderRequestBean();
         exListView = view.findViewById(R.id.exListView);
         price_total = view.findViewById(R.id.price_total);
         mToolbar = view.findViewById(R.id.toolbar);
@@ -154,10 +157,10 @@ public class SubmitOrderFragment extends BaseMainFragment {
      * 多个订单总运费
      */
     private void subOrderDriver(List<SubmitOrderGroup> orderVMList) {
-        totalDriver =new BigDecimal(0);
+        totalDriver = new BigDecimal(0);
         for (SubmitOrderGroup o : orderVMList) {
 //            totalDriver += (o.getPostage());
-            totalDriver =totalDriver.add(o.getPostage());
+            totalDriver = totalDriver.add(o.getPostage());
         }
     }
 
@@ -173,7 +176,7 @@ public class SubmitOrderFragment extends BaseMainFragment {
     /**
      * 提交订单
      */
-    private void placeOrder(OrderRequestBean orderRequest) {
+    private void placeOrder(List<OrderRequestBean> orderItems) {
         getTopMovieOnNext = new SubscriberOnNextListener<HttpResult3>() {
 
             @Override
@@ -186,8 +189,7 @@ public class SubmitOrderFragment extends BaseMainFragment {
                             @Override
                             public void onClick(SweetAlertDialog sweetAlertDialog) {
                                 sweetAlertDialog.dismissWithAnimation();
-                                Bundle bundle = new Bundle();
-                                setFragmentResult(RESULT_OK, bundle);
+                                EventBus.getDefault().post(new StartBrotherEvent(CommonConstant.REFRESH_CART));
                                 pop();
                             }
                         })
@@ -215,7 +217,7 @@ public class SubmitOrderFragment extends BaseMainFragment {
             }
         };
         subscriber = new ProgressSubscriber(getTopMovieOnNext, _mActivity);
-        HttpMethods.getInstance().submitOrder(new ProgressSubscriber(getTopMovieOnNext, _mActivity), orderRequest);
+        HttpMethods.getInstance().submitOrder(new ProgressSubscriber(getTopMovieOnNext, _mActivity), orderItems);
     }
 
     /**
@@ -299,7 +301,7 @@ public class SubmitOrderFragment extends BaseMainFragment {
 
             }
         };
-        HttpMethods.getInstance().AddressList(new ProgressSubscriber(getAddAddressListNext, _mActivity), 1,100);
+        HttpMethods.getInstance().AddressList(new ProgressSubscriber(getAddAddressListNext, _mActivity), 1, 100);
     }
 
 
@@ -348,30 +350,30 @@ public class SubmitOrderFragment extends BaseMainFragment {
                 }
 
                 orderVMList = selva.getOrderVMList();
-                List<OrderRequestBean.OrderItem> orderItems = new ArrayList<>();
+
                 for (SubmitOrderGroup submitOrderGroup : orderVMList) {
-                    OrderRequestBean.OrderItem orderRequestBean = new OrderRequestBean.OrderItem();
+                    OrderRequestBean orderRequestBean = new OrderRequestBean();
                     orderRequestBean.setBrandId(submitOrderGroup.getBrandId());
                     orderRequestBean.setBuyerMessage(submitOrderGroup.getBuyerMessage());
                     orderRequestBean.setGoodsTotal(submitOrderGroup.getGoodsTotal());
                     orderRequestBean.setPostage(submitOrderGroup.getPostage());
                     orderRequestBean.setUserAllPrice(submitOrderGroup.getUserAllPrice());
-                    List<OrderRequestBean.OrderItem.GoodsItem> goodsItems = new ArrayList<>();
-                    for (SubmitOrderGroup.GoodsItem g:submitOrderGroup.getGoodsItems()) {
-                        OrderRequestBean.OrderItem.GoodsItem goodsItem = new OrderRequestBean.OrderItem.GoodsItem();
+                    orderRequestBean.setRecipientName(addressBean.getName());
+                    orderRequestBean.setRecipientPhoneNumber(addressBean.getPhone());
+                    orderRequestBean.setRecipientAddress(addressBean.getAddress());
+                    List<OrderRequestBean.GoodsItem> goodsItems = new ArrayList<>();
+                    for (SubmitOrderGroup.GoodsItem g : submitOrderGroup.getGoodsItems()) {
+                        OrderRequestBean.GoodsItem goodsItem = new OrderRequestBean.GoodsItem();
                         goodsItem.setGoodsId(g.getGoodsId());
+                        goodsItem.setCartId(g.getCartId());
                         goodsItem.setGoodsNumber(g.getGoodsNumber());
                         goodsItems.add(goodsItem);
                     }
                     orderRequestBean.setGoodsItems(goodsItems);
                     orderItems.add(orderRequestBean);
+
                 }
-                orderRequest.setOrderTotalPrice(totalOrderPrice);
-                orderRequest.setOrderItems(orderItems);
-                orderRequest.setRecipientName(addressBean.getName());
-                orderRequest.setRecipientPhoneNumber(addressBean.getPhone());
-                orderRequest.setRecipientAddress(addressBean.getAddress());
-                placeOrder(orderRequest);
+                placeOrder(orderItems);
                 break;
         }
     }

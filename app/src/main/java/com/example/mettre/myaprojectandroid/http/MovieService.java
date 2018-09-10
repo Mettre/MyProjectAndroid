@@ -161,16 +161,16 @@ public interface MovieService {
      * 购物车添加商品
      */
     @FormUrlEncoded
-    @POST(ConstantUtil.SHOPPING + "/cart/addCart")
+    @POST(ConstantUtil.SHOPPING + "/loginEd/cart/addCart")
     Observable<HttpResult3> getCartGoodsNoInfo(
             @Field(value = "sessionId") Long sessionId,
-            @Field(value = "goodsId")Long goodsId, @Field(value = "cartNumber") int cartNumber);
+            @Field(value = "goodsId") Long goodsId, @Field(value = "cartNumber") int cartNumber);
 
     /**
      * 获取购物车列表
      */
     @FormUrlEncoded
-    @POST(ConstantUtil.SHOPPING + "/cart/findAllCart")
+    @POST(ConstantUtil.SHOPPING + "/loginEd/cart/findAllCart")
     Observable<HttpResult5<CartBean>> getCartListInfo(
             @Field(value = "sessionId") Long sessionId);
 
@@ -187,7 +187,7 @@ public interface MovieService {
      */
     @POST(ConstantUtil.SHOPPING + "/loginEd/order/addOrder")
     Observable<HttpResult3> submitOrder(
-            OrderRequestBean orderRequest);
+            @Body List<OrderRequestBean> orderItems);
 
 
 }

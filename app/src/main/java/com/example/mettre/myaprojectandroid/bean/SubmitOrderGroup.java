@@ -73,7 +73,16 @@ public class SubmitOrderGroup {
         private String goodsName;
         private BigDecimal goodsPrice= new BigDecimal(0);//商品价格
         private Long goodsId;
+        private Long cartId;
         private int goodsNumber;//单个订单商品数量
+
+        public Long getCartId() {
+            return cartId;
+        }
+
+        public void setCartId(Long cartId) {
+            this.cartId = cartId;
+        }
 
         public BigDecimal getGoodsPrice() {
             return goodsPrice;

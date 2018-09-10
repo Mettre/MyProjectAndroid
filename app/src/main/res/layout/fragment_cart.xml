@@ -27,7 +27,6 @@
             android:layout_gravity="center"
             android:singleLine="true"
             android:text="购物车"
-            android:textStyle="bold"
             android:textAlignment="center"
             android:textColor="@color/oil"
             android:textSize="@dimen/font_large" />

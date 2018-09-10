@@ -31,9 +31,9 @@ import rx.schedulers.Schedulers;
 
 public class HttpMethods {
 
-//    public static final String BASE_URL = "http://192.168.0.176:8888/";//公司
+    public static final String BASE_URL = "http://192.168.0.176:8888/";//公司
 
-    public static final String BASE_URL = "http://192.168.1.107:8888/";//家
+//    public static final String BASE_URL = "http://192.168.1.107:8888/";//家
 
     private static final int DEFAULT_TIMEOUT = 25;
 
@@ -206,7 +206,7 @@ public class HttpMethods {
      * 编辑购物车数量
      */
     public void editCartNum(Subscriber<HttpResult3> subscriber, Long sessionId, long goodsId, int cartNumber) {
-        Observable observable = movieService.editCartNum(sessionId,goodsId, cartNumber).map(new HttpMethods.HttpResultFunc2<GoodsDetailsBean>());
+        Observable observable = movieService.editCartNum(sessionId, goodsId, cartNumber).map(new HttpMethods.HttpResultFunc2<GoodsDetailsBean>());
         toSubscribe(observable, subscriber);
     }
 
@@ -227,7 +227,7 @@ public class HttpMethods {
         map.put("sessionId", sessionId);
         map.put("goodsId", goodsId);
         map.put("cartNumber", cartNumber);
-        Observable observable = movieService.getCartGoodsNoInfo(sessionId,goodsId,cartNumber).map(new HttpMethods.HttpResultFunc2());
+        Observable observable = movieService.getCartGoodsNoInfo(sessionId, goodsId, cartNumber).map(new HttpMethods.HttpResultFunc2());
         toSubscribe(observable, subscriber);
     }
 
@@ -243,8 +243,8 @@ public class HttpMethods {
     /**
      * 提交订单
      */
-    public void submitOrder(Subscriber<HttpResult3> subscriber, OrderRequestBean orderRequest) {
-        Observable observable = movieService.submitOrder(orderRequest).map(new HttpMethods.HttpResultFunc2());
+    public void submitOrder(Subscriber<HttpResult3> subscriber, List<OrderRequestBean> orderItems) {
+        Observable observable = movieService.submitOrder(orderItems).map(new HttpMethods.HttpResultFunc2());
         toSubscribe(observable, subscriber);
     }
 
