@@ -31,7 +31,6 @@ import rx.Subscriber;
  */
 
 public class AllOrderFragment extends BaseMainFragment implements OrderAdapter.OrderClickListener {
-    
 
     private int orderStatus = 0;
     private RefreshLayout refreshLayout;
