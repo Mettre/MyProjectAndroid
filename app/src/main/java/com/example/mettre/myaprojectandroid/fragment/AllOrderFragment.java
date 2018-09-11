@@ -37,7 +37,6 @@ public class AllOrderFragment extends BaseMainFragment implements OrderAdapter.O
     private ExpandableListView exListView;
     private OrderAdapter orderAdapter;
 
-
     /**
      * 代付款订单
      */
