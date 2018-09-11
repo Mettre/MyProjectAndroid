@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    xmlns:androild="http://schemas.android.com/tools"
+    androild:orientation="vertical">
 
     <TextView
         android:id="@+id/item_name"
@@ -11,6 +12,6 @@
         android:gravity="center"
         android:text=""
         android:textColor="@color/green_11B57C"
-        android:textSize="12sp" />
+        android:textSize="@dimen/size13" />
 
 </LinearLayout>

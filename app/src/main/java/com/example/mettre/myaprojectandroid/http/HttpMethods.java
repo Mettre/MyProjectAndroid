@@ -6,6 +6,7 @@ import com.example.mettre.myaprojectandroid.bean.AdvBean;
 import com.example.mettre.myaprojectandroid.bean.CartBean;
 import com.example.mettre.myaprojectandroid.bean.GoodsDetailsBean;
 import com.example.mettre.myaprojectandroid.bean.GoodsListBean;
+import com.example.mettre.myaprojectandroid.bean.OrderListBean;
 import com.example.mettre.myaprojectandroid.bean.OrderRequestBean;
 import com.example.mettre.myaprojectandroid.bean.UserBean;
 import com.example.mettre.myaprojectandroid.utils.AndroidScheduler;
@@ -20,6 +21,7 @@ import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.http.Field;
 import rx.Observable;
 import rx.Subscriber;
 import rx.functions.Func1;
@@ -245,6 +247,23 @@ public class HttpMethods {
      */
     public void submitOrder(Subscriber<HttpResult3> subscriber, List<OrderRequestBean> orderItems) {
         Observable observable = movieService.submitOrder(orderItems).map(new HttpMethods.HttpResultFunc2());
+        toSubscribe(observable, subscriber);
+    }
+
+
+    /**
+     * 订单列表
+     */
+    public void getOrderList(Subscriber<HttpResult5> subscriber, int page, int pageSize, int orderStatus) {
+        Observable observable = movieService.getOrderList(page, pageSize, orderStatus).map(new HttpMethods.HttpResultFunc3<OrderListBean>());
+        toSubscribe(observable, subscriber);
+    }
+
+    /**
+     * 取消订单
+     */
+    public void cancelOrder(Subscriber<HttpResult3> subscriber, Long orderId) {
+        Observable observable = movieService.cancelOrder(orderId).map(new HttpMethods.HttpResultFunc2());
         toSubscribe(observable, subscriber);
     }
 

@@ -24,6 +24,11 @@ public interface CommonConstant {
     Integer REFRESH_CART = 3333;
 
     /**
+     * 订单列表页面跳转
+     */
+    Integer ORDER_LIST = 4444;
+
+    /**
      * 商品列表刷新
      */
     Integer GOODS_REFRESH = 2222222;

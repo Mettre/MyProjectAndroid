@@ -6,7 +6,7 @@ import java.util.List;
 public class SubmitOrderGroup {
 
     private BigDecimal postage = new BigDecimal(0);//邮费
-    private int brandId;//品牌id
+    private Long brandId;//品牌id
     private String brandName;//品牌id
     private BigDecimal goodsTotal= new BigDecimal(0);//商品总价
     private BigDecimal userAllPrice= new BigDecimal(0);//订单总价（商品总价+邮费）
@@ -29,11 +29,11 @@ public class SubmitOrderGroup {
         this.postage = postage;
     }
 
-    public int getBrandId() {
+    public Long getBrandId() {
         return brandId;
     }
 
-    public void setBrandId(int brandId) {
+    public void setBrandId(Long brandId) {
         this.brandId = brandId;
     }
 

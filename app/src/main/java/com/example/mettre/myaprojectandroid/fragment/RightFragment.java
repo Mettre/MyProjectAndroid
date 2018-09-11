@@ -31,10 +31,7 @@ import org.greenrobot.eventbus.Subscribe;
 
 public class RightFragment extends BaseMainFragment implements View.OnClickListener {
 
-    private TextView address_text, out_text;
-    private LinearLayout information_linearLayout;
     private RefreshLayout refreshLayout;
-
     private ImageView icon_img;
     private TextView nice_name;
     private TextView nice_name_line;
@@ -54,9 +51,9 @@ public class RightFragment extends BaseMainFragment implements View.OnClickListe
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         EventBus.getDefault().register(this);
         View view = inflater.inflate(R.layout.fragment_right, container, false);
+        initClickListener(view, R.id.address_text, R.id.out_text, R.id.information_linearLayout, R.id.order_text);
         initView(view);
         setRefresh(view);
-        initListener();
         return view;
     }
 
@@ -80,14 +77,10 @@ public class RightFragment extends BaseMainFragment implements View.OnClickListe
     }
 
     public void initView(View view) {
-        address_text = view.findViewById(R.id.address_text);
-        out_text = view.findViewById(R.id.out_text);
         icon_img = view.findViewById(R.id.icon_img);
         nice_name = view.findViewById(R.id.nice_name);
         nice_name_line = view.findViewById(R.id.nice_name_line);
         login_btn = view.findViewById(R.id.login_btn);
-
-        information_linearLayout = view.findViewById(R.id.information_linearLayout);
         if (TextUtils.isEmpty(MyApplication.getInstances().getToken())) {
             login_btn.setVisibility(View.VISIBLE);
             nice_name.setVisibility(View.GONE);
@@ -100,12 +93,6 @@ public class RightFragment extends BaseMainFragment implements View.OnClickListe
             nice_name_line.setVisibility(View.VISIBLE);
             getUserInfoNext();
         }
-    }
-
-    public void initListener() {
-        address_text.setOnClickListener(this);
-        out_text.setOnClickListener(this);
-        information_linearLayout.setOnClickListener(this);
     }
 
 
@@ -180,6 +167,9 @@ public class RightFragment extends BaseMainFragment implements View.OnClickListe
                 LoginUtils.getInstance().signOutRemoveToken();
                 EventBus.getDefault().post(new StartBrotherEvent(LoginFragment.newInstance()));
                 signOutUI();
+                break;
+            case R.id.order_text:
+                EventBus.getDefault().post(new StartBrotherEvent(MyOrderFragment.newInstance(0)));
                 break;
             case R.id.information_linearLayout:
                 if (!TextUtils.isEmpty(MyApplication.getInstances().getToken()) && userBean != null) {

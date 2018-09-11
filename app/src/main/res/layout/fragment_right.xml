@@ -13,6 +13,7 @@
         app:srlAccentColor="@color/monsoon"
         app:srlEnablePreviewInEditMode="true"
         app:srlEnableRefresh="false"
+        app:srlEnableLoadmore="false"
         app:srlHeaderHeight="60dp"
         app:srlPrimaryColor="@color/md_grey_100">
 

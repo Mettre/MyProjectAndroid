@@ -5,7 +5,7 @@ import java.util.List;
 
 public class CartBean {
 
-    private int brandId;//品牌id
+    private Long brandId;//品牌id
     private String brandName;//品牌名
     private List<CartGoodsItem> goodsItem;
     protected boolean selected;
@@ -27,11 +27,11 @@ public class CartBean {
         this.selected = selected;
     }
 
-    public int getBrandId() {
+    public Long getBrandId() {
         return brandId;
     }
 
-    public void setBrandId(int brandId) {
+    public void setBrandId(Long brandId) {
         this.brandId = brandId;
     }
 

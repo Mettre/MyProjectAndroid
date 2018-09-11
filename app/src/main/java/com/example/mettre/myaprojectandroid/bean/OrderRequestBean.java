@@ -10,7 +10,7 @@ public class OrderRequestBean {
 
     private BigDecimal postage;//邮费
     private String buyerMessage;//买家留言
-    private int brandId;//品牌id
+    private Long brandId;//品牌id
     private BigDecimal goodsTotal;//商品总价
     private BigDecimal userAllPrice;//订单总价（商品总价+邮费）
     private List<GoodsItem> goodsItems;
@@ -58,11 +58,11 @@ public class OrderRequestBean {
         this.buyerMessage = buyerMessage;
     }
 
-    public int getBrandId() {
+    public Long getBrandId() {
         return brandId;
     }
 
-    public void setBrandId(int brandId) {
+    public void setBrandId(Long brandId) {
         this.brandId = brandId;
     }
 

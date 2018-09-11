@@ -8,6 +8,7 @@ import com.example.mettre.myaprojectandroid.bean.CategoryBean;
 import com.example.mettre.myaprojectandroid.bean.GoodsDetailsBean;
 import com.example.mettre.myaprojectandroid.bean.GoodsListBean;
 import com.example.mettre.myaprojectandroid.bean.LoginBean;
+import com.example.mettre.myaprojectandroid.bean.OrderListBean;
 import com.example.mettre.myaprojectandroid.bean.OrderRequestBean;
 import com.example.mettre.myaprojectandroid.bean.UserBean;
 import com.example.mettre.myaprojectandroid.utils.ConstantUtil;
@@ -188,6 +189,24 @@ public interface MovieService {
     @POST(ConstantUtil.SHOPPING + "/loginEd/order/addOrder")
     Observable<HttpResult3> submitOrder(
             @Body List<OrderRequestBean> orderItems);
+
+    /**
+     * 取消订单
+     */
+    @POST(ConstantUtil.SHOPPING + "/loginEd/order/cancelOrder")
+    Observable<HttpResult3> cancelOrder(
+            @Field(value = "orderId") Long orderId);
+
+
+    /**
+     * 订单列表
+     */
+    @FormUrlEncoded
+    @POST(ConstantUtil.SHOPPING + "/loginEd/order/findOrderList")
+    Observable<HttpResult5<OrderListBean>> getOrderList(
+            @Field(value = "page") int page,
+            @Field(value = "pageSize") int pageSize,
+            @Field(value = "status") int orderStatus);
 
 
 }
