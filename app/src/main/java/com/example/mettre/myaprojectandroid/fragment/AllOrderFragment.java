@@ -121,7 +121,6 @@ public class AllOrderFragment extends BaseMainFragment implements OrderAdapter.O
                     list.addAll(response);
                     expanedAll();
                 }
-
             }
 
             @Override
