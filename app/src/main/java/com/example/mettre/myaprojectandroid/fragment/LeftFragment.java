@@ -57,7 +57,7 @@ public class LeftFragment extends BaseMainFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_left, container, false);
-        initClickListener(view, R.id.linearLayout_left_top, R.id.linearLayout_right_top, R.id.linearLayout_left_bottom, R.id.linearLayout_right_bottom);
+        initClickListener(view, R.id.linearLayout_left_top, R.id.linearLayout_right_top, R.id.linearLayout_left_bottom, R.id.linearLayout_right_bottom, R.id.zxing_img);
         initView(view);
         getBannerList(CommonConstant.HOME_PROMOTION);
         getBannerList(CommonConstant.HOME_RECOMMENT);
@@ -228,6 +228,9 @@ public class LeftFragment extends BaseMainFragment {
                 break;
             case R.id.linearLayout_right_bottom:
                 onAdvClick(advRecommendList.get(3));
+                break;
+            case R.id.zxing_img:
+                EventBus.getDefault().post(new StartBrotherEvent(NoticeFragment.newInstance()));
                 break;
         }
     }

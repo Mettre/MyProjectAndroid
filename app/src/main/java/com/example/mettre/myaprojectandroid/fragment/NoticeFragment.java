@@ -1,7 +1,6 @@
 package com.example.mettre.myaprojectandroid.fragment;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -13,13 +12,18 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.example.mettre.myaprojectandroid.R;
 import com.example.mettre.myaprojectandroid.base.BaseMainFragment;
+import com.example.mettre.myaprojectandroid.bean.NoticeBean;
+import com.example.mettre.myaprojectandroid.event.StartBrotherEvent;
 import com.example.mettre.myaprojectandroid.http.HttpMethods;
 import com.example.mettre.myaprojectandroid.http.HttpResult3;
+import com.example.mettre.myaprojectandroid.http.HttpResult5;
 import com.example.mettre.myaprojectandroid.subscribers.ProgressSubscriber;
 import com.example.mettre.myaprojectandroid.subscribers.SubscriberOnNextListener;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +35,7 @@ import rx.Subscriber;
  * 公告列表
  */
 
-public class ServiceRemindingFragment extends BaseMainFragment {
+public class NoticeFragment extends BaseMainFragment {
 
     /**
      * 公告列表
@@ -39,13 +43,13 @@ public class ServiceRemindingFragment extends BaseMainFragment {
     private Toolbar mToolbar;
     private RefreshLayout refreshLayout;
     private SubscriberOnNextListener getBacklogListNext;
-    private Subscriber<HttpResult3> subscriber;
+    private Subscriber<HttpResult5> subscriber;
     private RecyclerView recyclerView;
-    private ArrayList<BacklogResponse.ListBean> backLoglist;
+    private List<NoticeBean> noticeBeans;
     private MyAdapter myAdapter;
 
-    public static ServiceRemindingFragment newInstance() {
-        ServiceRemindingFragment fragment = new ServiceRemindingFragment();
+    public static NoticeFragment newInstance() {
+        NoticeFragment fragment = new NoticeFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
@@ -67,14 +71,14 @@ public class ServiceRemindingFragment extends BaseMainFragment {
             @Override
             public void onRefresh(RefreshLayout refreshlayout) {
                 page = 1;
-                getAddressList();
+                getNoticeListInfo();
             }
         });
         refreshLayout.setOnLoadmoreListener(new OnLoadmoreListener() {
             @Override
             public void onLoadmore(RefreshLayout refreshlayout) {
                 page++;
-                getAddressList();
+                getNoticeListInfo();
             }
         });
     }
@@ -82,7 +86,6 @@ public class ServiceRemindingFragment extends BaseMainFragment {
 
     private void initView(View view) {
 
-        setRefresh();
         mToolbar = view.findViewById(R.id.toolbar);
         recyclerView = view.findViewById(R.id.recyclerView);
         refreshLayout = view.findViewById(R.id.refreshLayout);
@@ -95,31 +98,10 @@ public class ServiceRemindingFragment extends BaseMainFragment {
         myAdapterListener(myAdapter);
     }
 
-    /**
-     * 添加刷新
-     */
-    private void setRefresh(View view) {
-        refreshLayout = view.findViewById(R.id.refreshLayout);
-        refreshLayout.setOnRefreshListener(new OnRefreshListener() {
-            @Override
-            public void onRefresh(RefreshLayout refreshlayout) {
-                page = 1;
-                getBacklogListInfo();
-            }
-        });
-        refreshLayout.setOnLoadmoreListener(new OnLoadmoreListener() {
-            @Override
-            public void onLoadmore(RefreshLayout refreshlayout) {
-                page++;
-                getBacklogListInfo();
-            }
-        });
-    }
-
     private void setCache() {
         hasDate();
-        myAdapter.setNewData(backLoglist);
-        if (backLoglist.size() >= 10) {
+        myAdapter.setNewData(noticeBeans);
+        if (noticeBeans.size() >= 10) {
             refreshLayout.setEnableLoadmore(true);
         } else {
             refreshLayout.setEnableLoadmore(false);
@@ -127,16 +109,16 @@ public class ServiceRemindingFragment extends BaseMainFragment {
     }
 
     private void getCache() {
-        backLoglist = new ArrayList<>();
+        noticeBeans = new ArrayList<>();
         recyclerView.setLayoutManager(new LinearLayoutManager(_mActivity));
-        myAdapter = new MyAdapter(R.layout.fragment_service_reminding, backLoglist);
+        myAdapter = new MyAdapter(R.layout.fragment_service_reminding, noticeBeans);
         recyclerView.setAdapter(myAdapter);
-        if (backLoglist == null || backLoglist.size() == 0) {
-            getBacklogListInfo();
+        if (noticeBeans == null || noticeBeans.size() == 0) {
+            getNoticeListInfo();
         } else {
             hasDate();
             page = 1;
-            getBacklogListInfo();
+            getNoticeListInfo();
         }
 
     }
@@ -146,30 +128,30 @@ public class ServiceRemindingFragment extends BaseMainFragment {
     public void onFragmentResult(int requestCode, int resultCode, Bundle data) {
         super.onFragmentResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
-            getBacklogListInfo();
+            getNoticeListInfo();
         }
     }
 
     /**
      * 我的公告
      */
-    private void getBacklogListInfo() {
+    private void getNoticeListInfo() {
 
-        getBacklogListNext = new SubscriberOnNextListener<List<HttpResult3>>() {
+        getBacklogListNext = new SubscriberOnNextListener<List<NoticeBean>>() {
 
             @Override
-            public void onNext(List<HttpResult3> response) {
+            public void onNext(List<NoticeBean> response) {
                 if (page == 1) {
-                    if (response.getList() != null && response.getList().size() > 0) {
+                    if (response != null && response.size() > 0) {
                         hasDate();
-                        backLoglist = response.getList();
+                        noticeBeans = response;
                         setCache();
                     } else {
                         LoadEmpty("您还没有待办事项", "");
                     }
 
                 } else {
-                    myAdapter.addData(response.getList());
+                    myAdapter.addData(response);
                     page++;
                 }
             }
@@ -204,7 +186,7 @@ public class ServiceRemindingFragment extends BaseMainFragment {
 
                     @Override
                     public void onReconnect() {
-                        getBacklogListInfo();
+                        getNoticeListInfo();
                     }
                 }, true);
             }
@@ -220,30 +202,20 @@ public class ServiceRemindingFragment extends BaseMainFragment {
 
                     @Override
                     public void onReconnect() {
-                        getBacklogListInfo();
+                        getNoticeListInfo();
                     }
                 }, true);
             }
         };
         subscriber = new ProgressSubscriber(getBacklogListNext, _mActivity, false);
-        HttpMethods.getInstance().AddAddressRequest(subscriber, page, pageSize);
+        HttpMethods.getInstance().getNoticeList(subscriber, page, pageSize);
     }
 
     private void myAdapterListener(MyAdapter myAdapter) {
         myAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                if (!StringUtils.isEmpty(backLoglist.get(position).getPendingType())) {
-                    switch (backLoglist.get(position).getPendingType()) {
-                        case "ADD_FAMILY":
-                            startForResult(AuditPropertyEntryFragment.newInstance(backLoglist.get(position), position), 1000);
-                            break;
-                    }
-                    BacklogResponse.ListBean listBean = backLoglist.get(position);
-                    listBean.setPendingStatus("CHECKED");
-                    backLoglist.set(position, listBean);
-                    adapter.setNewData(backLoglist);
-                }
+                start(WebFragment.newInstance(noticeBeans.get(position).getNoticeLink(), "公告详情"));
             }
         });
     }
@@ -260,18 +232,17 @@ public class ServiceRemindingFragment extends BaseMainFragment {
     /**
      * 公告
      */
-    class MyAdapter extends BaseQuickAdapter<BacklogResponse.ListBean, BaseViewHolder> {
+    class MyAdapter extends BaseQuickAdapter<NoticeBean, BaseViewHolder> {
 
-        public MyAdapter(Integer viewId, ArrayList<BacklogResponse.ListBean> data) {
+        public MyAdapter(Integer viewId, List<NoticeBean> data) {
             super(viewId, data);
         }
 
         @Override
-        protected void convert(BaseViewHolder helper, BacklogResponse.ListBean item) {
-            helper.setText(R.id.service_title, item.getTitle());
-            helper.setText(R.id.service_time, TimeUtils.stringReplaceT(item.getCreatedDate()));
-            helper.setText(R.id.service_content, item.getContent());
-            helper.setVisible(R.id.badge_red, "CREATE".equals(item.getPendingStatus()));
+        protected void convert(BaseViewHolder helper, NoticeBean item) {
+            helper.setText(R.id.service_title, item.getNoticeName());
+            helper.setText(R.id.service_time, "" + item.getCreationTime());
+            helper.setText(R.id.service_content, item.getNoticeDescribe());
         }
     }
 }

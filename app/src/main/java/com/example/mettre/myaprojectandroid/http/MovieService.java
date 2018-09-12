@@ -8,6 +8,7 @@ import com.example.mettre.myaprojectandroid.bean.CategoryBean;
 import com.example.mettre.myaprojectandroid.bean.GoodsDetailsBean;
 import com.example.mettre.myaprojectandroid.bean.GoodsListBean;
 import com.example.mettre.myaprojectandroid.bean.LoginBean;
+import com.example.mettre.myaprojectandroid.bean.NoticeBean;
 import com.example.mettre.myaprojectandroid.bean.OrderBean;
 import com.example.mettre.myaprojectandroid.bean.OrderRequestBean;
 import com.example.mettre.myaprojectandroid.bean.UserBean;
@@ -216,9 +217,8 @@ public interface MovieService {
      * 公告列表
      */
     @FormUrlEncoded
-    @POST(ConstantUtil.SHOPPING + "/goods/findGoods")
-    Observable<HttpResult5<GoodsListBean>> getNoticeList(
-            @Field(value = "categoryId") int categoryId, @Field(value = "page") int page, @Field(value = "size") int size);
+    @POST(ConstantUtil.SHOPPING + "/loginEd/notice/findByPage")
+    Observable<HttpResult5<NoticeBean>> getNoticeList(@Field(value = "page") int page, @Field(value = "size") int size);
 
 
 }

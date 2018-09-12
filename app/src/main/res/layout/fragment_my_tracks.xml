@@ -25,7 +25,7 @@
         app:srlHeaderHeight="60dp"
         app:srlPrimaryColor="@color/md_grey_100">
 
-        <com.ywing.app.android.view.ClassicsHeaderM
+        <com.example.mettre.myaprojectandroid.view.ClassicsHeaderM
             android:id="@+id/classicsHeader"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
@@ -46,7 +46,7 @@
 
         </LinearLayout>
 
-        <com.ywing.app.android.view.ClassicsFooterM
+        <com.example.mettre.myaprojectandroid.view.ClassicsFooterM
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
     </com.scwang.smartrefresh.layout.SmartRefreshLayout>
