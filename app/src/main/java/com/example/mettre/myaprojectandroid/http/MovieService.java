@@ -8,7 +8,7 @@ import com.example.mettre.myaprojectandroid.bean.CategoryBean;
 import com.example.mettre.myaprojectandroid.bean.GoodsDetailsBean;
 import com.example.mettre.myaprojectandroid.bean.GoodsListBean;
 import com.example.mettre.myaprojectandroid.bean.LoginBean;
-import com.example.mettre.myaprojectandroid.bean.OrderListBean;
+import com.example.mettre.myaprojectandroid.bean.OrderBean;
 import com.example.mettre.myaprojectandroid.bean.OrderRequestBean;
 import com.example.mettre.myaprojectandroid.bean.UserBean;
 import com.example.mettre.myaprojectandroid.utils.ConstantUtil;
@@ -22,10 +22,7 @@ import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
-import retrofit2.http.Part;
-import retrofit2.http.PartMap;
 import retrofit2.http.Path;
-import retrofit2.http.QueryMap;
 import rx.Observable;
 
 /**
@@ -203,10 +200,25 @@ public interface MovieService {
      */
     @FormUrlEncoded
     @POST(ConstantUtil.SHOPPING + "/loginEd/order/findOrderList")
-    Observable<HttpResult5<OrderListBean>> getOrderList(
+    Observable<HttpResult5<OrderBean>> getOrderList(
             @Field(value = "page") int page,
             @Field(value = "pageSize") int pageSize,
             @Field(value = "status") int orderStatus);
+
+    /**
+     * 订单详情
+     */
+    @GET(ConstantUtil.SHOPPING + "/loginEd/order/orderDetails/{orderId}")
+    Observable<HttpResult3<OrderBean>> getOrderDetail(
+            @Path("orderId") Long orderId);
+
+    /**
+     * 公告列表
+     */
+    @FormUrlEncoded
+    @POST(ConstantUtil.SHOPPING + "/goods/findGoods")
+    Observable<HttpResult5<GoodsListBean>> getNoticeList(
+            @Field(value = "categoryId") int categoryId, @Field(value = "page") int page, @Field(value = "size") int size);
 
 
 }

@@ -21,12 +21,12 @@ public class GoodsDetailsBean {
      * isPromote : false
      */
 
-    private int goodsId;
+    private Long goodsId;
     private String goodsName;
     private int categoryId;
     private String categoryName;
     private long goodsSn;
-    private int brandId;
+    private Long brandId;
     private String brandName;
     private int stock;
     private BigDecimal marketPrice;
@@ -35,11 +35,11 @@ public class GoodsDetailsBean {
     private String goodsDesc;
     private boolean isPromote;
 
-    public int getGoodsId() {
+    public Long getGoodsId() {
         return goodsId;
     }
 
-    public void setGoodsId(int goodsId) {
+    public void setGoodsId(Long goodsId) {
         this.goodsId = goodsId;
     }
 
@@ -75,11 +75,11 @@ public class GoodsDetailsBean {
         this.goodsSn = goodsSn;
     }
 
-    public int getBrandId() {
+    public Long getBrandId() {
         return brandId;
     }
 
-    public void setBrandId(int brandId) {
+    public void setBrandId(Long brandId) {
         this.brandId = brandId;
     }
 

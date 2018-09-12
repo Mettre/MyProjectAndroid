@@ -16,7 +16,11 @@ import android.widget.TextView;
 
 import com.example.mettre.myaprojectandroid.R;
 import com.example.mettre.myaprojectandroid.base.BaseMainFragment;
+import com.example.mettre.myaprojectandroid.bean.CartBean;
+import com.example.mettre.myaprojectandroid.bean.CartGoodsItem;
 import com.example.mettre.myaprojectandroid.bean.GoodsDetailsBean;
+import com.example.mettre.myaprojectandroid.bean.SubmitOrderGroup;
+import com.example.mettre.myaprojectandroid.event.StartBrotherEvent;
 import com.example.mettre.myaprojectandroid.http.HttpMethods;
 import com.example.mettre.myaprojectandroid.http.HttpResult3;
 import com.example.mettre.myaprojectandroid.subscribers.ProgressSubscriber;
@@ -34,6 +38,9 @@ import com.example.mettre.myaprojectandroid.view.ScrollViewContainer;
 import com.joanzapata.android.BaseAdapterHelper;
 import com.joanzapata.android.QuickAdapter;
 
+import org.greenrobot.eventbus.EventBus;
+
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -46,6 +53,7 @@ import rx.Subscriber;
 public class GoodsDetailsFragment extends BaseMainFragment implements GradationScrollView.ScrollViewListener {
 
 
+    private int quantity = 1;//选择数量
     private Long goodsId;
     private int stock;
     private TextView goods_name, goods_brief_text, shop_price_text, market_price_text;
@@ -60,6 +68,7 @@ public class GoodsDetailsFragment extends BaseMainFragment implements GradationS
     /**
      * 加入购物车
      */
+    private List<SubmitOrderGroup> orderVMList = new ArrayList<>();//购物车提交数据给订单
     private SubscriberOnNextListener getAddCartNext;
     private Subscriber<HttpResult3> subscriber3;
 
@@ -219,6 +228,29 @@ public class GoodsDetailsFragment extends BaseMainFragment implements GradationS
         HttpMethods.getInstance().getCartGoodsInfo(subscriber3, Long.parseLong(timestamp), goodsId, quantity);
     }
 
+
+    /**
+     * 订单项目
+     */
+    private List<SubmitOrderGroup> setOrderVMList() {
+        orderVMList = new ArrayList<>();
+        SubmitOrderGroup orderVMListBean = new SubmitOrderGroup();
+        orderVMListBean.setGoodsTotal(goodsDetailsBean.getShopPrice().multiply(new BigDecimal(quantity)));//商品总价
+        orderVMListBean.setUserAllPrice(goodsDetailsBean.getShopPrice().multiply(new BigDecimal(quantity)));
+        orderVMListBean.setBrandId(goodsDetailsBean.getBrandId());//店铺名称
+        orderVMListBean.setBrandName(goodsDetailsBean.getBrandName());//店铺名称
+        List<SubmitOrderGroup.GoodsItem> orderItems = new ArrayList<>();
+        SubmitOrderGroup.GoodsItem goodsItem = new SubmitOrderGroup.GoodsItem();
+        goodsItem.setGoodsName(goodsDetailsBean.getGoodsName());
+        goodsItem.setGoodsId(goodsDetailsBean.getGoodsId());
+        goodsItem.setGoodsNumber(quantity);
+        goodsItem.setGoodsPrice(goodsDetailsBean.getShopPrice());
+        orderItems.add(goodsItem);
+        orderVMListBean.setGoodsItems(orderItems);
+        orderVMList.add(orderVMListBean);
+        return orderVMList;
+    }
+
     @Override
     public void onClick(View v) {
         super.onClick(v);
@@ -227,11 +259,12 @@ public class GoodsDetailsFragment extends BaseMainFragment implements GradationS
                 pop();
                 break;
             case R.id.tv_good_detail_buy:
+                EventBus.getDefault().post(new StartBrotherEvent(SubmitOrderFragment.newInstance(setOrderVMList(), 1)));
                 break;
             case R.id.tv_good_detail_shop_cart:
-                if(stock<0){
-                   ToastUtils.showCenterToast("库存不足",200);
-                }else {
+                if (stock < 0) {
+                    ToastUtils.showCenterToast("库存不足", 200);
+                } else {
                     getAddCartInfo(1);
                 }
                 break;

@@ -29,13 +29,11 @@ import java.util.List;
 import rx.Subscriber;
 
 /**
- * Created by app on 2017/7/18.
- * 全部订单
+ * 待付款
  */
+public class FirstOrderFragment extends BaseMainFragment implements OrderAdapter.OrderClickListener{
 
-public class AllOrderFragment extends BaseMainFragment implements OrderAdapter.OrderClickListener {
-
-    private int orderStatus = 0;
+    private int orderStatus = 10;
     private RefreshLayout refreshLayout;
     private ExpandableListView exListView;
     private OrderAdapter orderAdapter;
@@ -54,8 +52,8 @@ public class AllOrderFragment extends BaseMainFragment implements OrderAdapter.O
     private Subscriber<HttpResult3> subscriber2;
 
 
-    public static AllOrderFragment newInstance() {
-        AllOrderFragment fragment = new AllOrderFragment();
+    public static FirstOrderFragment newInstance() {
+        FirstOrderFragment fragment = new FirstOrderFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;

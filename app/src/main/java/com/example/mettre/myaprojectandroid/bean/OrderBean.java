@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * 订单列表
  */
-public class OrderListBean {
+public class OrderBean {
 
     private Long orderId;//订单id
     private Long orderNo;//订单编号
@@ -16,6 +16,10 @@ public class OrderListBean {
     private Long brandId;//品牌id
     private String brandName;//品牌名称
     private Integer status = 10;//订单状态 0:已取消  10:未付款  20:已支付  30:已发货  40:交易成功  50:交易关闭
+    private String recipientAddress;//收货地址
+    private String recipientName;//收货姓名
+    private String recipientPhoneNumber;//收货电话
+    private String creationTime;
     private List<ListBean> orderItem;
 
     public static class ListBean {
@@ -140,11 +144,43 @@ public class OrderListBean {
         this.status = status;
     }
 
-    public List<OrderListBean.ListBean> getOrderItem() {
+    public List<OrderBean.ListBean> getOrderItem() {
         return orderItem;
     }
 
-    public void setOrderItem(List<OrderListBean.ListBean> orderItem) {
+    public void setOrderItem(List<OrderBean.ListBean> orderItem) {
         this.orderItem = orderItem;
+    }
+
+    public String getRecipientAddress() {
+        return recipientAddress;
+    }
+
+    public void setRecipientAddress(String recipientAddress) {
+        this.recipientAddress = recipientAddress;
+    }
+
+    public String getRecipientName() {
+        return recipientName;
+    }
+
+    public void setRecipientName(String recipientName) {
+        this.recipientName = recipientName;
+    }
+
+    public String getRecipientPhoneNumber() {
+        return recipientPhoneNumber;
+    }
+
+    public void setRecipientPhoneNumber(String recipientPhoneNumber) {
+        this.recipientPhoneNumber = recipientPhoneNumber;
+    }
+
+    public String getCreationTime() {
+        return creationTime;
+    }
+
+    public void setCreationTime(String creationTime) {
+        this.creationTime = creationTime;
     }
 }

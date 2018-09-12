@@ -9,7 +9,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.mettre.myaprojectandroid.R;
-import com.example.mettre.myaprojectandroid.bean.OrderListBean;
+import com.example.mettre.myaprojectandroid.bean.OrderBean;
 import com.example.mettre.myaprojectandroid.utils.BigDecimalUtils;
 import com.example.mettre.myaprojectandroid.utils.MyImageLoader;
 import com.example.mettre.myaprojectandroid.utils.RandomURL;
@@ -23,7 +23,7 @@ import java.util.List;
 
 public class OrderAdapter extends BaseExpandableListAdapter {
 
-    private List<OrderListBean> groups;
+    private List<OrderBean> groups;
     private Context context;
     private OrderClickListener onOrderClick;
 
@@ -33,7 +33,7 @@ public class OrderAdapter extends BaseExpandableListAdapter {
      * @param groups  组元素列表
      * @param context
      */
-    public OrderAdapter(List<OrderListBean> groups, Context context, OrderClickListener onOrderClick) {
+    public OrderAdapter(List<OrderBean> groups, Context context, OrderClickListener onOrderClick) {
         super();
         this.groups = groups;
         this.context = context;
@@ -89,7 +89,7 @@ public class OrderAdapter extends BaseExpandableListAdapter {
             // convertView = groupMap.get(groupPosition);
             gholder = (GroupHolder) convertView.getTag();
         }
-        final OrderListBean group = (OrderListBean) getGroup(groupPosition);
+        final OrderBean group = (OrderBean) getGroup(groupPosition);
         if (group != null) {
             gholder.shop_name.setText(group.getBrandName());
             String orderType = "";
@@ -148,15 +148,15 @@ public class OrderAdapter extends BaseExpandableListAdapter {
             // convertView = childrenMap.get(groupPosition);
             cholder = (ChildHolder) convertView.getTag();
         }
-        final OrderListBean.ListBean goods = (OrderListBean.ListBean) getChild(groupPosition, childPosition);
-        final OrderListBean group = (OrderListBean) getGroup(groupPosition);
+        final OrderBean.ListBean goods = (OrderBean.ListBean) getChild(groupPosition, childPosition);
+        final OrderBean group = (OrderBean) getGroup(groupPosition);
 
         if (goods != null) {
             cholder.tv_product_desc.setText(goods.getGoodsName());
             MyImageLoader.getInstance().displayImage(context, RandomURL.getInstance().getRandomUrl(), cholder.product_picture);
 
             cholder.product_price.setText(BigDecimalUtils.wipeBigDecimalZero(goods.getOrderGoodsPrice()));
-            cholder.product_quantity.setText("x" + goods.getQuantity() + "");
+            cholder.product_quantity.setText("x " + goods.getQuantity() + "");
             cholder.goods_main_item.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

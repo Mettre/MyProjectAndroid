@@ -35,7 +35,7 @@ public class MyOrderFragment extends BaseMainFragment {
     private ArrayList<Fragment> mFragments2;
     private CommonTabLayout tableLayout;
     private ViewPager mViewPager;
-    private String[] mTitles = new String[]{"全部", "待付款", "待发货", "待收货", "待评价"};
+    private String[] mTitles = new String[]{"全部", "待付款", "待发货", "待收货", "已完成"};
     private ArrayList<CustomTabEntity> mTabEntities;
     private int CurrentItem;
 
@@ -67,10 +67,10 @@ public class MyOrderFragment extends BaseMainFragment {
 
         mFragments2 = new ArrayList<>();
         mFragments2.add(AllOrderFragment.newInstance());
-        mFragments2.add(AllOrderFragment.newInstance());
-        mFragments2.add(AllOrderFragment.newInstance());
-        mFragments2.add(AllOrderFragment.newInstance());
-        mFragments2.add(AllOrderFragment.newInstance());
+        mFragments2.add(FirstOrderFragment.newInstance());
+        mFragments2.add(SecondOrderFragment.newInstance());
+        mFragments2.add(ThirdOrderFragment.newInstance());
+        mFragments2.add(FourthOrderFragment.newInstance());
 
         mTabEntities = new ArrayList<>();
         for (int i = 0; i < mTitles.length; i++) {
