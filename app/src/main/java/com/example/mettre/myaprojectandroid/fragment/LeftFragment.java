@@ -1,7 +1,11 @@
 package com.example.mettre.myaprojectandroid.fragment;
 
 import android.content.Context;
+import android.graphics.Paint;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,9 +14,12 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.BaseViewHolder;
 import com.example.mettre.myaprojectandroid.R;
 import com.example.mettre.myaprojectandroid.base.BaseMainFragment;
 import com.example.mettre.myaprojectandroid.bean.AdvBean;
+import com.example.mettre.myaprojectandroid.bean.GoodsListBean;
 import com.example.mettre.myaprojectandroid.constant.CommonConstant;
 import com.example.mettre.myaprojectandroid.event.StartBrotherEvent;
 import com.example.mettre.myaprojectandroid.http.HttpMethods;
@@ -20,6 +27,11 @@ import com.example.mettre.myaprojectandroid.http.HttpResult5;
 import com.example.mettre.myaprojectandroid.subscribers.ProgressSubscriber;
 import com.example.mettre.myaprojectandroid.subscribers.SubscriberOnNextListener;
 import com.example.mettre.myaprojectandroid.utils.MyImageLoader;
+import com.example.mettre.myaprojectandroid.utils.RandomURL;
+import com.example.mettre.myaprojectandroid.view.BetterRecyclerView;
+import com.example.mettre.myaprojectandroid.view.SquareImageView;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.zhouwei.mzbanner.MZBannerView;
 import com.zhouwei.mzbanner.holder.MZHolderCreator;
 import com.zhouwei.mzbanner.holder.MZViewHolder;
@@ -50,6 +62,23 @@ public class LeftFragment extends BaseMainFragment {
     private MZBannerView mMZBanner;
     private List<String> imageUrl = new ArrayList<>();
 
+    /**
+     * 直降价
+     */
+    private SubscriberOnNextListener getPromotionOnNext;
+    private List<GoodsListBean> listInfo;
+    private RecyclerView recyclerView1;
+    private RefreshLayout refreshLayout;
+    private MyAdapter1 myAdapter1;
+
+    /**
+     * 秒杀
+     */
+    private SubscriberOnNextListener getStraightDownOnNext;
+    private MyAdapter2 myAdapter2;
+    private List<GoodsListBean> dropListInfo;
+    private BetterRecyclerView recyclerView2;
+
     public static LeftFragment newInstance() {
         return new LeftFragment();
     }
@@ -57,7 +86,8 @@ public class LeftFragment extends BaseMainFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_left, container, false);
-        initClickListener(view, R.id.linearLayout_left_top, R.id.linearLayout_right_top, R.id.linearLayout_left_bottom, R.id.linearLayout_right_bottom, R.id.zxing_img);
+        initClickListener(view, R.id.zxing_img);
+        initLoadView(false, view);
         initView(view);
         getBannerList(CommonConstant.HOME_PROMOTION);
         getBannerList(CommonConstant.HOME_RECOMMENT);
@@ -65,24 +95,15 @@ public class LeftFragment extends BaseMainFragment {
     }
 
     public void initView(View view) {
-        mMZBanner = view.findViewById(R.id.banner);
-        title_left_top = view.findViewById(R.id.title_left_top);
-        title_right_top = view.findViewById(R.id.title_right_top);
-        title_left_bottom = view.findViewById(R.id.title_left_bottom);
-        title_right_bottom = view.findViewById(R.id.title_right_bottom);
-        describe_left_top = view.findViewById(R.id.describe_left_top);
-        describe_right_top = view.findViewById(R.id.describe_right_top);
-        describe_left_bottom = view.findViewById(R.id.describe_left_bottom);
-        describe_right_bottom = view.findViewById(R.id.describe_right_bottom);
-        image_left_top = view.findViewById(R.id.image_left_top);
-        image_right_top = view.findViewById(R.id.image_right_top);
-        imageView_left_bottom = view.findViewById(R.id.imageView_left_bottom);
-        imageView_right_bottom = view.findViewById(R.id.imageView_right_bottom);
-        linearLayout_left_top = view.findViewById(R.id.linearLayout_left_top);
-        linearLayout_right_top = view.findViewById(R.id.linearLayout_right_top);
-        linearLayout_left_bottom = view.findViewById(R.id.linearLayout_left_bottom);
-        linearLayout_right_bottom = view.findViewById(R.id.linearLayout_right_bottom);
 
+        recyclerView1 = view.findViewById(R.id.recycleView);
+        refreshLayout = view.findViewById(R.id.refreshLayout);
+        listInfo = new ArrayList<>();
+        recyclerView1.setLayoutManager(new LinearLayoutManager(_mActivity, LinearLayoutManager.VERTICAL, false));
+        myAdapter1 = new MyAdapter1(listInfo);
+        recyclerView1.setAdapter(myAdapter1);
+
+        setHeader(recyclerView1);
         setHeightWeight(image_left_top);
         setHeightWeight(image_right_top);
         setHeightWeight(imageView_left_bottom);
@@ -94,6 +115,75 @@ public class LeftFragment extends BaseMainFragment {
                 onAdvClick(advBeanList.get(i));
             }
         });
+
+        setTopRefresh();
+
+        myAdapterListener(myAdapter1);
+        PromotionRefresh();
+    }
+
+    /**
+     * 添加刷新--
+     */
+    private void setTopRefresh() {
+        refreshLayout.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(RefreshLayout refreshlayout) {
+                getBannerList(CommonConstant.HOME_PROMOTION);
+            }
+        });
+    }
+
+    private void myAdapterListener(MyAdapter1 myAdapter) {
+        myAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                EventBus.getDefault().post(new StartBrotherEvent(GoodsDetailsFragment.newInstance(listInfo.get(position).getGoodsId())));
+            }
+        });
+    }
+
+    private void myAdapterListener(MyAdapter2 myAdapter) {
+        myAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+
+                EventBus.getDefault().post(new StartBrotherEvent(GoodsDetailsFragment.newInstance(dropListInfo.get(position).getGoodsId())));
+            }
+        });
+    }
+
+    private void setHeader(RecyclerView view) {
+        dropListInfo = new ArrayList<>();
+        View header = LayoutInflater.from(_mActivity).inflate(R.layout.home_head, view, false);
+        initClickListener(header, R.id.linearLayout_left_top, R.id.linearLayout_right_top, R.id.linearLayout_left_bottom, R.id.linearLayout_right_bottom);
+
+        recyclerView2 = header.findViewById(R.id.recycle_seckill);
+        mMZBanner = header.findViewById(R.id.banner);
+        title_left_top = header.findViewById(R.id.title_left_top);
+        title_right_top = header.findViewById(R.id.title_right_top);
+        title_left_bottom = header.findViewById(R.id.title_left_bottom);
+        title_right_bottom = header.findViewById(R.id.title_right_bottom);
+        describe_left_top = header.findViewById(R.id.describe_left_top);
+        describe_right_top = header.findViewById(R.id.describe_right_top);
+        describe_left_bottom = header.findViewById(R.id.describe_left_bottom);
+        describe_right_bottom = header.findViewById(R.id.describe_right_bottom);
+        image_left_top = header.findViewById(R.id.image_left_top);
+        image_right_top = header.findViewById(R.id.image_right_top);
+        imageView_left_bottom = header.findViewById(R.id.imageView_left_bottom);
+        imageView_right_bottom = header.findViewById(R.id.imageView_right_bottom);
+        linearLayout_left_top = header.findViewById(R.id.linearLayout_left_top);
+        linearLayout_right_top = header.findViewById(R.id.linearLayout_right_top);
+        linearLayout_left_bottom = header.findViewById(R.id.linearLayout_left_bottom);
+        linearLayout_right_bottom = header.findViewById(R.id.linearLayout_right_bottom);
+
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(_mActivity);
+        linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+        recyclerView2.setLayoutManager(linearLayoutManager);
+        myAdapter2 = new MyAdapter2(R.layout.item_seckill, dropListInfo);
+        recyclerView2.setAdapter(myAdapter2);
+        myAdapterListener(myAdapter2);
+        myAdapter1.setHeaderView(header);
     }
 
 
@@ -112,6 +202,7 @@ public class LeftFragment extends BaseMainFragment {
 
     //    加载轮播图
     private void initBannerDate() {
+        imageUrl.clear();
         for (AdvBean advBean : advBeanList) {
             imageUrl.add(advBean.getAdImage());
         }
@@ -153,6 +244,126 @@ public class LeftFragment extends BaseMainFragment {
 
 
     /**
+     * 秒杀列表
+     */
+    private void PromotionRefresh() {
+
+        getStraightDownOnNext = new SubscriberOnNextListener<List<GoodsListBean>>() {
+            @Override
+            public void onNext(List<GoodsListBean> goodsListBeans) {
+                dropListInfo = goodsListBeans;
+                myAdapter2.setNewData(dropListInfo);
+            }
+
+            @Override
+            public void onCompleted() {
+                hasDate();
+                Depreciate();
+            }
+
+            @Override
+            public void onError() {
+                Depreciate();
+            }
+
+            @Override
+            public void onSocketTimeout() {
+                refreshLayout.finishRefresh(10);
+                connectionFailed(new onReconnectInface() {
+
+                    @Override
+                    public void onReconnect() {
+                        LoadLoading();
+                        PromotionRefresh();
+                    }
+                }, false);
+            }
+
+            @Override
+            public void onConnectException() {
+                refreshLayout.finishRefresh(10);
+                connectionFailed(new onReconnectInface() {
+
+                    @Override
+                    public void onReconnect() {
+                        LoadLoading();
+                        PromotionRefresh();
+                    }
+                }, false);
+            }
+        };
+        HttpMethods.getInstance().getPromotionInfo(new ProgressSubscriber(getStraightDownOnNext, _mActivity, false), 1, pageSize);
+    }
+
+    /**
+     * 直降列表
+     */
+    private void Depreciate() {
+
+        getPromotionOnNext = new SubscriberOnNextListener<List<GoodsListBean>>() {
+
+            @Override
+            public void onNext(List<GoodsListBean> goodsListBeans) {
+                listInfo = goodsListBeans;
+
+                if (page == 1) {
+                    myAdapter1.setNewData(listInfo);
+                } else {
+                    myAdapter1.addData(listInfo);
+                    page++;
+                }
+            }
+
+            @Override
+            public void onCompleted() {
+                if (page == 1) {
+                    refreshLayout.finishRefresh(10);
+                } else {
+                    refreshLayout.finishLoadmore(10);
+                }
+            }
+
+            @Override
+            public void onError() {
+                if (page == 1) {
+                    refreshLayout.finishRefresh(10);
+                } else {
+                    refreshLayout.finishLoadmore(10);
+                }
+            }
+
+            @Override
+            public void onSocketTimeout() {
+                refreshLayout.finishRefresh(10);
+                connectionFailed(new onReconnectInface() {
+
+                    @Override
+                    public void onReconnect() {
+                        LoadLoading();
+                        Depreciate();
+                    }
+                }, false);
+            }
+
+            @Override
+            public void onConnectException() {
+                refreshLayout.finishRefresh(10);
+                connectionFailed(new onReconnectInface() {
+
+                    @Override
+                    public void onReconnect() {
+                        LoadLoading();
+                        Depreciate();
+                    }
+                }, false);
+            }
+        };
+
+        HttpMethods.getInstance().getPromotionInfo(new ProgressSubscriber(getPromotionOnNext, _mActivity, false), page, pageSize);
+    }
+
+
+    /**
      * 获取首页轮播图
      */
     private void getBannerList(final String adPositionNo) {
@@ -181,22 +392,22 @@ public class LeftFragment extends BaseMainFragment {
 
             @Override
             public void onCompleted() {
-
+                refreshLayout.finishRefresh(10);
             }
 
             @Override
             public void onError() {
-
+                refreshLayout.finishRefresh(10);
             }
 
             @Override
             public void onSocketTimeout() {
-
+                refreshLayout.finishRefresh(10);
             }
 
             @Override
             public void onConnectException() {
-
+                refreshLayout.finishRefresh(10);
             }
         };
         subscriber = new ProgressSubscriber(getBannerOnNext, _mActivity, false);
@@ -210,6 +421,49 @@ public class LeftFragment extends BaseMainFragment {
             case 1:
                 EventBus.getDefault().post(new StartBrotherEvent(WebFragment.newInstance(advBean.getAdLink(), "详情")));
                 break;
+        }
+    }
+
+
+    /**
+     * 竖向--直降
+     */
+    class MyAdapter1 extends BaseQuickAdapter<GoodsListBean, BaseViewHolder> {
+
+        public MyAdapter1(List<GoodsListBean> data) {
+            super(R.layout.item_left_up, data);
+        }
+
+        @Override
+        protected void convert(BaseViewHolder helper, final GoodsListBean item) {
+
+            helper.setVisible(R.id.left_linearLayout, true);
+            helper.setVisible(R.id.right_linearLayout, false);
+            helper.setText(R.id.product_name, item.getGoodsName());
+            helper.setText(R.id.product_price, "￥" + item.getShopPrice());
+            helper.setText(R.id.price_market, "￥" + item.getMarketPrice());
+            ((TextView) helper.getView(R.id.price_market)).getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);//刪除線
+            MyImageLoader.getInstance().displayImage(_mActivity, RandomURL.getInstance().getRandomUrl(), (SquareImageView) helper.getView(R.id.product_img));
+
+        }
+    }
+
+    /**
+     * 横向--秒杀
+     */
+    class MyAdapter2 extends BaseQuickAdapter<GoodsListBean, BaseViewHolder> {
+
+        public MyAdapter2(Integer viewId, List<GoodsListBean> data) {
+            super(viewId, data);
+        }
+
+        @Override
+        protected void convert(BaseViewHolder helper, GoodsListBean item) {
+            helper.setText(R.id.product_name, item.getGoodsName());
+            helper.setText(R.id.product_price, "￥" + item.getShopPrice());
+            helper.setText(R.id.price_market, "￥" + item.getMarketPrice());
+            ((TextView) helper.getView(R.id.price_market)).getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);//刪除線
+            MyImageLoader.getInstance().displayImage(_mActivity, RandomURL.getInstance().getRandomUrl(), (ImageView) helper.getView(R.id.product_img));
         }
     }
 

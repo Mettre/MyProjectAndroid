@@ -220,5 +220,12 @@ public interface MovieService {
     @POST(ConstantUtil.SHOPPING + "/loginEd/notice/findByPage")
     Observable<HttpResult5<NoticeBean>> getNoticeList(@Field(value = "page") int page, @Field(value = "size") int size);
 
+    /**
+     * 促销商品
+     */
+    @FormUrlEncoded
+    @POST(ConstantUtil.SHOPPING + "/goods/promotionGoods")
+    Observable<HttpResult5<GoodsListBean>> getPromotionInfo(@Field(value = "page") int page, @Field(value = "size") int size);
+
 
 }
