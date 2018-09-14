@@ -10,6 +10,7 @@ public class ApiException extends RuntimeException {
     public static final int WRONG_PASSWORD = 100;
     private static final int LOGINEXPIRED = 300;
     private static final int USER_CODE_ERROR = 400;
+    private static final int NOT_LOGIN = 401;
 
     public ApiException(Integer code, String Message) {
         this(getApiExceptionMessage(code, Message));
@@ -37,6 +38,9 @@ public class ApiException extends RuntimeException {
                 break;
             case USER_CODE_ERROR:
                 message = "用户编码错误";
+                break;
+            case NOT_LOGIN:
+                message = "未登录";
                 break;
             default:
                 message = Message;
