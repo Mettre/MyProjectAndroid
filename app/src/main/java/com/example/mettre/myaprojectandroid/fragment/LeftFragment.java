@@ -177,9 +177,7 @@ public class LeftFragment extends BaseMainFragment {
         linearLayout_left_bottom = header.findViewById(R.id.linearLayout_left_bottom);
         linearLayout_right_bottom = header.findViewById(R.id.linearLayout_right_bottom);
 
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(_mActivity);
-        linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
-        recyclerView2.setLayoutManager(linearLayoutManager);
+        recyclerView2.setLayoutManager(new LinearLayoutManager(_mActivity, LinearLayoutManager.HORIZONTAL, false));
         myAdapter2 = new MyAdapter2(R.layout.item_seckill, dropListInfo);
         recyclerView2.setAdapter(myAdapter2);
         myAdapterListener(myAdapter2);
@@ -459,6 +457,7 @@ public class LeftFragment extends BaseMainFragment {
 
         @Override
         protected void convert(BaseViewHolder helper, GoodsListBean item) {
+            Log.e("----------222:",""+item.getGoodsName());
             helper.setText(R.id.product_name, item.getGoodsName());
             helper.setText(R.id.product_price, "￥" + item.getShopPrice());
             helper.setText(R.id.price_market, "￥" + item.getMarketPrice());

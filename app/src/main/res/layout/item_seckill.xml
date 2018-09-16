@@ -22,8 +22,7 @@
         android:maxLines="2"
         android:text="规格单位"
         android:textColor="@color/monsoon"
-        android:textSize="@dimen/size13"
-        android:visibility="gone" />
+        android:textSize="@dimen/small" />
 
     <LinearLayout
         android:id="@+id/price_lin"
