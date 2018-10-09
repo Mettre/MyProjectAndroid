@@ -457,7 +457,7 @@ public class LeftFragment extends BaseMainFragment {
 
         @Override
         protected void convert(BaseViewHolder helper, GoodsListBean item) {
-            Log.e("----------222:",""+item.getGoodsName());
+            Log.e("----------222:", "" + item.getGoodsName());
             helper.setText(R.id.product_name, item.getGoodsName());
             helper.setText(R.id.product_price, "￥" + item.getShopPrice());
             helper.setText(R.id.price_market, "￥" + item.getMarketPrice());

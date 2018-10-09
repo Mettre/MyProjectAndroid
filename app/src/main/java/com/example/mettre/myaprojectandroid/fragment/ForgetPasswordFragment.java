@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.example.mettre.myaprojectandroid.R;
 import com.example.mettre.myaprojectandroid.base.BaseMainFragment;
+import com.example.mettre.myaprojectandroid.bean.EnumBean;
 import com.example.mettre.myaprojectandroid.http.HttpMethods;
 import com.example.mettre.myaprojectandroid.http.HttpResult3;
 import com.example.mettre.myaprojectandroid.subscribers.ProgressSubscriber;
@@ -20,6 +21,7 @@ import com.example.mettre.myaprojectandroid.utils.SharedPrefsUtil;
 import com.example.mettre.myaprojectandroid.utils.ToastUtils;
 
 import com.cazaea.sweetalert.SweetAlertDialog;
+
 import rx.Subscriber;
 
 import static com.example.mettre.myaprojectandroid.utils.LoginUtils.isMobileNO;
@@ -122,7 +124,7 @@ public class ForgetPasswordFragment extends BaseMainFragment implements View.OnC
             }
         };
         subscriber = new ProgressSubscriber(sendPhoneNumberByResetPasswordNext, _mActivity);
-        HttpMethods.getInstance().sendVerificationCode(subscriber, phone.getText().toString(),1);
+        HttpMethods.getInstance().sendVerificationCode(subscriber, phone.getText().toString(), EnumBean.CaptchaEnum.MODIFY_SMS.getCode());
     }
 
     /**

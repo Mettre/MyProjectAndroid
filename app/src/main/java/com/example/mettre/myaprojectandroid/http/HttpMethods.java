@@ -33,9 +33,9 @@ import rx.schedulers.Schedulers;
 
 public class HttpMethods {
 
-//    public static final String BASE_URL = "http://192.168.0.176:8888/";//公司
+    public static final String BASE_URL = "http://192.168.0.176:8888/";//公司
 
-    public static final String BASE_URL = "http://192.168.1.107:8888/";//家
+//    public static final String BASE_URL = "http://192.168.1.107:8888/";//家
 
     private static final int DEFAULT_TIMEOUT = 25;
 
@@ -96,10 +96,10 @@ public class HttpMethods {
     /**
      * 发送验证码
      */
-    public void sendVerificationCode(Subscriber<HttpResult3> subscriber, String phone, int captchaType) {
-        HashMap<String, Object> map = new HashMap<String, Object>();
+    public void sendVerificationCode(Subscriber<HttpResult3> subscriber, String phone, String captchaCode) {
+        HashMap<String, String> map = new HashMap<String, String>();
         map.put("phone", phone);
-        map.put("captchaType", captchaType);
+        map.put("captchaCode", captchaCode);
         Observable observable = movieService.sendVerificationCode(map).map(new HttpMethods.HttpResultFunc2());
         toSubscribe(observable, subscriber);
     }

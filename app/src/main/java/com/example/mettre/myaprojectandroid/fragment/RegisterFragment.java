@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.example.mettre.myaprojectandroid.R;
 import com.example.mettre.myaprojectandroid.base.BaseMainFragment;
 import com.example.mettre.myaprojectandroid.bean.CaptchaBean;
+import com.example.mettre.myaprojectandroid.bean.EnumBean;
 import com.example.mettre.myaprojectandroid.http.HttpMethods;
 import com.example.mettre.myaprojectandroid.http.HttpResult3;
 import com.example.mettre.myaprojectandroid.subscribers.ProgressSubscriber;
@@ -21,6 +22,7 @@ import com.example.mettre.myaprojectandroid.utils.LoginUtils;
 import com.example.mettre.myaprojectandroid.utils.ToastUtils;
 
 import com.cazaea.sweetalert.SweetAlertDialog;
+
 import rx.Subscriber;
 
 import static com.example.mettre.myaprojectandroid.utils.LoginUtils.isMobileNO;
@@ -163,7 +165,7 @@ public class RegisterFragment extends BaseMainFragment implements View.OnClickLi
             }
         };
         subscriber = new ProgressSubscriber(sendPhoneNumberByRegisterNext, _mActivity);
-        HttpMethods.getInstance().sendVerificationCode(subscriber, phone.getText().toString(), 1);
+        HttpMethods.getInstance().sendVerificationCode(subscriber, phone.getText().toString(), EnumBean.CaptchaEnum.REGISTER_SMS.getCode());
     }
 
     @Override

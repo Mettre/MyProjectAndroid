@@ -58,7 +58,7 @@ public interface MovieService {
      */
     @POST(ConstantUtil.CONTROLLER + "/captcha")
     Observable<HttpResult3<CaptchaBean>> sendVerificationCode(
-            @Body HashMap<String, Object> map);
+            @Body HashMap<String, String> map);
 
     /**
      * 忘记密码
