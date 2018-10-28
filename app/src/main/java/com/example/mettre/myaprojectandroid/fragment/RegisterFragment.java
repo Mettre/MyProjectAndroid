@@ -165,7 +165,7 @@ public class RegisterFragment extends BaseMainFragment implements View.OnClickLi
             }
         };
         subscriber = new ProgressSubscriber(sendPhoneNumberByRegisterNext, _mActivity);
-        HttpMethods.getInstance().sendVerificationCode(subscriber, phone.getText().toString(), EnumBean.CaptchaEnum.REGISTER_SMS.getCode());
+        HttpMethods.getInstance().sendVerificationCode(subscriber, phone.getText().toString(), EnumBean.CaptchaEnum.REGISTER_SMS.name());
     }
 
     @Override

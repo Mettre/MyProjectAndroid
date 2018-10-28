@@ -32,8 +32,8 @@ import static com.example.mettre.myaprojectandroid.utils.LoginUtils.isMobileNO;
  */
 public class ForgetPasswordFragment extends BaseMainFragment implements View.OnClickListener {
 
-    private EditText verificationCodeNum, newPassword;
-    private TextView verificationCode, phoneNumText, submit_btn;
+    private EditText verificationCodeNum, newPassword,phoneNumText;
+    private TextView verificationCode, submit_btn;
     private Toolbar mToolbar;
     private SubscriberOnNextListener sendPhoneNumberByResetPasswordNext;
     private Subscriber<HttpResult3> subscriber;
@@ -74,9 +74,6 @@ public class ForgetPasswordFragment extends BaseMainFragment implements View.OnC
         mToolbar.setTitleTextColor(getResources().getColor(R.color.oil));
         initToolbarNav(mToolbar);
         mToolbar.setTitle("修改密码");
-
-        String phoneNum = SharedPrefsUtil.getValue(_mActivity, "username", "");
-        phoneNumText.setText(phoneNum);
 
     }
 
@@ -124,7 +121,7 @@ public class ForgetPasswordFragment extends BaseMainFragment implements View.OnC
             }
         };
         subscriber = new ProgressSubscriber(sendPhoneNumberByResetPasswordNext, _mActivity);
-        HttpMethods.getInstance().sendVerificationCode(subscriber, phone.getText().toString(), EnumBean.CaptchaEnum.MODIFY_SMS.getCode());
+        HttpMethods.getInstance().sendVerificationCode(subscriber, phone.getText().toString(), EnumBean.CaptchaEnum.MODIFY_SMS.name());
     }
 
     /**

@@ -4,6 +4,7 @@ import com.example.mettre.myaprojectandroid.app.MyApplication;
 import com.example.mettre.myaprojectandroid.bean.AddressBean;
 import com.example.mettre.myaprojectandroid.bean.AdvBean;
 import com.example.mettre.myaprojectandroid.bean.CartBean;
+import com.example.mettre.myaprojectandroid.bean.EnumBean;
 import com.example.mettre.myaprojectandroid.bean.GoodsDetailsBean;
 import com.example.mettre.myaprojectandroid.bean.GoodsListBean;
 import com.example.mettre.myaprojectandroid.bean.NoticeBean;
@@ -33,9 +34,11 @@ import rx.schedulers.Schedulers;
 
 public class HttpMethods {
 
-    public static final String BASE_URL = "http://192.168.0.176:8888/";//公司
+//    public static final String BASE_URL = "http://192.168.0.176:8800/";//公司
 
-//    public static final String BASE_URL = "http://192.168.1.107:8888/";//家
+//    public static final String BASE_URL = "http://192.168.1.107:8800/";//家
+
+    public static final String BASE_URL = "http://114.116.15.224:8800/";//华为服务器
 
     private static final int DEFAULT_TIMEOUT = 25;
 
