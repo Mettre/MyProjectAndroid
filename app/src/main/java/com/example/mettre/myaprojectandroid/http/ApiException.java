@@ -30,9 +30,6 @@ public class ApiException extends RuntimeException {
     private static String getApiExceptionMessage(int code, String Message) {
         String message = "";
         switch (code) {
-            case USER_NOT_EXIST:
-                message = "该用户不存在";
-                break;
             case LOGINEXPIRED:
                 message = "用户登录已过期，请重新登录!";
                 break;

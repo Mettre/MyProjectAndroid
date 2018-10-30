@@ -34,11 +34,11 @@ import rx.schedulers.Schedulers;
 
 public class HttpMethods {
 
-//    public static final String BASE_URL = "http://192.168.0.176:8800/";//公司
+    public static final String BASE_URL = "http://192.168.0.187:8800/";//公司
 
 //    public static final String BASE_URL = "http://192.168.1.107:8800/";//家
 
-    public static final String BASE_URL = "http://114.116.15.224:8800/";//华为服务器
+//    public static final String BASE_URL = "http://114.116.15.224:8800/";//华为服务器
 
     private static final int DEFAULT_TIMEOUT = 25;
 

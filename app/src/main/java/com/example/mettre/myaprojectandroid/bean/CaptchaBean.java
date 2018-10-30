@@ -12,7 +12,7 @@ public class CaptchaBean {
      */
 
     private String phone;
-    private int captchaType;
+    private String captchaType;
     private String code;
 
     public String getPhone() {
@@ -23,11 +23,11 @@ public class CaptchaBean {
         this.phone = phone;
     }
 
-    public int getCaptchaType() {
+    public String getCaptchaType() {
         return captchaType;
     }
 
-    public void setCaptchaType(int captchaType) {
+    public void setCaptchaType(String captchaType) {
         this.captchaType = captchaType;
     }
 
